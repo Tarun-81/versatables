@@ -1,0 +1,246 @@
+<?xml version="1.0"?>
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Cart2Quote\Quotation\Controller\Quote\ChangeRequest">
+        <plugin name="authentication" type="\Cart2Quote\Quotation\Controller\Quote\Plugin\Authentication"/>
+    </type>
+    <type name="Cart2Quote\Quotation\Controller\Quote\History">
+        <plugin name="authentication" type="\Cart2Quote\Quotation\Controller\Quote\Plugin\Authentication"/>
+    </type>
+    <type name="Cart2Quote\Quotation\Controller\Quote\View">
+        <plugin name="authentication" type="\Cart2Quote\Quotation\Controller\Quote\Plugin\Authentication"/>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\ResourceModel\EntityAbstract">
+        <arguments>
+            <argument name="sequenceManager" xsi:type="object">\Cart2Quote\Quotation\Model\SalesSequence\Manager</argument>
+            <argument name="resourcePrefix" xsi:type="string">quotation</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\ResourceModel\Quote">
+        <arguments>
+            <argument name="sequenceManager" xsi:type="object">\Cart2Quote\Quotation\Model\SalesSequence\Manager</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\ResourceModel\Quote\Status\History">
+        <arguments>
+            <argument name="sequenceManager" xsi:type="object">\Cart2Quote\Quotation\Model\SalesSequence\Manager</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\SalesSequence\EntityPool">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="quote" xsi:type="string">quote</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\SalesSequence\Manager">
+        <arguments>
+            <argument name="sequenceFactory" xsi:type="object">\Cart2Quote\Quotation\Model\SalesSequence\SequenceFactory</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Session">
+        <arguments>
+            <argument name="storage" xsi:type="object">Cart2Quote\Quotation\Model\Session\Storage</argument>
+        </arguments>
+    </type>
+    <virtualType name="Cart2Quote\Quotation\Model\Session\Storage" type="Magento\Framework\Session\Storage">
+        <arguments>
+            <argument name="namespace" xsi:type="string">quotation</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2QuoteQuotationSendEmailsCron" type="Cart2Quote\Quotation\Cron\SendEmails">
+        <arguments>
+            <argument name="emailsSenders" xsi:type="object">Cart2Quote\Quotation\Model\EmailsSenders</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2QuoteQuotationSendEmailsObserver" type="Cart2Quote\Quotation\Observer\Quote\Virtual\SendEmails">
+        <arguments>
+            <argument name="emailsSenders" xsi:type="object">Cart2Quote\Quotation\Model\EmailsSenders</argument>
+        </arguments>
+    </virtualType>
+    <type name="Cart2Quote\Quotation\Model\EmailsSenders">
+        <arguments>
+            <argument name="emailSenderHandlers" xsi:type="array">
+                <item name="Cart2QuoteQuotationSendProposalEmail" xsi:type="object">Cart2QuoteQuotationSendProposalEmail</item>
+                <item name="Cart2QuoteQuotationSendQuoteCanceledEmail" xsi:type="object">Cart2QuoteQuotationSendQuoteCanceledEmail</item>
+                <item name="Cart2QuoteQuotationSendProposalAcceptedEmail" xsi:type="object">Cart2QuoteQuotationSendProposalAcceptedEmail</item>
+                <item name="Cart2QuoteQuotationSendProposalExpireEmail" xsi:type="object">Cart2QuoteQuotationSendProposalExpireEmail</item>
+                <item name="Cart2QuoteQuotationSendReminderEmail" xsi:type="object">Cart2QuoteQuotationSendReminderEmail</item>
+                <item name="Cart2QuoteQuotationSendQuoteRequestEmail" xsi:type="object">Cart2QuoteQuotationSendQuoteRequestEmail</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteCanceledSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">\Cart2Quote\Quotation\Model\Quote\Email\Container\QuoteCanceledIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteProposalAcceptedSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">\Cart2Quote\Quotation\Model\Quote\Email\Container\QuoteProposalAcceptedIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteProposalExpireSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">\Cart2Quote\Quotation\Model\Quote\Email\Container\QuoteProposalExpireIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteProposalSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">\Cart2Quote\Quotation\Model\Quote\Email\Container\QuoteProposalIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteReminderSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">\Cart2Quote\Quotation\Model\Quote\Email\Container\QuoteReminderIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteRequestSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">\Cart2Quote\Quotation\Model\Quote\Email\Container\QuoteRequestIdentity</argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="entityCollection" xsi:type="object" shared="false">Cart2Quote\Quotation\Model\ResourceModel\Quote\Collection</argument>
+        </arguments>
+    </type>
+    <virtualType name="Cart2QuoteQuotationSendProposalEmail" type="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteProposalSender</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2QuoteQuotationSendQuoteCanceledEmail" type="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteCanceledSender</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2QuoteQuotationSendProposalAcceptedEmail" type="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteProposalAcceptedSender</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2QuoteQuotationSendProposalExpireEmail" type="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteProposalExpireSender</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2QuoteQuotationSendReminderEmail" type="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteReminderSender</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2QuoteQuotationSendQuoteRequestEmail" type="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Email\Sender\QuoteRequestSender</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cart2Quote\Quotation\Model\Quote\Pdf\Config" type="Magento\Sales\Model\Order\Pdf\Config">
+        <arguments>
+            <argument name="dataStorage" xsi:type="object">quotePdfConfigDataStorage</argument>
+        </arguments>
+    </virtualType>
+    <type name="Cart2Quote\Quotation\Model\Quote\Pdf\Quote">
+        <arguments>
+            <argument name="pdfConfig" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Pdf\Config</argument>
+        </arguments>
+    </type>
+    <virtualType name="Cart2Quote\Quotation\Quote\Pdf\Config\Reader" type="Magento\Sales\Model\Order\Pdf\Config\Reader">
+        <arguments>
+            <argument name="fileName" xsi:type="string">quote_pdf.xml</argument>
+            <argument name="converter" xsi:type="object">Magento\Sales\Model\Order\Pdf\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Pdf\Config\SchemaLocator</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="quotePdfConfigDataStorage" type="Magento\Framework\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">Cart2Quote\Quotation\Quote\Pdf\Config\Reader</argument>
+            <argument name="cacheId" xsi:type="string">quote_pdf_config</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Quote\Model\Webapi\ParamOverriderCartId">
+        <plugin name="c2q_load_cart_id_by_quotation_url" type="Cart2Quote\Quotation\Plugin\Magento\Quote\Model\Webapi\ParamOverriderCartId"/>
+    </type>
+    <type name="Magento\Quote\Model\ResourceModel\Quote">
+        <plugin name="c2q_add_miniquote_normal_mode" type="Cart2Quote\Quotation\Plugin\Magento\Quote\Model\ResourceModel\Quote"/>
+    </type>
+    <preference for="Cart2Quote\Quotation\Helper\Data\LicenseInterface" type="Cart2Quote\Quotation\Helper\Data\License"/>
+    <preference for="Cart2Quote\Quotation\Helper\Data\MetadataInterface" type="Cart2Quote\Quotation\Helper\Data\Metadata"/>
+    <preference for="Cart2Quote\Quotation\Api\QuoteRepositoryInterface" type="Cart2Quote\Quotation\Model\QuoteRepository"/>
+    <preference for="Cart2Quote\Quotation\Api\Data\QuoteInterface" type="Cart2Quote\Quotation\Model\Quote"/>
+    <preference for="Cart2Quote\Quotation\Api\Data\QuoteSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="c2q_remove_not_selected_rates" type="Cart2Quote\Quotation\Plugin\Magento\Quote\Model\Address"/>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\Admin\Quote\Messages">
+        <arguments>
+            <argument name="adminSessionInfoCollection" xsi:type="object">Magento\Security\Model\ResourceModel\AdminSessionInfo\Collection</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="apply_tier_item_price" type="Cart2Quote\Quotation\Plugin\Magento\Quote\Model\Quote\Item"/>
+    </type>
+    <type name="Magento\Quote\Model\ResourceModel\Quote\Item">
+        <plugin name="quotation_join_tier_item" type="Cart2Quote\Quotation\Plugin\Magento\Quote\Model\ResourceModel\Quote\Item"/>
+    </type>
+    <virtualType name="QuoteRelationsComposite" type="Magento\Framework\Model\ResourceModel\Db\VersionControl\RelationComposite">
+        <arguments>
+            <argument name="relationProcessors" xsi:type="array">
+                <item name="tier_item" xsi:type="object">Cart2Quote\Quotation\Model\Quote\Relation\TierItem</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <preference for="Magento\Quote\Model\Quote\Item\Updater" type="Cart2Quote\Quotation\Model\Quote\Item\Updater"/>
+    <preference for="Cart2Quote\Quotation\Api\Data\Quote\SectionInterface" type="Cart2Quote\Quotation\Model\Quote\Section"/>
+    <preference for="Cart2Quote\Quotation\Api\Data\Quote\Item\SectionInterface" type="Cart2Quote\Quotation\Model\Quote\Item\Section"/>
+    <preference for="Cart2Quote\Quotation\Api\Quote\SectionProviderInterface" type="Cart2Quote\Quotation\Model\Quote\Section\Provider"/>
+    <preference for="Cart2Quote\Quotation\Api\AccountManagementInterface" type="Cart2Quote\Quotation\Model\AccountManagement"/>
+    <type name="Cart2Quote\Quotation\Model\Quote">
+        <plugin name="joinSectionsToQuote" type="Cart2Quote\Quotation\Plugin\Quote"/>
+    </type>
+    <type name="Magento\Quote\Api\Data\CartItemInterface">
+        <plugin name="CartItemExtensionAttributeOperations" type="Cart2Quote\Quotation\Plugin\CartItem\ExtensionAttributes"/>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Cart2Quote\Quotation\Api\Data\Quote\SectionInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">quotation_quote_sections</item>
+                    <item name="identifierField" xsi:type="string">section_id</item>
+                </item>
+                <item name="Cart2Quote\Quotation\Api\Data\Quote\Item\SectionInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">quotation_quote_section_items</item>
+                    <item name="identifierField" xsi:type="string">item_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Event\Config\Converter">
+        <plugin name="convertEventName" type="Cart2Quote\Quotation\Plugin\Events\Converter"/>
+    </type>
+    <type name="Magento\Sales\Cron\CleanExpiredQuotes">
+        <plugin name="expireQuoteExcludeQuotation" type="Cart2Quote\Quotation\Plugin\Magento\Sales\Cron\CleanExpiredQuotes"/>
+    </type>
+</config>

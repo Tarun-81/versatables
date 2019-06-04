@@ -1,0 +1,74 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+/**  @var $block \Cart2Quote\Quotation\Block\Quote */
+?>
+<?php $form = $block->getForm(); ?>
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+
+<form action="#" method="post" id="form-validate"
+      data-mage-init='{"validation":{}}' class="form form-cart">
+    <?php echo $block->getBlockHtml('formkey'); ?>
+    <?php echo $block->getCustomerNote() ?>
+
+    <div class="cart table-wrapper<?php echo $mergedCells == 2 ? ' detailed' : ''; ?>">
+        <table id="shopping-cart-table" class="cart items data table">
+            <caption role="heading" aria-level="2" class="table-caption"><?php echo __('Quote Items') ?></caption>
+            <thead>
+            <tr>
+                <th class="col item" scope="col"><span><?php echo __('Item') ?></span></th>
+                <th class="col price" scope="col"><span><?php echo __('Price') ?></span></th>
+                <th class="col qty" scope="col"><span><?php echo __('Qty') ?></span></th>
+            </tr>
+            </thead>
+
+            <?php foreach ($block->getItems() as $item) : ?>
+                <?php echo $block->getItemHtml($item) ?>
+            <?php endforeach ?>
+
+            <div class="cart main actions">
+                <td colspan="4">
+                    <div style="text-align: right; margin-right: 5px;">
+                        <button type="submit" name="update_quote_action"
+                                value="empty_quote"
+                                title="<?php echo $block->escapeHtml(__('Clear Quote')); ?>"
+                                class="action clear"
+                                id="empty_quote_button"
+                                onclick="event.preventDefault();
+                                        window.location='<?php echo $block->getUrl('quotation/quote/clearQuote') ?>'"
+                                style="margin: 10px 5px 0 0;">
+                            <span><?php echo __('Clear Quote'); ?></span>
+                        </button>
+						<button type="button" onclick="javascript:window.print()" style="margin: 10px 5px 0 0;">
+                            <span><?php echo __('Print Quote'); ?></span>
+                        </button>
+                    </div>
+                </td>
+            </div>
+        </table>
+    </div>
+</form>
+<?php echo $block->getChildHtml('quotation.quote.order.actions') ?>
+<?php echo $block->getChildHtml('quotation.quote.table.after'); ?>
+<?php echo $form; ?>
+

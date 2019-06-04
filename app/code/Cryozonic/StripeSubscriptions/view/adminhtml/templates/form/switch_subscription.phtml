@@ -1,0 +1,45 @@
+<?php if ($block->isSingleSubscriptionPurchase): ?>
+<fieldset class="admin__fieldset payment-method cryozonic-stripe" id="payment_form_cryozonic_stripe_subscription">
+  <div>
+    <input type="radio" name="payment[subscription][switch]" value="switch" class="select switch" id="switch_subscription">
+    <label for="switch_subscription">
+      <?php echo __('Switch from another subscription'); ?>
+    </label>
+
+    <div class="indent hide admin__field" id="select_subscription">
+      <label class="admin__field-label" for="cryozonic_stripe_select_subscription">
+        <?php echo __('Subscription to cancel:'); ?>
+      </label>
+      <div class="admin__field-control">
+        <select id="cryozonic_stripe_select_subscription" name="payment[subscription][from]" class="admin__control-select stripe-input">
+          <?php foreach ($block->existingSubscriptions as $id => $sub): ?>
+            <option value="<?php echo $id; ?>">
+              <?php echo $block->formatSubscriptionName($sub); ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+
+      <br>
+      <label class="admin__field-label" for="cryozonic_stripe_subscription_start_date">
+        <?php echo __('New subscription first billing date:'); ?>
+      </label>
+      <div class="admin__field-control" id="cryozonic_stripe_subscription_start_date_control">
+        <?php $count = 0; foreach ($block->existingSubscriptions as $id => $sub): ?>
+          <input type="text" id="switch_subscription_date_<?php echo $id; ?>" name="payment[subscription][trial_until][<?php echo $id; ?>]"
+            value="<?php echo $block->formatSubscriptionPeriodEnd($sub); ?>"
+            <?php if ($count++ > 0): ?>class="hide admin__control-text" disabled="disabled"<?php else: ?>class="admin__control-text"<?php endif; ?>>
+        <?php endforeach; ?>
+      </div>
+      <small>* dd/mm/yyyy</small>
+    </div>
+  </div>
+
+  <div>
+    <input type="radio" name="payment[subscription][switch]" value="new" class="select switch" id="new_subscription" checked="checked">
+    <label for="new_subscription">
+      <?php echo __('Create a new subscription'); ?>
+    </label>
+  </div>
+</fieldset>
+<?php endif; ?>

@@ -1,0 +1,22 @@
+<!--
+/**
+ * Copyright © 2018 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="mageworx-file-uploader-summary">
+    <div class="mageworx-file-uploader-preview">
+        <a attr="href: $file.url" target="_blank" text="$file.name"/>
+        (<text args="$parent.formatSize($file.size)"/>)
+        <div class="mageworx-actions">
+            <button
+                    type="button"
+                    class="mageworx-action-delete"
+                    data-role="delete-button"
+                    attr="title: $t('Delete')"
+                    click="$parent.removeFile.bind($parent, $file)">
+                <span translate="'Delete'"/>
+            </button>
+        </div>
+    </div>
+</div>

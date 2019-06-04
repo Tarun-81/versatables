@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mageworx_downloads>
+            <main>
+                <size_precision>1</size_precision>
+                <group_by_section>0</group_by_section>
+                <sort_order>1</sort_order>
+                <display_size>1</display_size>
+                <display_downloads>0</display_downloads>
+                <hide_files>1</hide_files>
+                <product_downloads_title>File Downloads</product_downloads_title>
+            </main>
+        </mageworx_downloads>
+    </default>
+</config>

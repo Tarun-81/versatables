@@ -1,0 +1,34 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd" label="Email Quote Items List" design_abstraction="custom">
+    <update handle="quotation_email_quote_renderers"/>
+    <update handle="quotation_email_quote_item_price"/>
+    <body>
+        <block class="Cart2Quote\Quotation\Block\Quote\Email\Items" name="items" template="email/quote/items.phtml" cacheable="false">
+            <block class="Magento\Framework\View\Element\RendererList" name="quotation.email.quote.renderers" as="renderer.list"/>
+        </block>
+        <block class="Cart2Quote\Quotation\Block\Quote\Email\Items\DefaultItems" name="item_row_total" template="email/proposal/items/price/row.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="additional.product.info" template="Magento_Theme::template.phtml"/>
+    </body>
+</page>

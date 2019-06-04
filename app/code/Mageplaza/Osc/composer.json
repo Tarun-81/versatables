@@ -1,0 +1,28 @@
+{
+    "name": "mageplaza/magento-2-one-step-checkout-extension",
+    "description": "",
+    "require": {
+        "mageplaza/module-core": "*"
+    },
+    "type": "magento2-module",
+    "version": "2.4.0",
+    "license": "Mageplaza License",
+    "authors": [
+        {
+          "name": "Hi",
+          "email": "hi@mageplaza.com",
+          "homepage": "https://www.mageplaza.com",
+          "role": "Leader"
+        }
+    ],
+
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Mageplaza\\Osc\\": ""
+        }
+    }
+
+}

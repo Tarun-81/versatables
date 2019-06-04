@@ -1,0 +1,36 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    <block class="Cart2Quote\Quotation\Block\Quote\Totals" name="quote_totals" template="quote/totals.phtml" cacheable="false">
+        <arguments>
+            <argument name="label_properties" xsi:type="string">colspan="6" class="mark"</argument>
+            <argument name="value_properties" xsi:type="string">class="amount"</argument>
+        </arguments>
+        <block class="Cart2Quote\Quotation\Block\Quote\Tax" name="tax" template="quote/tax.phtml">
+            <arguments>
+                <argument name="label_properties" xsi:type="string">colspan="6" class="mark"</argument>
+                <argument name="value_properties" xsi:type="string">class="amount"</argument>
+            </arguments>
+        </block>
+    </block>
+    </body>
+</page>

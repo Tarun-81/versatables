@@ -1,0 +1,137 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+$_product = $block->getProduct();
+$sku = $_product->getSku();
+if($_product->getData('legacy_sku')) {
+	$legacy_sku_all = $_product->getData('legacy_sku');
+	$legacy_sku_all = explode(",", $legacy_sku_all);
+	$legacy_sku = $legacy_sku_all[0];
+} else {
+	$legacy_sku = "";
+}
+$required = '';
+if ($block->hasRequiredOptions()) {
+    $required = ' data-hasrequired="' . __('* Required Fields') . '"';
+}
+?>
+<div class="product-options-wrapper" id="product-options-wrapper"<?= /* @escapeNotVerified */ $required ?>>
+    <div class="product-options-head"><?= /* @escapeNotVerified */ __('Select Your Options') ?></div>
+    <div class="fieldset" tabindex="0">
+        <?= $block->getChildHtml('', true) ?>
+    </div>
+</div>
+
+<script>
+require(['jquery'], function(){
+    jQuery(document).ready(function(){
+		jQuery(".catalog-product-view #product-options-wrapper .field .input-text.product-custom-option").parent().parent().hide();
+		jQuery(".catalog-product-view #product-options-wrapper .fieldset .field select.product-custom-option").change(function(){
+			var main_sku = "<?php echo $sku ?>";
+			var legacy_main_sku = "<?php echo $legacy_sku ?>";
+			var comp_sku = '';
+			var legacy_comp_sku = '';
+			var labels = '';
+			jQuery(".catalog-product-view #product-options-wrapper .fieldset .field select.product-custom-option").each(function(){
+				labels += "-"+(jQuery(this).parent().parent().find("label.label span").text());
+			});
+			labels = labels.split("-");
+			jQuery(".catalog-product-view #product-options-wrapper .fieldset .field select.product-custom-option").each(function(){
+				var lenval = jQuery(this).children("option").filter(":selected").text();
+				var index_val = jQuery(this).prop('selectedIndex');
+				var num_array = {"One": 1, "Two": 2, "Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7, "Eight":8, "Nine": 9, "Ten": 10, "Eleven": 11, "Twelve": 12, "Thirteen": 13, "Fourteen": 14, "Fifteen": 15, "Sixteen": 16, "Seventeen": 17, "Eighteen": 18, "Nineteen": 19, "Twenty": 20};
+				if(index_val != '0') {
+					if((jQuery(this).parent().parent().find("label.label span").text()) == "Height Controller Switch"){
+						if(index_val == "2") {
+							main_sku = main_sku+"U";
+							legacy_main_sku = legacy_main_sku+"U";
+						}
+					} else if((jQuery(this).parent().parent().find("label.label span").text() == "Width") || (jQuery(this).parent().parent().find("label.label span").text() == "Depth")) {
+						if (lenval.indexOf('+') > -1) {
+							lenval = lenval.split('+');
+							lenval = lenval[0];
+						}
+						lenval = parseInt(lenval);
+						if (jQuery(this).parent().parent().find("label.label span").text() == "Depth") {
+							comp_sku += lenval;
+							legacy_comp_sku += lenval+"-";
+						} else {
+							comp_sku += lenval;
+							legacy_comp_sku += lenval;
+						}
+					} else if((jQuery(this).parent().parent().find("label.label span").text() == "Fabric") || (jQuery(this).parent().parent().find("label.label span").text() == "General Color")) {
+						if(lenval == "Shade Lime") {
+							comp_sku += "-406";
+							legacy_comp_sku += "LG";
+						} else if(lenval == "Lucky Turquoise") {
+							comp_sku += "-116";
+							legacy_comp_sku += "LT";
+						} else if(lenval == "Shade Orangeade") {
+							comp_sku += "-405";
+							legacy_comp_sku += "O";
+						} else if(lenval == "Shade Red") {
+							comp_sku += "-412";
+							legacy_comp_sku += "R";
+						} else if(lenval == "Black Matrix") {
+							comp_sku += "-0"+index_val;
+							legacy_comp_sku += "B";
+						} else {
+							comp_sku += "-0"+index_val;
+							legacy_comp_sku += "0"+index_val;
+						}
+					} else if(jQuery(this).parent().parent().find("label.label span").text() == "Select Users") {
+						var fistword = lenval.split(' ');
+						fistword = fistword[0];
+						fistword = num_array[fistword];
+						main_sku = main_sku+(String(fistword).padStart(4,0));
+						legacy_main_sku = legacy_main_sku+fistword;
+					} else {
+						if((jQuery(this).parent().parent().find("label.label span").text() == "Frame Color") || (jQuery(this).parent().parent().find("label.label span").text() == "Surface Color")){
+							var character = lenval.trim();
+							character = character.charAt(0);
+							var character = character.toUpperCase();
+							if(lenval == "Gloss White"){
+								var character = "W"	;
+							}
+							if(lenval == "Warm Gray"){
+								var character = "G"	;
+							}
+							legacy_comp_sku += character;
+							comp_sku += "-0"+index_val;
+						} else {
+							comp_sku += "-0"+index_val;
+							legacy_comp_sku += "0"+index_val;
+						}
+					}
+					if((jQuery.inArray("Width", labels) < 1) && (jQuery.inArray("Depth", labels) < 1) && (jQuery.inArray("Select Users", labels) < 1)) {
+						main_sku = main_sku+'0000';
+					}
+					if((jQuery.inArray("Width", labels) < 1) && (jQuery.inArray("Depth", labels) < 1) && (jQuery.inArray("Select Users", labels) < 1) &&((jQuery.inArray("Frame Color", labels) < 1) || (jQuery.inArray("Surface Color", labels) < 1))) {
+						comp_sku = "-00-0"+index_val;
+					}
+				}
+			});
+			//alert(labels);
+			var fullsku = main_sku+comp_sku;
+			jQuery(".catalog-product-view .product-info-stock-sku .product.attribute.sku .value").text(fullsku);
+			jQuery(".catalog-product-view #product-options-wrapper .field .input-text.product-custom-option").first().val(fullsku);
+			if("<?php echo $legacy_sku ?>" != '') {
+				if((jQuery.inArray("Width", labels) < 1) || (jQuery.inArray("Depth", labels) < 1)) {
+					legacy_main_sku = legacy_main_sku+'-';
+				}
+				var legacy_fullsku = legacy_main_sku+legacy_comp_sku;
+				if(legacy_fullsku.endsWith("-")){
+					legacy_fullsku = legacy_fullsku.slice(0, -1);
+				}
+				jQuery(".product-info-stock-sku .lagacy-sku span").text(legacy_fullsku);
+				jQuery(".catalog-product-view #product-options-wrapper .field .input-text.product-custom-option").last().val(legacy_fullsku);
+			}
+		});
+	});
+});
+	
+</script>

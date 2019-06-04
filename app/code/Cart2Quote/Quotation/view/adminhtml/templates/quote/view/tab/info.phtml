@@ -1,0 +1,92 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+?>
+<?php /** @var $block \Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Tab\Info */ ?>
+<?php $_quote = $block->getQuote() ?>
+
+<form id="edit_form" data-quote-config='<?php echo $block->getQuoteDataJson() ?>'
+      data-load-base-url="<?php echo $block->getLoadBlockUrl($_quote->getId()) ?>"
+      data-send-action="<?php echo $block->getSendUrl() ?>"
+      action="<?php echo $block->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey') ?>
+    <div id="quote-message">
+        <?php echo $block->getChildHtml('message') ?>
+    </div>
+
+    <input type="hidden" name="quote_id" value="<?php echo $_quote->getId() ?>"/>
+
+    <div id="quote-data">
+        <?php echo $block->getChildHtml('data') ?>
+    </div>
+
+    <?php echo $block->getChildHtml('popup_window'); ?>
+
+    <section style="display: none;" class="admin__page-section quote-comment">
+        <div class="admin__page-section-title">
+            <span class="title"></span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="admin__page-section-item quote-comments-history">
+                <div class="admin__page-section-item-title">
+                    <span class="title"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+
+<script>
+    require([
+        "prototype",
+        "Cart2Quote_Quotation/quote/giftoptions_tooltip"
+    ], function () {
+
+//<![CDATA[
+        /**
+         * Retrieve gift options tooltip content
+         */
+        function getGiftOptionsTooltipContent(itemId) {
+            var contentLines = [];
+            var headerLine = null;
+            var contentLine = null;
+
+            $$('#gift_options_data_' + itemId + ' .gift-options-tooltip-content').each(function (element) {
+                if (element.down(0)) {
+                    headerLine = element.down(0).innerHTML;
+                    contentLine = element.down(0).next().innerHTML;
+                    if (contentLine.length > 30) {
+                        contentLine = contentLine.slice(0, 30) + '...';
+                    }
+                    contentLines.push(headerLine + ' ' + contentLine);
+                }
+            });
+            return contentLines.join('<br/>');
+        }
+
+        giftOptionsTooltip.setTooltipContentLoaderFunction(getGiftOptionsTooltipContent);
+        window.getGiftOptionsTooltipContent = getGiftOptionsTooltipContent;
+//]]>
+
+    });
+</script>

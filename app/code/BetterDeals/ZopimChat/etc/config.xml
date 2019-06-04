@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <zopim>
+            <general>
+                <enabled>0</enabled>
+                <default>1</default>
+            </general>
+            <cookie_law>
+                <comply>0</comply>
+                <comply_explicit>0</comply_explicit>
+            </cookie_law>
+            <customer_data>
+                <enabled>0</enabled>
+                <name>0</name>
+                <email>0</email>
+                <telephone>0</telephone>
+                <orders>0</orders>
+            </customer_data>
+        </zopim>
+    </default>
+</config>

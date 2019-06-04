@@ -1,0 +1,19 @@
+<!--@subject Get A Quote Email  @-->
+<!--@vars {
+"var data.first_name":"Firstname",
+"var data.last_name":"Lastname",
+"var data.telephone":"Telephone",
+"var data.email":"Email",
+"var data.industry_name":"What Industry Are You In?",
+"var data.hear_about":"How Did You Hear About Us?",
+"var data.business_type":"Type?",
+"var data.comment":"Notes"
+} @-->
+ 
+{{template config_path="design/email/header_template"}} 
+
+<table>
+	<tr><strong>Thanks for quote. We will contact you soon!!</strong></tr>
+</table>
+ 
+{{template config_path="design/email/footer_template"}} <!--footer of template-->

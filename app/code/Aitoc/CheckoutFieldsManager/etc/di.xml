@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Aitoc\CheckoutFieldsManager\Api\Data\OrderCustomerDataInterface" type="Aitoc\CheckoutFieldsManager\Model\OrderCustomerData"/>
+    <preference for="Aitoc\CheckoutFieldsManager\Api\Data\OrderCustomerDataSearchResultInterface" type="Aitoc\CheckoutFieldsManager\Model\ResourceModel\OrderCustomerData\Collection"/>
+    <preference for="Aitoc\CheckoutFieldsManager\Api\OrderCustomerDataRepositoryInterface" type="Aitoc\CheckoutFieldsManager\Model\OrderCustomerData\Repository"/>
+    <preference for="Aitoc\CheckoutFieldsManager\Model\Spi\OrderCustomerDataResourceInterface" type="Aitoc\CheckoutFieldsManager\Model\ResourceModel\OrderCustomerData"/>
+    <preference for="Aitoc\CheckoutFieldsManager\Model\Spi\QuoteCustomerDataResourceInterface" type="Aitoc\CheckoutFieldsManager\Model\ResourceModel\QuoteCustomerData"/>
+    <preference for="Aitoc\CheckoutFieldsManager\Api\OrderCustomFieldsInterface" type="Aitoc\CheckoutFieldsManager\Model\Service\OrderService"/>
+    <preference for="Magento\Sales\Model\Order\Pdf\Invoice" type="Aitoc\CheckoutFieldsManager\Model\Order\Pdf\Invoice" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Shipment" type="Aitoc\CheckoutFieldsManager\Model\Order\Pdf\Shipment" />
+    <preference for="Magento\Framework\Webapi\ServiceInputProcessor" type="Aitoc\CheckoutFieldsManager\Model\Webapi\ServiceInputProcessor"/>
+    <preference for="Magento\Quote\Model\Quote\Address" type="Aitoc\CheckoutFieldsManager\Model\Quote\Address"/>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="cfm_add_config" type="Aitoc\CheckoutFieldsManager\Plugin\Checkout\Model\CheckoutDefaultProvider" sortOrder="1"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Sidebar">
+        <plugin name="cfm_add_config_cart" type="Aitoc\CheckoutFieldsManager\Plugin\Checkout\Block\Cart\Sidebar" sortOrder="1"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\Index">
+        <plugin name="cfm_add_disable_cart" type="Aitoc\CheckoutFieldsManager\Plugin\Checkout\Controller\Cart\Index" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Model\AdminOrder\Create">
+        <plugin name="cfm_add_order_in_registry" type="Aitoc\CheckoutFieldsManager\Plugin\Sales\Model\AdminOrder\Create" sortOrder="1"/>
+    </type>
+    <type name="Magento\Sales\Controller\Adminhtml\Order\Create\Save">
+        <plugin name="cfm_add_custom_fields_in_admin" type="Aitoc\CheckoutFieldsManager\Plugin\Sales\Controller\Adminhtml\Order\Create\Save" sortOrder="2"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\CustomAttributeList">
+        <plugin name="cfm_add_attributes_to_quote_address" type="Aitoc\CheckoutFieldsManager\Plugin\Quote\Model\Quote\Address\CustomAttributeList"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="cfm_add_attributes_to_quote_address" type="Aitoc\CheckoutFieldsManager\Plugin\Quote\Model\Quote\Address"/>
+    </type>
+    <type name="Aitoc\CheckoutFieldsManager\Model\OrderCustomerData\Repository">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">customer_visitor</argument>
+            <argument name="resourceModel" xsi:type="string">Aitoc\CheckoutFieldsManager\Model\ResourceModel\OrderCustomerData</argument>
+        </arguments>
+    </type>
+    <virtualType name="Aitoc\CheckoutFieldsManager\Model\ResourceModel\OrderCustomerData\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">aitoc_sales_order_value</argument>
+            <argument name="resourceModel" xsi:type="string">Aitoc\CheckoutFieldsManager\Model\ResourceModel\OrderCustomerData</argument>
+        </arguments>
+    </virtualType>
+    <!--adding a Processor to address quote, CFM values comes from front in address field "customAttributes"-->
+    <virtualType name="QuoteAddressRelationsComposite">
+        <arguments>
+            <argument name="relationProcessors" xsi:type="array">
+                <item name="cfm_attribute_quote_save" xsi:type="object">Aitoc\CheckoutFieldsManager\Model\ResourceModel\Quote\Address\Relation</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

@@ -1,0 +1,89 @@
+/*
+ * Copyright © 2018 Aitoc. All rights reserved.
+ */
+
+
+#checkout div.control.qty {
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+#checkout div.control.qty input {
+    width: 45px;
+}
+
+#checkout .opc-block-summary .actions-toolbar {
+    min-height: 20px;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+#checkout .opc-block-summary .actions-toolbar > .action-edit, #checkout .opc-block-summary .actions-toolbar > .action-delete {
+    position: absolute;
+    right: 16px;
+    top: 0;
+    display: inline-block;
+    text-decoration: none;
+}
+#checkout .opc-block-summary .actions-toolbar > .action-delete {
+    right: -29px;
+}
+#checkout .opc-block-summary .action {
+    margin-right: 25px;
+}
+
+#checkout .opc-block-summary a:hover, .alink:hover {
+    color: #006bb4;
+    text-decoration: underline;
+}
+
+#checkout .opc-block-summary .actions-toolbar > .action-edit::before, #checkout .opc-block-summary .actions-toolbar > .action-delete::before {
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    line-height: 20px;
+    color: #8f8f8f;
+    content: '\e601';
+    font-family: 'luma-icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+
+#checkout .opc-block-summary .actions-toolbar > .action-delete::before {
+    content: '\e604';
+}
+
+#checkout .opc-block-summary .actions-toolbar > .action-edit > span, #checkout .opc-block-summary .actions-toolbar > .action-delete > span {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+#checkout .multiselect {
+    height:auto;
+    background: none;
+}
+.static_text {
+    font-size:22px;
+}
+
+.field._required > .label:after {
+    content: '*';
+    color: #e02b27;
+    font-size: 1.2rem;
+    margin: 0 0 0 5px;
+}
+#checkout-step-shipping .field > .label {
+    margin: 0 0 8px;
+    display: inline-block;
+}
+#checkout-step-shipping .field {
+    margin: 0 0 20px;
+}

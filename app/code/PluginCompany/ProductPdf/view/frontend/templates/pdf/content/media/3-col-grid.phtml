@@ -1,0 +1,23 @@
+<table autosize="2" class="gallery">
+    <?php
+    $i = 0;
+    foreach($this->getMediaGalleryImagesWithMainImage() as $image){ ?>
+        <?php if($i % 3 == 0){ ?>
+            <tr>
+        <?php } ?>
+                <td class="centerimage">
+					<?php
+						//echo '<pre>';print_r($image->getData());die;
+						$imageUrl = "media/catalog/product".$image->getFile();
+					
+					?>
+                    <img class="img-responsive" src="<?php echo $imageUrl; ?>" />
+                </td>
+        <?php if($i % 3 == 1 || $i == ($this->getImageCount())){ ?>
+            </tr>
+        <?php }
+        $i++;
+		if($i==3) break;
+		//die;
+    } ?>
+</table>

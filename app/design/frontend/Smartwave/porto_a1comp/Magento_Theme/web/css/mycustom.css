@@ -1,0 +1,6 @@
+/*.checkout-payment-method .credit-card-types img{
+    -webkit-filter:grayscale(100%);
+    -webkit-transition:all .6s ease;
+    filter:grayscale(100%);
+    filter:gray
+}*/

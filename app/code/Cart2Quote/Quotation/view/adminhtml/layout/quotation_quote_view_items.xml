@@ -1,0 +1,193 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <!--<update handle="quotation_quote_view_item_price"/>-->
+    <body>
+        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\GridItems" name="items" template="Cart2Quote_Quotation::quote/view/items.phtml">
+            <block class="Magento\Backend\Block\Template" name="items_giftmessage" template="Cart2Quote_Quotation::quote/view/items/giftmessage.phtml"/>
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Grid" name="items_grid"/>
+            <arguments>
+                <!--
+                # Column headers
+
+                The columns headers are defined here.
+                You can add a translation for the table headers.
+                -->
+                <argument name="columns" xsi:type="array">
+                    <item name="product" xsi:type="string" translate="true">Product</item>
+                    <item name="tier-select" xsi:type="string" translate="true"/>
+                    <item name="price-cost" xsi:type="string" translate="true">Cost Price</item>
+                    <item name="price-original" xsi:type="string" translate="true">Original Price</item>
+                    <item name="price-quoted" xsi:type="string" translate="true">Price</item>
+                    <item name="ordered-qty" xsi:type="string" translate="true">Qty</item>
+                    <item name="discount" xsi:type="string" translate="true">Discount</item>
+                    <item name="total" xsi:type="string" translate="true">Row Total</item>
+                    <item name="quote-margin" xsi:type="string" translate="true">GP Margin</item>
+                    <item name="tier-delete" xsi:type="string" translate="true"/>
+                    <item name="action" xsi:type="string" translate="true">Action</item>
+                </argument>
+                <argument name="header_text" xsi:type="string" translate="true">Items Quoted</argument>
+            </arguments>
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" as="default" name="items_grid_default" template="quote/view/items/renderer/default.phtml">
+                <arguments>
+                    <!--
+                    # Column renderers
+
+                    This is where the columns are being added.
+                    The name attribute refers to the block column_<<column name>>.
+                    Item with name product will refer to column_product.
+                    -->
+                    <argument name="columns" xsi:type="array">
+                        <item name="product" xsi:type="string" translate="false">col-product</item>
+                        <item name="tier-select" xsi:type="string" translate="false">col-tier-select</item>
+                        <item name="price-cost" xsi:type="string" translate="false">col-price-cost</item>
+                        <item name="price-original" xsi:type="string" translate="false">col-price-original</item>
+                        <item name="price-quoted" xsi:type="string" translate="false">col-price</item>
+                        <item name="qty" xsi:type="string" translate="false">col-qty</item>
+                        <item name="discount" xsi:type="string" translate="false">col-discount</item>
+                        <item name="total" xsi:type="string" translate="false">col-total</item>
+                        <item name="quote-margin" xsi:type="string" translate="false">col-quote-margin</item>
+                        <item name="tier-delete" xsi:type="string" translate="false">col-tier-delete</item>
+                        <item name="action" xsi:type="string" translate="false">col-action</item>
+                    </argument>
+
+                    <!--
+                    # Tier columns
+
+                    In tier_columns you can add the tier column.
+                    A tier column is a attribute that needs to be configured/displayed for each price tier.
+                    The qty is an example of an attribute that needs to be configured for each tier.
+                    If the attribute is for the quote item, leave it out this array (e.g. product is not a tier attribute).
+
+                    # Empty tier column
+
+                    If you want to add a new tier item and you have want to handle the newly added different then the original,
+                    then you can add a block with an empty prefix.
+
+                    E.g. A newly added tier is allowed to modify the qty. If the tier is set, it is not allowed.
+                    The block column_qty has a child empty.column_qty. This block has a separate template that allows editing the qty.
+
+                    -->
+                    <argument name="tier_columns" xsi:type="array">
+                        <item name="tier-select" xsi:type="boolean">true</item>
+                        <item name="price-cost" xsi:type="boolean">true</item>
+                        <item name="price-original" xsi:type="boolean">true</item>
+                        <item name="price-quoted" xsi:type="boolean">true</item>
+                        <item name="qty" xsi:type="boolean">true</item>
+                        <item name="discount" xsi:type="boolean">true</item>
+                        <item name="total" xsi:type="boolean">true</item>
+                        <item name="quote-margin" xsi:type="boolean">true</item>
+                        <item name="tier-delete" xsi:type="boolean">true</item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\FooterRenderer" as="footer" name="items_grid_footer" template="quote/view/items/renderer/footer.phtml">
+                <arguments>
+                    <!--
+                    # Footer columns
+
+                    You can define the footer columns below.
+                    The item name will refer to the child block in the column_<<column name>> block.
+                    You need to have footer.<<parent_name>> in the name.
+
+                    E.g. Qty parent block is column_qty, the child needs to be footer.column_qty
+                    -->
+                    <argument name="columns" xsi:type="array">
+                        <item name="product" xsi:type="string" translate="false">col-product</item>
+                        <item name="tier-select" xsi:type="string" translate="false">col-tier-select</item>
+                        <item name="price-cost" xsi:type="string" translate="false">col-price-cost</item>
+                        <item name="price-original" xsi:type="string" translate="false">col-price-original</item>
+                        <item name="price-quoted" xsi:type="string" translate="false">col-price</item>
+                        <item name="qty" xsi:type="string" translate="false">col-qty</item>
+                        <item name="discount" xsi:type="string" translate="false">col-discount</item>
+                        <item name="total" xsi:type="string" translate="false">col-total</item>
+                        <item name="quote-margin" xsi:type="string" translate="false">col-quote-margin</item>
+                        <item name="tier-delete" xsi:type="string" translate="false">col-tier-delete</item>
+                        <item name="action" xsi:type="string" translate="false">col-action</item>
+                    </argument>
+                </arguments>
+            </block>
+            <!--
+                # Column blocks
+            -->
+            <!-- Product column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Columns\Name" name="column_product" template="quote/view/items/columns/product.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_product-bundle-items" template="quote/view/items/columns/product/bundle-items.phtml"/>
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="footer.column_product" template="quote/view/items/footer/product.phtml"/>
+            </block>
+            <!-- Tier select column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_tier-select" template="quote/view/items/columns/tier-select.phtml" group="column"/>
+            <!-- Cost Price column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Columns\CostPrice" name="column_price-cost" template="quote/view/items/columns/price-cost.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Columns\CostPrice" name="footer.column_price-cost" template="quote/view/items/footer/price-cost.phtml"/>
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Columns\CostPrice" name="empty.column_price-cost" template="quote/view/items/columns/price-cost.phtml"/>
+            </block>
+            <!-- Original Price column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_price-original" template="quote/view/items/columns/price-original.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Footer\OriginalSubtotal" name="footer.column_price-original" template="quote/view/items/footer/price-original.phtml"/>
+            </block>
+            <!-- Quoted price column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_price-quoted" template="quote/view/items/columns/price-quoted.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_price-quoted.tier.item" template="quote/view/items/columns/price/quoted/tier-price.phtml"/>
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="empty.column_price-quoted" template="quote/view/items/columns/empty/price-quoted.phtml"/>
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="footer.column_price-quoted" template="quote/view/items/footer/price-quoted.phtml"/>
+            </block>
+            <!-- Qty column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_qty" template="quote/view/items/columns/qty.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="footer.column_qty" template="quote/view/items/footer/qty.phtml"/>
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="empty.column_qty" template="quote/view/items/columns/empty/qty.phtml"/>
+            </block>
+            <!-- Discount column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_discount" template="quote/view/items/columns/discount.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="footer.column_discount" template="quote/view/items/footer/discount.phtml"/>
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Columns\BundleDiscount" name="column_discount-bundle" template="quote/view/items/columns/discount/bundle-discount.phtml"/>
+            </block>
+            <!-- Row Total column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\PriceRenderer" name="column_total" template="Magento_Sales::items/price/total.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="footer.column_total" template="quote/view/items/footer/total.phtml"/>
+            </block>
+            <!-- Quote Margin column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Columns\QuoteMargin" name="column_quote-margin" template="quote/view/items/columns/margin-quote.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Columns\QuoteMargin" name="footer.column_quote-margin" template="quote/view/items/footer/margin-quote.phtml"/>
+            </block>
+            <!-- Tier Delete column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_tier-delete" template="quote/view/items/columns/tier-delete.phtml" group="column">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="empty.column_tier-delete" template="quote/view/items/columns/empty/tier-delete.phtml"/>
+            </block>
+            <!-- Action column -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="column_action" template="quote/view/items/columns/action.phtml" group="column"/>
+
+            <!--
+                 # Extra Rows
+             -->
+            <!-- Remark row -->
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\DefaultRenderer" name="order_item_extra_info" template="quote/view/items/extra.phtml" cacheable="false">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\Extra\Remark" name="extra_info_remark" template="quote/view/items/extra/remark.phtml" cacheable="false"/>
+            </block>
+        </block>
+        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Coupons" template="quote/view/coupons/form.phtml" name="coupons">
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Coupons\Form" template="quote/view/coupons/form.phtml" name="quote.view.coupons.form" as="form"/>
+        </block>
+    </body>
+</page>

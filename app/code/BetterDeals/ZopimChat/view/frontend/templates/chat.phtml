@@ -1,0 +1,34 @@
+<?php /** @var $this BetterDeals\ZopimChat\Block\Chat */ ?>
+<?php if($this->isEnabled()): ?>
+    <?php echo $this->getWidgetCode(); ?>
+
+    <script>
+        $zopim(function() {
+            <?php if($this->getCookieLawComply()): ?>
+                $zopim.livechat.cookieLaw.comply();
+                <?php if($this->getCookieLawComplyExplicit()): ?>
+                    $zopim.livechat.cookieLaw.setDefaultImplicitConsent();
+                <?php endif; ?>
+            <?php endif; ?>
+        });
+
+        <?php if($this->useCustomerData()): ?>
+        require(['jquery', 'Magento_Customer/js/customer-data', 'ko'], function(jQuery, customerData, ko){
+            var chatConfig = customerData.get('zopim-chat');
+
+            console.log(customerData);
+
+            chatConfig.subscribe(function (chatConfig) {
+                $zopim(function() {
+                    if(chatConfig.is_logged_in) {
+                        <?php if($this->useCustomerName()): ?>$zopim.livechat.setName(chatConfig.name);<?php endif; ?>
+                        <?php if($this->useCustomerEmail()): ?>$zopim.livechat.setEmail(chatConfig.email);<?php endif; ?>
+                        <?php if($this->useCustomerTelephone()): ?>if(chatConfig.telephone) $zopim.livechat.setPhone(chatConfig.telephone);<?php endif; ?>
+                        <?php if($this->useCustomerOrders()): ?>if(chatConfig.orders) $zopim.livechat.addTags(chatConfig.orders);<?php endif; ?>
+                    }
+                });
+            });
+         });
+        <?php endif; ?>
+    </script>
+<?php endif; ?>

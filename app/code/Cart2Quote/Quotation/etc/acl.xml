@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Cart2Quote_Quotation::quotes" title="Quotations" sortOrder="20">
+                    <resource id="Cart2Quote_Quotation::quotes_operation" title="Operations" sortOrder="10">
+                        <resource id="Cart2Quote_Quotation::quotes_quote" title="Quotes" sortOrder="10">
+                            <resource id="Cart2Quote_Quotation::actions" title="Actions" sortOrder="10">
+                                <resource id="Cart2Quote_Quotation::create" title="Create" sortOrder="10"/>
+                                <resource id="Cart2Quote_Quotation::actions_view" title="View" sortOrder="20"/>
+                                <resource id="Cart2Quote_Quotation::email" title="Send Quote Email" sortOrder="30"/>
+                                <resource id="Cart2Quote_Quotation::actions_edit" title="Edit" sortOrder="40"/>
+                                <resource id="Cart2Quote_Quotation::cancel" title="Cancel" sortOrder="50"/>
+                                <resource id="Cart2Quote_Quotation::hold" title="Hold" sortOrder="60"/>
+                                <resource id="Cart2Quote_Quotation::comment" title="Comment" sortOrder="70"/>
+                                <resource id="Cart2Quote_Quotation::massDelete" title="Delete" sortOrder="80"/>
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Cart2Quote_Quotation::quotes_settings" title="Quotation Settings" sortOrder="50"/>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

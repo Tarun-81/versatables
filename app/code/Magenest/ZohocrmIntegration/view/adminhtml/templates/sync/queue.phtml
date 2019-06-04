@@ -1,0 +1,139 @@
+<?php
+/** @var \Magenest\ZohocrmIntegration\Block\Adminhtml\Sync\Queue $block */
+$recordType = $block->getTotalRecordType();
+$totalRecord = $block->getTotalRecord();
+?>
+<h2>Total record: <?=$totalRecord?></h2>
+<div style="display: none;" id="queueProcess">
+        <div class="queue-type" id="Queue">
+            <div id="queueLabel" class="queue-label">
+
+            </div>
+            <div id="progressbar" class="queue-process">
+                <div data-percent="0" class="process-bar">0%</div>
+            </div>
+        </div>
+
+</div>
+<div class="button-all">
+<a class="button-sync" data-type="All" id="sync_all">
+    <button class="primary button-all">Sync All</button>
+</a>
+</div>
+<div class="div-button-sync">
+    <a class="button-sync" data-type="Accounts" id="sync_account">
+        <button class="primary">Sync Account</button>
+    </a>
+    <a class="button-sync" data-type="Campaigns" id="sync_campaign">
+        <button class="primary" id="sync_campaign">Sync Campaign</button>
+    </a>
+    <a class="button-sync" data-type="Contacts" id="sync_contact">
+        <button class="primary" id="sync_contact">Sync Contact</button>
+    </a>
+    <a class="button-sync" data-type="Leads" id="sync_lead">
+        <button class="primary" id="sync_lead">Sync Lead</button>
+    </a>
+    <a class="button-sync" data-type="Sales_Orders" id="sync_order">
+        <button class="primary" id="sync_order">Sync Order</button>
+    </a>
+    <a class="button-sync" data-type="Invoices" id="sync_invoice">
+        <button class="primary" id="sync_invoice">Sync Invoice</button>
+    </a>
+    <a class="button-sync" data-type="Products" id="sync_product">
+        <button class="primary" id="sync_product">Sync Product</button>
+    </a>
+</div>
+
+<div class="div-button-sync">
+    <a class="button-add-queue" href="<?php echo $block->getUrl('zohocrm/queue/account/'); ?>">
+        <button class="button action-configure" id="queue_account">Add Account</button>
+    </a>
+    <a class="button-add-queue" href="<?php echo $block->getUrl('zohocrm/queue/campaign/') ?>">
+        <button class="button action-configure" id="queue_campaign">Add Campaign</button>
+    </a>
+    <a class="button-add-queue" href="<?php echo $block->getUrl('zohocrm/queue/contact/') ?>">
+        <button class="button action-configure" id="queue_contact">Add Contact</button>
+    </a>
+    <a class="button-add-queue" href="<?php echo $block->getUrl('zohocrm/queue/lead/') ?>">
+        <button class="button action-configure" id="queue_lead">Add Lead</button>
+    </a>
+    <a class="button-add-queue" href="<?php echo $block->getUrl('zohocrm/queue/order/') ?>">
+        <button class="button action-configure" id="queue_order">Add Order</button>
+    </a>
+    <a class="button-add-queue" href="<?php echo $block->getUrl('zohocrm/queue/invoice/') ?>">
+        <button class="button action-configure" id="queue_invoice">Add Invoice</button>
+    </a>
+    <a class="button-add-queue" href="<?php echo $block->getUrl('zohocrm/queue/product/') ?>">
+        <button class="button action-configure" id="queue_product">Add Product</button>
+    </a>
+</div>
+<style>
+    div .div-button-sync {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    #queueProcess {
+        margin-bottom: 10px;
+    }
+    #queueProcess .queue-process {
+        width: 500px;
+        background-color: #e3e3e3;
+    }
+    #queueProcess .process-bar{
+        width: 0;
+        height: 30px;
+        background-color: #eb5202;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
+    .button-all{
+        width: 100px;
+        height: 40px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<script>
+    require([
+        'jquery',
+        'mage/url'
+    ], function ($, url) {
+        $('.button-sync').on("click", function (e) {
+            var type = $(this).attr('data-type');
+            $.ajax({
+                url: "<?php echo $block->getUrl('zohocrm/ajax/beforesync/') ?>",
+                data: {type: type},
+                success: function(data) {
+                    var totalRequest = Math.round(data.total_request);
+                    var totalRecord = data.total_record;
+                    $("#queueProcess").show();
+                    var label = type+': '+ totalRecord + ' records'
+                    $("#queueLabel").html(label);
+                    var i;
+                    for (i = 0; i < totalRequest; i++){
+                        $.ajax({
+                            url: "<?php echo $block->getUrl('zohocrm/ajax/syncajax/') ?>",
+                            data: {type: type},
+                            success: function(data) {
+                                var percent = $('#queueProcess .process-bar').attr('data-percent');
+
+                                percent = parseFloat(percent) + data.record_success/totalRecord*100;
+                                $('#queueProcess .process-bar').css({'width':percent+'%'});
+                                $('#queueProcess .process-bar').attr('data-percent',percent);
+                                $('#queueProcess .process-bar').html(Math.round(percent)+'%');
+                                if( percent > 99){
+                                    $('#queueProcess .process-bar').css({'width':'100%'});
+                                    $('#queueProcess .process-bar').html('100%')
+                                }
+                            },
+                            type: 'POST'
+                        });
+                    }
+                },
+                type: 'POST'
+            });
+        })
+    })
+</script>
+

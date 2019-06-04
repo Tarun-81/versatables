@@ -1,0 +1,101 @@
+<?php
+/**
+ * Copyright © 2018 Landofcoder. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$helper                = $this->helper('Lof\RequestForQuotePdf\Helper\Data');
+$_items = $block->getItemsCollection(); 
+$currencySymbol = $block->getCurrencySymbol();
+$rfqHelper                = $this->helper('Lof\RequestForQuote\Helper\Data');
+$enable_image = $helper->getConfig("general/enable_image");
+$quote                    = $block->getMageQuote();
+$currency_code            = $quote?$quote->getQuoteCurrencyCode():null;
+
+$get_item = $block->getItem();
+
+if($enable_image) {
+  $_quote = $block->getMageQuote();
+  $_store = $_quote->getStore();
+  $_baseImageUrl = $_store->getBaseUrl();
+  $_imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Catalog\Helper\Image');
+}
+?>
+<?php 
+$i = 0; 
+foreach ($_items as $_item):
+$options = $block->getSelectedOptionsOfQuoteItem($_item);
+?>
+
+<?php if ($_item->getParentItem()) {
+    continue;
+} else {
+    $i++;
+}
+$item_price = $_item->getCustomPrice();
+if($item_price == null || $item_price == '') {
+    $item_price = $_item->getPrice();
+}
+?>
+<tbody class="<?php /* @noEscape */ echo $i%2 ? 'even' : 'odd' ?>">
+<tr>
+  
+  <?php if($enable_image) { ?>
+    <?php 
+    $product_image = "";
+    $product_image_link = $_imageHelper->init($_item->getProduct(), 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('65','65')->getUrl();
+    $product_image = str_replace($_baseImageUrl, "", $product_image_link);
+    ?>
+    <td class="item-info-image">
+        <img src="<?= $product_image;?>" alt="<?= __('Product Image');?>">
+    </td>
+  <?php } ?>
+   <td align="right"><?php echo $_item->getQty();?></td>
+   <td align="left"><?php echo $_item->getSku();?></td>
+  <td>
+   <span style="padding-top:5px;"> <?php echo $_item->getName();?></span>
+    <?php 
+	  echo '<p class="custom-options" style="list-style-type:none; left;"><ul style="list-style-type:none; text-align: left; padding-left:13px;text-align: margin-top:5px;">';
+      if(!empty($options))
+      {
+		foreach ($options as $option) {
+			$optionTitle = $option['label'];
+			$optionId = $option['option_id'];
+			$optionType = $option['option_type'];	
+			$optionValue = $option['print_value'];
+			$optionCustomView = $option['custom_view'];
+			echo $optionCustomView?('<li>'.$optionCustomView.'</li>'):('<li><strong>'.$optionTitle."</strong>: ".$optionValue.'</li>');
+		}
+      }
+	  $optionss = $_item->getProduct()->getTypeInstance(true)->getOrderOptions($_item->getProduct());
+	  if(isset($optionss['attributes_info'])) {
+		  $customOptions = $optionss['attributes_info'];
+		  if (!empty($customOptions)) {
+			foreach ($customOptions as $optionsss) {
+				echo '<li><strong>'.$optionsss['label'].'</strong>: '.$optionsss['value'].'</li>';
+			}
+		  }
+	  }
+	  echo '</ul></p>';
+    ?>
+    <?php if ($_item->getDescription()) { ?>
+    <p style="margin-top: 10px;">
+      <b><?php echo __('Note: '); ?></b>
+      <?php echo strip_tags($_item->getDescription()) ?>
+    </p>
+    <?php } ?>
+  </td>
+  <?php $unit_price = $item_price;?>
+  
+ <?php
+ 
+   $price_total = $item_price * $_item->getQty();  
+   $line_total = $price_total - $_item->getDiscountAmount();  
+   $discprice = $line_total / $_item->getQty(); ?>
+ 
+  <td align="right"><?php echo $rfqHelper->formatPrice($unit_price, false, $currency_code); ?></td>
+  <td align="right"><?php echo $rfqHelper->formatPrice($discprice, false, $currency_code); ?></td>
+  <td align="right"><?php echo $rfqHelper->formatPrice($_item->getDiscountAmount(), false, $currency_code); ?></td> 
+  <td align="right"><?php echo $rfqHelper->formatPrice($line_total, false, $currency_code); ?></td>
+</tr>   
+</tbody>
+<?php endforeach; ?>

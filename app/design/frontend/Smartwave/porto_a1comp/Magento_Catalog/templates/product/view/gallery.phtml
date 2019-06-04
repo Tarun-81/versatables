@@ -1,0 +1,70 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+<?php
+$_config = $this->helper('Smartwave\Porto\Helper\Data')->getConfig('porto_settings/product');
+$image_width = (isset($_config['ratio_width']) && $_config['ratio_width'])?$_config['ratio_width']:600;
+$image_height = (isset($_config['ratio_height']) && $_config['ratio_height'])?$_config['ratio_height']:600;
+$thumb_width = 75;
+$aspect_ratio = (isset($_config['aspect_ratio']))?$_config['aspect_ratio']:0;
+$thumb_height = 75 * $image_height / $image_width;
+if (!$aspect_ratio)
+    $thumb_height = 75;
+?>
+<div class="gallery-placeholder _block-content-loading" data-gallery-role="gallery-placeholder">
+    <div data-role="loader" class="loading-mask">
+        <div class="loader">
+            <img src="<?php /* @escapeNotVerified */ echo $block->getViewFileUrl('images/loader-1.gif'); ?>"
+                 alt="<?php /* @escapeNotVerified */ echo __('Loading...') ?>">
+        </div>
+    </div>
+</div>
+<?php  
+	$showCaption = $block->getVar("gallery/caption");
+	if($showCaption == '') {
+		$showCaption = 'false';
+	}
+?>
+<script type="text/x-magento-init">
+    {
+        "[data-gallery-role=gallery-placeholder]": {
+            "mage/gallery/gallery": {
+                "mixins":["magnifier/magnify"],
+                "magnifierOpts": <?php /* @escapeNotVerified */ echo "false";//$block->getMagnifier(); ?>,
+                "data": <?php /* @escapeNotVerified */ echo $block->getGalleryImagesJson(); ?>,
+                "options": {
+                    "nav": "<?php /* @escapeNotVerified */ echo $block->getVar("gallery/nav"); ?>",
+                    "loop": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/loop"); ?>,
+                    "keyboard": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/keyboard"); ?>,
+                    "arrows": <?php /* @escapeNotVerified */ echo $block->getVar("gallery/arrows"); ?>,
+                    "allowfullscreen": <?php /* @escapeNotVerified */ echo "false";?>,
+                    "showCaption": <?php /* @escapeNotVerified */ echo $showCaption; ?>,
+                    "width": <?php /* @escapeNotVerified */ echo $image_width; ?>,
+                    "thumbwidth": <?php /* @escapeNotVerified */ echo $thumb_width; ?>,
+                    "thumbheight": <?php /* @escapeNotVerified */ echo $thumb_height; ?>,
+                    <?php if(!$aspect_ratio): ?>
+                    "height": <?php /* @escapeNotVerified */ echo $image_height; ?>,
+                    <?php endif; ?>
+                    "transitionduration": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/transition/duration"); ?>,
+                    "transition": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/transition/effect"); ?>",
+                    "navarrows": <?php /* @escapeNotVerified */  echo $block->getVar("gallery/navarrows"); ?>,
+                    "navtype": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/navtype"); ?>",
+                    "navdir": "<?php /* @escapeNotVerified */  echo $block->getVar("gallery/navdir"); ?>"
+                },
+                
+                "breakpoints": <?php /* @escapeNotVerified */ echo $block->getBreakpoints(); ?>
+            }
+        }
+    }
+</script>

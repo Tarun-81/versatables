@@ -1,0 +1,154 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+/** @var $quoteButton \Cart2Quote\Quotation\Block\Button */
+?>
+<?php $quoteButton = $block->addChild('quote_button', 'Cart2Quote\Quotation\Block\Button'); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $cartButtonTitle = __('Add to Cart'); ?>
+<?php $quoteButtonTitle = __('Add to Quote'); ?>
+<?php $validators = $block->escapeHtml(json_encode($block->getQuantityValidators())); ?>
+
+<?php if ($_product->isSaleable() || $quoteButton->showQuoteButton()) : ?>
+    <div class="box-tocart">
+        <fieldset class="fieldset">
+
+            <?php if ($block->shouldRenderQuantity()) : ?>
+                <!-- Qty start -->
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?php echo __('QUANTITY: ') ?></span></label>
+
+                    <div class="control">
+                        <input type="number"
+                               name="qty"
+                               id="qty"
+                               maxlength="12"
+                               value="<?php echo $block->getProductDefaultQty() * 1 ?>"
+                               title="<?php echo __('Qty') ?>" class="input-text qty"
+                               data-validate="<?php echo $validators ?>"
+                        />
+                    </div>
+					<div class="qty-changer">
+                        <a href="javascript:void(0)" class="qty-inc"><i class="porto-icon-up-dir"></i></a>
+                        <a href="javascript:void(0)" class="qty-dec"><i class="porto-icon-down-dir"></i></a>
+                    </div>
+                </div>
+                <!-- Qty stop -->
+            <?php endif; ?>
+
+            <div class="actions">
+
+                <?php if ($_product->isSaleable()) : ?>
+                    <!-- Cart button start -->
+                    <button type="submit"
+                            title="<?php echo $cartButtonTitle ?>"
+                            class="action primary tocart"
+                            id="product-addtocart-button">
+                        <span><?php echo $cartButtonTitle ?></span>
+                    </button>
+                    <!-- Cart button stop -->
+                <?php endif; ?>
+
+                <?php if ($quoteButton->showQuoteButton() && !$quoteButton->showMessageNotLoggedIn()) : ?>
+                    <!-- Quote button start -->
+                    <button type="submit"
+                            title="<?php echo $quoteButtonTitle ?>"
+                            class="action tocart"
+                            id="product-addtoquote-button">
+                        <span><?php echo $quoteButtonTitle ?></span>
+                    </button>
+                    <!-- Quote button stop -->
+                <?php elseif ($quoteButton->showMessageNotLoggedIn()) : ?>
+                    <button id="product-addtoquote-button" disabled="disabled" class="action tocart">
+                        <span><?php echo __('Please login to add to Quote.'); ?></span>
+                    </button>
+                <?php endif; ?>
+
+                <?php echo $block->getChildHtml('', true) ?>
+            </div>
+        </fieldset>
+    </div>
+<?php endif; ?>
+
+
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+    <script>
+        require([
+            'jquery',
+            'mage/mage',
+            'Magento_Catalog/product/view/validation',
+            'Cart2Quote_Quotation/js/catalog-add-to-cart'
+        ], function ($) {
+            'use strict';
+            var addToQuote = false;
+            $('#product-addtoquote-button').click(function (e) {
+                addToQuote = "<?php echo $block->getUrl('quotation/quote/add')?>";
+            });
+
+            $('#product_addtocart_form').mage('validation', {
+                radioCheckboxClosest: '.nested',
+                submitHandler: function (form) {
+                    var widget = $(form).quotationAddToCart({
+                        quoteFormUrl: addToQuote,
+                        bindSubmit: false,
+                        noAjax: false
+                    });
+
+                    widget.quotationAddToCart('submitForm', $(form));
+                    addToQuote = false;
+                    return false;
+                }
+            });
+        });
+    </script>
+<?php else : ?>
+    <script>
+        require([
+            'jquery',
+            'mage/mage',
+            'Magento_Catalog/product/view/validation',
+            'Cart2Quote_Quotation/js/catalog-add-to-cart'
+        ], function ($) {
+            'use strict';
+            var addToQuote = false;
+            $('#product-addtoquote-button').click(function (e) {
+                addToQuote = "<?php echo $block->getUrl('quotation/quote/add') ?>";
+            });
+
+            $('#product_addtocart_form').mage('validation', {
+                radioCheckboxClosest: '.nested',
+                submitHandler: function (form) {
+                    var widget = $(form).quotationAddToCart({
+                        quoteFormUrl: addToQuote,
+                        bindSubmit: false
+                    });
+
+                    widget.quotationAddToCart('submitForm', $(form));
+                    addToQuote = false;
+                    return false;
+                }
+            });
+        });
+    </script>
+<?php endif; ?>

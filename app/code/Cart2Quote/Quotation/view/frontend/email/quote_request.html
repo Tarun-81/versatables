@@ -1,0 +1,86 @@
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<!--@subject {{var store.getFrontendName()}}: New Quote Request # {{var quote.increment_id}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var quote.getEmailCustomerNote()":"Email Quote Note",
+"var quote.increment_id":"Quote Id",
+"layout handle=\"cart2quote_email_quote_items\" quote=$quote area=\"frontend\"":"Quote Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var quote.getShippingDescription()":"Shipping Description"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+{{inlinecss file="Cart2Quote_Quotation::css/email-inline_extend.css"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hello %customer_name," customer_name=$quote.getCustomerName()}}</p>
+            <p>
+                {{trans "Thank you for submitting your quote request!"}}
+                {{trans "Within the next 12 hours, you will receive a signed quote from the VersaTables Sales Team."}}
+                {{trans 'You can check on the status of your quote request by <a href="%account_url">logging into your account</a> and clicking on the My Quotes tab.' account_url=$this.getUrl($store,'quotation/quote/history/',[_nosid:1]) |raw}}
+            </p>
+            <p>
+			    {{trans 'If you have any questions about your quote, you can email us at <a href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}
+                {{depend store_phone}}
+                {{trans 'or call us at <a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}
+                {{/depend}}.
+                {{depend store_hours}}
+                {{trans 'Our hours are <span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+                {{/depend}}
+            </p>
+        </td> 
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <h1>{{trans 'Your Quote <span class="no-link">#%increment_id</span>' increment_id=$quote.increment_id |raw}}
+            </h1>
+            <p>{{trans 'Placed on <span class="no-link">%created_at</span>' created_at=$quote.getCreatedAtFormatted(1)
+                |raw}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{if quote.getCustomerNote()}}
+            {{depend quote.getEmailCustomerNote()}}
+            <table class="message-info">
+                <tr>
+                    <td>
+                        <h3>{{trans "Remarks with Request"}}</h3>
+                        <p>
+                            {{var quote.getCustomerNote()|escape|nl2br}}
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            {{/depend}}
+            {{/if}}
+            {{layout handle="quotation_email_quote_items" quote=$quote area="frontend"}}
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

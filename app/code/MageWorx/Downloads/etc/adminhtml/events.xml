@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_save_after">
+        <observer name="mageworx_downloads_attachment_product" instance="MageWorx\Downloads\Observer\Adminhtml\SaveProductAttachments" />
+        <observer name="mageworx_downloads_new_attachments_product" instance="MageWorx\Downloads\Observer\Adminhtml\SaveNewProductAttachments" />
+    </event>
+</config>

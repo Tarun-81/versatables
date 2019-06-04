@@ -1,0 +1,40 @@
+<?php /** @var \DataFeedWatch\Connector\Block\Adminhtml\System\Config\Grid $block */ ?>
+<div id="inheritance_grid">
+    <div class="attribute_inheritance_grid_header">
+        <div class="attribute_name"><?php /* @noEscape */
+            echo __('Name') ?></div>
+        <div class="attribute_import"><?php /* @noEscape */
+            echo __('Import') ?></div>
+        <div class="attribute_inheritance">
+            <div class="inheritance_child"><?php /* @noEscape */
+                echo __('Child') ?></div>
+            <div class="inheritance_parent"><?php /* @noEscape */
+                echo __('Parent') ?></div>
+            <div class="inheritance_child_then_parent"><?php /* @noEscape */
+                echo __('Child Then Parent') ?></div>
+        </div>
+    </div>
+    <div id="attribute_inheritance_grid_items">
+        <div class="spinner">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <p class="note"><?php /* @noEscape */
+        echo __('Every change saves automatically') ?></p>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'mage/template',
+        'jquery/ui',
+        'mage/translate'
+    ], function ($) {
+        DataFeedWatchGrid = new DataFeedWatchGrid({
+            "url": '<?php /* @noEscape */ echo $block->getActionUrl() ?>',
+            "saveInheritanceUrl": '<?php /* @noEscape */ echo $block->getSaveInheritanceActionUrl() ?>',
+            "saveImportUrl": '<?php /* @noEscape */ echo $block->getSaveImportActionUrl() ?>',
+            "itemContainer": document.getElementById('attribute_inheritance_grid_items')
+        });
+    });
+</script>

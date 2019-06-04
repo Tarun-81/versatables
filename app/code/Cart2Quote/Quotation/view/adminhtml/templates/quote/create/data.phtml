@@ -1,0 +1,112 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<div class="page-create-order">
+    <script>
+        require(["Magento_Sales/order/create/form"], function () {
+            order.setCurrencySymbol('<?= /* @escapeNotVerified */ $block->getCurrencySymbol($block->getCurrentCurrencyCode()) ?>')
+        });
+    </script>
+    <div class="order-details<?php if ($block->getCustomerId()): ?> order-details-existing-customer<?php endif; ?>">
+
+        <div id="order-errors" class="order-errors"><?= $block->getChildHtml('errors') ?></div>
+
+        <section id="order-form_account" class="admin__page-section order-account-information">
+            <?= $block->getChildHtml('form_account') ?>
+        </section>
+
+        <section id="order-addresses" class="admin__page-section order-addresses">
+            <div class="admin__page-section-title">
+                <span class="title"><?= /* @escapeNotVerified */
+                    __('Address Information') ?></span>
+            </div>
+            <div class="admin__page-section-content">
+                <div id="order-billing_address" class="admin__page-section-item order-billing-address">
+                    <?= $block->getChildHtml('billing_address') ?>
+                </div>
+                <div id="order-shipping_address" class="admin__page-section-item order-shipping-address">
+                    <?= $block->getChildHtml('shipping_address') ?>
+                </div>
+            </div>
+        </section>
+        <?php
+        /**
+         * dummy section used in Magento_Sales/order/create/scripts -> isPaymentValidationAvailable
+         */
+        ?>
+        <section id="order-methods" class="admin__page-section order-methods">
+            <div class="admin__page-section-content">
+                <div id="order-billing_method" class="admin__page-section-item order-billing-method">
+                </div>
+            </div>
+        </section>
+
+        <?= $block->getChildHtml('gift_options') ?>
+
+        <section class="admin__page-section order-summary">
+            <div class="admin__page-section-content">
+                <fieldset class="admin__fieldset order-history" id="order-comment">
+                    <legend class="admin__legend"><span><?= /* @escapeNotVerified */
+                            __('Quote History') ?></span></legend>
+                    <br>
+                    <?= $block->getChildHtml('comment') ?>
+                </fieldset>
+            </div>
+        </section>
+
+        <section class="quote-actions">
+            <div class="order-totals-actions">
+                <div class="actions">
+                    <?= $block->getButtonHtml(__('Create Quote'), 'order.submit()', 'save primary') ?>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <?php if ($block->getCustomerId()): ?>
+        <div class="order-sidebar">
+            <div class="store-switcher order-currency">
+                <label class="admin__field-label" for="currency_switcher">
+                    <?= /* @escapeNotVerified */
+                    __('Quote Currency:') ?>
+                </label>
+                <select id="currency_switcher"
+                        class="admin__control-select"
+                        name="order[currency]"
+                        onchange="order.setCurrencyId(this.value); order.setCurrencySymbol(this.options[this.selectedIndex].getAttribute('symbol'));">
+                    <?php foreach ($block->getAvailableCurrencies() as $_code): ?>
+                        <option value="<?= /* @escapeNotVerified */
+                        $_code ?>"<?php if ($_code == $block->getCurrentCurrencyCode()): ?> selected="selected"<?php endif; ?>
+                                symbol="<?= /* @escapeNotVerified */
+                                $block->getCurrencySymbol($_code) ?>">
+                            <?= /* @escapeNotVerified */
+                            $block->getCurrencyName($_code) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>

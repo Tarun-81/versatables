@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Framework:etc/module.xsd">
+    <module name="Aitoc_CheckoutFieldsManager" setup_version="1.0.2"/>
+</config>

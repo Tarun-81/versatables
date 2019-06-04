@@ -1,0 +1,41 @@
+<!--
+  ~
+  ~
+  ~ CART2QUOTE CONFIDENTIAL
+  ~ __________________
+  ~
+  ~  [2009] - [2017] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ All information contained herein is, and remains
+  ~ the property of Cart2Quote B.V. and its suppliers,
+  ~ if any.  The intellectual and technical concepts contained
+  ~ herein are proprietary to Cart2Quote B.V.
+  ~ and its suppliers and may be covered by European and Foreign Patents,
+  ~ patents in process, and are protected by trade secret or copyright law.
+  ~ Dissemination of this information or reproduction of this material
+  ~ is strictly forbidden unless prior written permission is obtained
+  ~ from Cart2Quote B.V.
+  -->
+
+<!--@subject {{var store.getFrontendName()}}: Quote request # {{var quote.increment_id}} requires you attention @-->
+<!--@vars {
+"var quote.increment_id":"Quote Id",
+} @-->
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hello %salesrep_name," salesrep_name=$salesrep.name}}</p>
+
+            <p>
+                {{trans "Quote request #%increment_id placed on %created_at requires your attention." increment_id=$quote.increment_id created_at=$quote.getCreatedAtFormatted(1) |raw}}
+            </p>
+
+            <p>
+                {{trans "This note is sent to you, because you are set to be notified on auto proposal if the subtotal is within the range %min_value to %max_value" min_value=$auto_proposal_range.min_value max_value=$auto_proposal_range.max_value |raw}}
+            </p>
+        </td>
+    </tr>
+</table>

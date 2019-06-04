@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="index">
+        <job name="magenest_zohocrmintegration_sync" instance="Magenest\ZohocrmIntegration\Model\Cron"
+             method="syncAfter">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="magenest_zohocrmintegration_cron" instance="Magenest\ZohocrmIntegration\Model\Cron"
+             method="syncDaily">
+            <schedule>0 3 * * *</schedule>
+        </job>
+    </group>
+</config>

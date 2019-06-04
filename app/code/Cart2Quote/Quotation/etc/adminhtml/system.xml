@@ -1,0 +1,452 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="cart2quote" translate="label" sortOrder="310">
+            <label>Cart2Quote</label>
+        </tab>
+        <section id="cart2quote_quotation" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Quotation</label>
+            <tab>cart2quote</tab>
+            <resource>Cart2Quote_Quotation::quotes_settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="information" translate="label" type="label" sortOrder="1" showInDefault="1">
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\Information</frontend_model>
+                </field>
+                <field id="current_edition" translate="label" type="label" sortOrder="2" showInDefault="1">
+                    <label>Current Cart2Quote Edition</label>
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\EditionLink</frontend_model>
+                </field>
+            </group>
+            <group id="global" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Global</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Frontend Quotation Visibility</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show Quotation features in Frontend</comment>
+                </field>
+                <field id="quotable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Products Quotable by Default</label>
+                    <source_model>Cart2Quote\Quotation\Model\Config\Backend\Quote\ProductsQuotable</source_model>
+                    <comment>Set default Quotable option for products in the catalog</comment>
+                </field>
+                <field id="quotable_customer_group" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Groups</label>
+                    <depends>
+                        <field id="quotable">2</field>
+                    </depends>
+                    <source_model>Cart2Quote\Quotation\Model\Config\Backend\Quote\QuotableCustomerGroups</source_model>
+                </field>
+                <field id="show_message_not_logged_in" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Message to Not Logged in Users</label>
+                    <depends>
+                        <field id="quotable">2</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_btn_detail" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Button on Detail Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Visibility of "Add to Quote" button on Product Detail Page</comment>
+                </field>
+                <field id="show_btn_list" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Add Button on Category Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Visibility of "Add to Quote" button on Product Category Page</comment>
+                </field>
+                <field id="show_sidebar" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Mini Quote</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable the Mini Quote view on the frontend</comment>
+                </field>
+                <field id="default_expiration_time" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Expiration Time</label>
+                    <comment>In Days. Defines default proposal expiry date.</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="default_reminder_time" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Reminder Time</label>
+                    <comment>In days. Set to "0" to disable this feature.</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+            </group>
+        </section>
+        <section id="cart2quote_pdf" translate="label" type="text" sortOrder="135" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>PDF Print-outs</label>
+            <tab>cart2quote</tab>
+            <resource>Cart2Quote_Quotation::quotes_settings</resource>
+            <group id="quote" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote</label>
+                <field id="pdf_footer_text" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote PDF Footer Text</label>
+                </field>
+                <field id="pdf_enable_short_description" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable product short description</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="pdf_enable_instructions" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable payment instructions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="cart2quote_email" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Quote Emails</label>
+            <tab>cart2quote</tab>
+            <resource>Cart2Quote_Quotation::quotes_settings</resource>
+            <group id="quote_request" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote Request</label>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Request Email Sender</label>
+                    <comment>Set the sender of the email (to: field)</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Request Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>
+                        <![CDATA[See <a target="_blank" href="http://devdocs.magento.com/guides/v2.1/frontend-dev-guide/templates/template-email.html">Transactional E-Mails</a>]]>
+                    </comment>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+            <group id="quote_proposal" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote Proposal</label>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="attach_proposal_pdf" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attach pdf</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Attach Quote PDF to your proposal mail (Enterprise Version)</comment>
+                </field>
+                <field id="attach_proposal_doc" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Attach document</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system" scope_info="1">quotation/email</upload_dir>
+                    <comment>Upload any file as default attachment to the proposal email. (i.e. Terms and Conditions) NOTE: Some providers limit the size of emails.</comment>
+                </field>
+                <field id="attach_proposal_name" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Document name</label>
+                    <comment>If empty, attached document file name is used.</comment>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Proposal Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Set the sender of the email (to: field)</comment>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Proposal Template</label>
+                    <comment>
+                        <![CDATA[See <a target="_blank" href="http://devdocs.magento.com/guides/v2.1/frontend-dev-guide/templates/template-email.html">Transactional E-Mails</a>]]>
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Proposal Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+            <group id="quote_proposal_accepted" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote Proposal Accepted</label>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Proposal Accepted Email Reciever</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Proposal Accepted Template</label>
+                    <comment>
+                        <![CDATA[See <a target="_blank" href="http://devdocs.magento.com/guides/v2.1/frontend-dev-guide/templates/template-email.html">Transactional E-Mails</a>]]>
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Proposal Accepted Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+            <group id="quote_proposal_expire" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote Proposal Expire</label>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Proposal Expire Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Set the sender of the email (to: field)</comment>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Proposal Expiry Template</label>
+                    <comment>
+                        <![CDATA[See <a target="_blank" href="http://devdocs.magento.com/guides/v2.1/frontend-dev-guide/templates/template-email.html">Transactional E-Mails</a>]]>
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Proposal Expiry Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+            <group id="quote_reminder" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quote Reminder</label>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Reminder Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <comment>Set the sender of the email (to: field)</comment>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Reminder Template</label>
+                    <comment>
+                        <![CDATA[See <a target="_blank" href="http://devdocs.magento.com/guides/v2.1/frontend-dev-guide/templates/template-email.html">Transactional E-Mails</a>]]>
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Reminder Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Quote Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="cart2quote_advanced" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Advanced</label>
+            <tab>cart2quote</tab>
+            <resource>Cart2Quote_Quotation::quotes_settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="extra_global_css" translate="label" type="textarea" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extra Global CSS</label>
+                    <comment>Global CSS, so selectors are allowed</comment>
+                </field>
+                <field id="extra_miniquote_css" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extra CSS for the miniquote icon</label>
+                    <comment>Inline CSS, so selectors are not allowed</comment>
+                </field>
+                <field id="disable_alternate_rendering" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use (default) passive theme rendering mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Do not change this, unless you know what you're doing. <br /> Use this if the default theme integration doesn't work]]>
+                    </comment>
+                </field>
+                <field id="show_quote_adjustment" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Quote Adjustment</label>
+                    <comment>Show total discount on PDF/E-mail/Customer dashboard. Choose dynamic to only show discount when available.</comment>
+                    <source_model>Cart2Quote\Quotation\Model\Config\Backend\Email\ShowAdjustment</source_model>
+                </field>
+                <field id="hide_dashboard_prices" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hide Dashboard Prices</label>
+                    <comment>Hide item price and quote totals from customer dashboard "My Quotes" if no proposal has been created.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="lock_proposal" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Lock Proposal</label>
+                    <comment>Items cannot be removed or added to the shopping cart when proposal is confirmed.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="checkout" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Checkout</label>
+                <field id="auto_user_login" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto User Login</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Adds links to proposal email that enable automatic user login - only available in <a target="_blank" href="https://www.cart2quote.com/cart2quote-update-upgrade.html">Business and Enterprise edition.</a>]]></comment>
+                </field>
+                <field id="auto_confirm_proposal" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Auto Confirm Proposal</label>
+                    <depends>
+                        <field id="auto_user_login">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>The checkout button in the proposal email, links directly to the checkout page. Select 'No' if you want customers to first visit the customer dashboard</comment>
+                </field>
+                <field id="accept_quote_without_checkout" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Customer Checkout On Quote</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Disables proceed to checkout from quote.</comment>
+                </field>
+            </group>
+            <group id="remarks" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Remarks</label>
+                <field id="disable_product_remark" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Product Remark Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Allows customers to place remarks for individual products</comment>
+                </field>
+            </group>
+            <group id="negativeprofit" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Negative Profit</label>
+                <field id="disable_negative_profit" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Negative Profit</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Disable Negative Profit margin on Quotes.</comment>
+                </field>
+            </group>
+        </section>
+        <section id="cart2quote_support" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Support</label>
+            <tab>cart2quote</tab>
+            <resource>Cart2Quote_Quotation::quotes_settings</resource>
+            <group id="general_support_data" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General support data</label>
+                <field id="cart2quote_dependency_versions" translate="label" type="hidden" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>PHP version</label>
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\Support\VersionAndEditionInfo</frontend_model>
+                    <attribute type="function">getPhpVersion</attribute>
+                </field>
+                <field id="cart2quote_license" translate="label" type="hidden" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>\Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\License</frontend_model>
+                </field>
+            </group>
+            <group id="manuals_documentation" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Manuals and documentation</label>
+                <field id="cart2quote_dependency_versions" translate="label" type="hidden" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>PHP version</label>
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\Support\DocumentationInfo</frontend_model>
+                    <attribute type="function">getPhpVersion</attribute>
+                </field>
+            </group>
+            <group id="create_support_ticket" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Create a support ticket</label>
+                <field id="cart2quote_open_ticket" translate="label comment" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Create Ticket</label>
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\Support\HelpDeskButton</frontend_model>
+                </field>
+            </group>
+            <group id="report_bug" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Report a bug</label>
+                <field id="cart2quote_report_bug" translate="label" type="button" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Report Bug</label>
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\Support\HelpDeskButton</frontend_model>
+                </field>
+            </group>
+        </section>
+        <section id="cart2quote_quote_form_settings" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Form Builder</label>
+            <tab>cart2quote</tab>
+            <resource>Cart2Quote_Quotation::quotes_settings</resource>
+            <group id="quote_form_settings" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Registration Mode</label>
+                <field id="enable_form" translate="label" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Submission Form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[When enabled, Cart2Quote places a form besides the quote list. When disabled the customer is required to log in or register before submitting a quote.
+                        (Enterprise license: <a target="_blank" href="https://www.cart2quote.com/cart2quote-update-upgrade.html">Upgrade</a>)]]>
+                    </comment>
+                </field>
+                <field id="allow_guest_quote_request" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Guest Request</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When enabled, store visitors can submit a request without a Magento account being created.</comment>
+                    <depends>
+                        <field id="enable_form">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="quote_form_settings_configuration" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Form Configuration</label>
+                <field id="billing_address_grid" translate="label comment" type="text" sortOrder="25" showInDefault="1">
+                    <label>Billing Address Configuration</label>
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Grid\AddressField</frontend_model>
+                    <comment>Drag and drop to change the sort order.
+                        Fields can set to required. (Disabling form fields is in BETA)
+                    </comment>
+                </field>
+                <field id="shipping_address_grid" translate="label comment" type="text" sortOrder="50" showInDefault="1">
+                    <label>Shipping Address Configuration</label>
+                    <frontend_model>Cart2Quote\Quotation\Block\Adminhtml\System\Config\Grid\AddressField</frontend_model>
+                    <comment>Drag and drop to change the sort order.
+                        Fields can set to required. (Disabling form fields is in BETA)
+                    </comment>
+                </field>
+            </group>
+        </section>
+        <section id="sales">
+            <group id="totals_sort">
+                <field id="original_subtotal" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Original Subtotal</label>
+                </field>
+                <field id="quote_adjustment" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Adjustment</label>
+                </field>
+            </group>
+        </section>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="quotation" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quotation Shipping</label>
+                <field id="name" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1">
+                    <label>Sort Order</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

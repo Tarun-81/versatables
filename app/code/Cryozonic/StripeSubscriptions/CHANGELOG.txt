@@ -1,0 +1,33 @@
+### Version 1.4.0, Released 2019-05-01
+
+- New software license effective 1st May 2019
+
+### Version 1.3.0, Released 2019-03-08
+
+- Adjustments to work with the new Payment Intents API of Stripe Payments v2.3.0
+
+### Version 1.2.3, Released 2019-01-15
+
+- Trial days for subscriptions now appear in the product's additional options in the minicart, checkout and admin order page
+
+### Version 1.2.2, Released 2019-01-08
+
+- Fixed initial fee being added to the totals twice
+
+### Version 1.2.1, Released 2018-11-08
+
+- Fixed compatibility issue with Magento 2.2.6
+
+### Version 1.2.0, Released 2018-10-04
+
+- Added comprehensive support for Initial Fees for subscriptions
+- Renamed several subscription configuration fields for clarity
+- Fixed a setup:upgrade issue with Migrations from Magento 1
+
+### Version 1.1.0, Released 2018-04-22
+
+- Added commands for migrating from Magento 1 to Magento 2 (https://store.cryozonic.com/documentation/magento-2-stripe-payments\#migrate)
+
+### Version 1.0.0, Released 2017-12-20
+
+Stripe Subscriptions is a Magento 2 add-on for our Stripe Payments module which allows merchants to sell subscriptions on Magento 2.

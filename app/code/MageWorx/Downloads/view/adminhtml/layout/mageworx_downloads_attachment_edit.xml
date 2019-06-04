@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="MageWorx_Downloads::tab_switcher.css"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="MageWorx\Downloads\Block\Adminhtml\Attachment\Edit" name="mageworx_downloads_attachment_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="MageWorx\Downloads\Block\Adminhtml\Attachment\Edit\Tabs" name="mageworx_downloads_attachment_tabs">
+                <block class="MageWorx\Downloads\Block\Adminhtml\Attachment\Edit\Tab\Main" name="mageworx_downloads_attachment_edit_tab_main"/>
+                <block class="MageWorx\Downloads\Block\Adminhtml\Attachment\Edit\Tab\ProductIds" name="mageworx_downloads_attachment_edit_tab_productids"/>
+                <block class="MageWorx\Downloads\Block\Adminhtml\Attachment\Edit\Tab\ProductSkus" name="mageworx_downloads_attachment_edit_tab_productskus"/>
+                <block class="MageWorx\Downloads\Block\Adminhtml\Attachment\Edit\Tab\Products" name="mageworx_downloads_attachment_edit_tab_products"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main</argument>
+                    <argument name="block" xsi:type="string">mageworx_downloads_attachment_edit_tab_main</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">attachment_productids</argument>
+                    <argument name="block" xsi:type="string">mageworx_downloads_attachment_edit_tab_productids</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">attachment_productskus</argument>
+                    <argument name="block" xsi:type="string">mageworx_downloads_attachment_edit_tab_productskus</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">attachment_products</argument>
+                    <argument name="block" xsi:type="string">mageworx_downloads_attachment_edit_tab_products</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+
+<?php /** @var \MageWorx\Downloads\Block\Catalog\Product\Attachments $block */?>
+<?php $attachments = $block->getAttachments();?>
+<?php if ($attachments) :?>
+    <div class="product-attachment-container">
+        <?php if ($block->escapeHtml($block->getTitle())): ?>
+            <div class="block-title">
+                <strong><?php echo $block->escapeHtml($block->getTitle()) ?></strong>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!$block->isGroupBySection()): ?>
+
+            <?php foreach ($attachments as $attachment): ?>
+                <?php echo $block->getAttachmentHtml($attachment); ?>
+            <?php endforeach; ?>
+
+        <?php else: ?>
+            <?php $pseudoSections = $block->getGroupAttachments(); ?>
+            <?php foreach ($pseudoSections as $pseudoSection): ?>
+                <div class="section-title"><?php echo $block->escapeHtml($pseudoSection['title']); ?></div>
+                <div class="section-files">
+                    <?php foreach ($pseudoSection['attachments'] as $item): ?>
+                        <?php echo $block->getAttachmentHtml($item); ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        <?php  endif; ?>
+        <?php if($block->isShowHowToDownloadMessage()): ?>
+            <div class="access-notice"><span>* <?php echo $block->getHowToDownloadMessage() ?></span></div>
+        <?php endif; ?>
+    </div>
+<?php endif;

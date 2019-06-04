@@ -1,0 +1,78 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote\View */
+use Magento\Framework\App\Action\Action;
+$quote = $block->getRfqQuote();
+$mageQuote = $block->getQuote();
+$helper = $this->helper('\Lof\RequestForQuote\Helper\Data');
+$enable_admin_note = $helper->getConfig("quote_admin_setting/enable_admin_note");
+$enable_terms = $helper->getConfig("quote_admin_setting/enable_terms");
+$enable_wtexpect = $helper->getConfig("quote_admin_setting/enable_wtexpect");
+$enable_break_line = $helper->getConfig("quote_admin_setting/enable_break_line");
+?>
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+
+<?php if ($customerNote = $mageQuote->getCustomerNote()) { ?>
+<p><b><strong><?php echo __('Comment: '); ?></strong></b><?php echo $this->stripScriptTags($customerNote); ?></p>
+<?php } ?>
+<?php if ($enable_admin_note && $adminNote = $quote->getAdminNote()) { ?>
+<p><b><strong><?php echo __('Admin Note: '); ?></strong></b><?php echo $this->stripScriptTags($adminNote); ?></p>
+<?php } ?>
+<?php if ($enable_terms && $terms = $quote->getTerms()) { ?>
+<p><b><strong><?php echo __('Terms: '); ?></strong></b><?php echo $this->stripScriptTags($terms); ?></p>
+<?php } ?>
+<?php if ($enable_wtexpect && $wtexpect = $quote->getWtexpect()) { ?>
+<p><b><strong><?php echo __('What To Expect: '); ?></strong></b><?php echo $this->stripScriptTags($wtexpect); ?></p>
+<?php } ?>
+<?php if ($enable_break_line && $break_line = $quote->getBreakLine()) { ?>
+<p><b><strong><?php echo __('Break Line: '); ?></strong></b><?php echo $this->stripScriptTags($break_line); ?></p>
+<?php } ?>
+<div class="quote-items">
+	<div class="cart table-wrapper<?php echo $mergedCells == 2 ? ' detailed' : ''; ?>">
+		<table id="shopping-cart-table"
+		class="cart items data table"
+		data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+		"updateCartActionContainer": "#update_cart_action_container"}}'>
+		<caption role="heading" aria-level="2" class="table-caption"><?php echo __('Shopping Cart Items') ?></caption>
+		<thead>
+			<tr>
+				<th class="col item" scope="col"><span><?php echo __('Item') ?></span></th>
+				<th colspan="2" class="col item" scope="col"><span><?php echo __('SKU') ?></span></th>
+				<th class="col price" scope="col"><span><?php echo __('Price') ?></span></th>
+				<th class="col qty" scope="col"><span><?php echo __('Qty') ?></span></th>
+			</tr>
+		</thead>
+		<?php foreach ($block->getItems() as $_item): ?>
+			<?php echo $block->getItemHtml($_item) ?>
+		<?php endforeach ?>
+		<table id="table_footer">
+			<tfoot>
+				<tr>
+					<td><div class="general_term">
+				<div class="terms" style="border: 1px solid #cccccc;padding: 15px;border-radius: 20px;background: #f5f5f5;"> <span class="term-title" style="font-size: 16px;font-weight: 600;margin: 25px;"> General Terms &amp; Conditions </span><ul style="padding: 25px 25px 0 25px;"><li>All products are designed and assembled in the USA</li><li>Price quote is good for 90 days from creation date</li><li>Lifetime Warranty on all products</li><li>Payment Terms: Wire Transfer, Credit Card, Check, Net 30</li></ul></div>
+			</div></td>
+				</tr>
+			</tfoot>
+
+			<tfoot>
+				<tr>
+					<td><?php echo $block->getChildHtml("quote_totals"); ?></td>
+				</tr>
+			</tfoot> 
+					
+		</table>
+	</table>
+</div>
+</div>
+<?php if($quote->getStatus() == \Lof\RequestForQuote\Model\Quote::STATE_REVIEWED && !$helper->isExpired($quote) && !$this->isTrackingPage()) { ?>
+	<?php $postParams = $block->getMoveToShoppingcart($quote); ?>
+	<form action="<?php /* @escapeNotVerified */ echo $postParams['action']; ?>" method="post">
+		<input type="hidden" name="quote" value="<?php /* @escapeNotVerified */ echo $quote->getId(); ?>">
+		<input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+		<?php echo $block->getBlockHtml('formkey')?>
+		<div class="primary">
+			<button type="submit" title="<?php echo __('Move to Shopping Cart'); ?>" class="action primary">
+				<span><?php echo __('Move to Shopping Cart'); ?></span>
+			</button>
+		</div>
+	</form>
+	<?php } ?>

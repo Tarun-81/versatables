@@ -1,0 +1,31 @@
+<div class="content">
+<?php
+    foreach($this->getSortedContentElementsKeys() as $k){
+   echo $this->getContentElementHtml($k);
+		
+	/* 	preg_match_all('/< *img[^>]*src *= *["\']?([^"\']*)/i', $html , $matches);  // returns all image tags
+
+		 foreach($matches as $match) {
+			 
+			  $p=parse_url($match);
+			  $path= $p['path'];
+			  $imgurl= substr($path,1);
+			  $str = preg_replace('/<img.*alt="(.+?)".*?>/', '<p><!-- $1 --></p>', $html);
+			 //  get the alt tag text
+			$html = str_replace($matches, $imgurl, $html);
+		 }
+		 echo $html ; */
+    }
+	
+	
+?>
+</div>
+<style>
+    .content .section-title {
+        border-bottom:2px solid #00ACEE;
+        border-bottom-color:#<?php echo $this->getSectionHeaderConfig('section_header_color'); ?>!important;
+        font-family: <?php echo $this->getSectionTitleFontFamily(); ?>;
+        font-size:<?php echo $this->getSectionHeaderConfig('section_header_fontsize'); ?>;
+        color:#<?php echo $this->getSectionHeaderConfig('section_header_color'); ?>!important;
+    }
+</style>

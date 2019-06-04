@@ -1,0 +1,99 @@
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<div class="block-title">
+    <strong>
+        <span class="text"><!-- ko text: $t('My Quote') --><!-- /ko --></span>
+        <span
+                class="qty empty"
+                data-bind="css: { empty: quote().summary_count == 0 },
+                       attr: { title: $t('Items in Quote') }">
+            <!-- ko text: quote().summary_count --><!-- /ko -->
+        </span>
+    </strong>
+</div>
+
+<div class="block-content">
+    <button type="button"
+            id="btn-miniquote-close"
+            class="action close"
+            data-action="close"
+            data-bind="attr: { title: $t('Close') }">
+        <span><!-- ko text: $t('Close') --><!-- /ko --></span>
+    </button>
+
+    <!-- ko if: quote().summary_count -->
+    
+
+    <!-- ko foreach: getRegion('subtotalContainer') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko foreach: getRegion('extraInfo') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+
+   
+    <!-- /ko -->
+
+    <!-- ko if: quote().summary_count -->
+    <strong class="subtitle"><!-- ko text: $t('Recently added item(s)') --><!-- /ko --></strong>
+
+    <div data-action="scroll" class="miniquote-items-wrapper">
+        <ol id="mini-quote" class="miniquote-items" data-bind="foreach: { data: quote().items, as: 'item' }">
+            <!-- ko foreach: $parent.getRegion($parent.getItemRenderer(item.product_type)) -->
+            <!-- ko template: {name: getTemplate(), data: item, afterRender: $parents[1].initSidebarQuote()} -->
+            <!-- /ko -->
+            <!-- /ko -->
+        </ol>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko ifnot: quote().summary_count -->
+    <strong class="subtitle empty" data-bind="visible: closeSidebar()">
+        <!-- ko text: $t('You have no items in your quote.') --><!-- /ko -->
+    </strong>
+    <!-- ko if: quote().quote_empty_message -->
+    <p class="miniquote empty text"><!-- ko text: quote().quote_empty_message --><!-- /ko --></p>
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: quote().summary_count -->
+    <div class="actions">
+        <div class="secondary">
+            <a class="action viewquote" data-bind="attr: {href: quoteCartUrl}">
+                <span><!-- ko text: $t('View and edit quote') --><!-- /ko --></span>
+            </a>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div id="miniquote-widgets" class="miniquote-widgets">
+        <!-- ko foreach: getRegion('promotion') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+    </div>
+</div>
+<!-- ko foreach: getRegion('sign-in-popup') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

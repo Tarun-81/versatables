@@ -1,0 +1,187 @@
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "%store_name: Remind Quote Request" store_name=$store.getFrontendName()}} # {{var increment_id}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order.getEmailCustomerNote()":"Email Order Note",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$quote area=\"frontend\"":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"var shipping_msg":"Shipping message"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<h3>{{trans "Remind Your Quote"}}</h3>
+<table>
+	<tr class="email-intro">
+		<td>
+			{{depend quote.getCustomerName()}}
+			<p class="greeting">{{trans "%customer_name," customer_name=$quote.getCustomerName()}}</p>
+			{{/depend}}
+			<p>
+				<strong>{{trans "Your Quote Status: %quote_status." quote_status=$lofquote.getStatus()}}</strong>
+			</p>
+			<p>
+				{{trans "Thank you for your quote request from %store_name." store_name=$store.getFrontendName()}}
+				{{trans 'You can check the status of your quote request by <a href="%account_url">logging into your account</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
+			</p>
+			<p>
+				{{trans 'Or you can check the status of your quote request by <a href="%tracking_url">open the track link</a>.' tracking_url=$this.getUrl($store,'quotation/track/',[_nosid:1,email:$lofquote.getEmail(),qid:$lofquote.getIncrementId()]) |raw}} 
+			</p>
+			<p>
+				{{trans "Your quotation details are below. Thank you again for your interest."}}
+			</p>
+			<p>
+				{{trans 'If you have questions about your quote request, you can email us at <a href="mailto:%store_email">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}.
+				{{depend store_hours}}
+				{{trans 'Our hours are <span class="no-link">%store_hours</span>.' store_hours=$store_hours |raw}}
+				{{/depend}}
+			</p>
+		</td>
+	</tr>
+	<tr class="email-summary">
+		<td>
+			<h1>{{trans 'Quote Request ' }}<span class="no-link">#{{var increment_id}}</span></h1>
+			<p>{{trans 'Placed on ' }}<span class="no-link">{{var created_at}}</span></p>
+		</td>
+	</tr>
+	<tr class="email-information">
+		<td>
+			{{depend quote.getCustomerNote()}}
+			<table class="message-info">
+				<tr>
+					<td>
+						{{var quote.getCustomerNote()|html}}
+					</td>
+				</tr>
+			</table>
+			{{/depend}}
+
+			{{depend lofquote.getAdminNote()}}
+			<table class="message-info">
+				<tr>
+					<td>
+						<h3>{{trans 'Admin Note' }}</h3>
+						<br/>
+						{{var lofquote.getAdminNote()|html}}
+					</td>
+				</tr>
+			</table>
+			{{/depend}}
+
+			{{depend lofquote.getTerms()}}
+			<table class="message-info">
+				<tr>
+					<td>
+						<h3>{{trans 'Terms' }}</h3>
+						<br/>
+						{{var lofquote.getTerms()|html}}
+					</td>
+				</tr>
+			</table>
+			{{/depend}}
+
+			{{depend lofquote.getWtexpect()}}
+			<table class="message-info">
+				<tr>
+					<td>
+						<h3>{{trans 'What to expect' }}</h3>
+						<br/>
+						{{var lofquote.getWtexpect()|html}}
+					</td>
+				</tr>
+			</table>
+			{{/depend}}
+
+			{{depend lofquote.getBreakLine()}}
+			<table class="message-info">
+				<tr>
+					<td>
+						<h3>{{trans 'Break Line' }}</h3>
+						<br/>
+						{{var lofquote.getBreakLine()|html}}
+					</td>
+				</tr>
+			</table>
+			{{/depend}}
+
+			{{layout handle="quotation_email_order_items" order=$quote area="frontend"}}
+
+		</td>
+	</tr>
+	<tr class="customer-information">
+		<td>
+			<h2>{{trans 'Customer Information' }}</h2>
+			<table class="customer-info">
+				{{depend lofquote.getCompany()}}
+				<tr>
+					<td>
+						<span>{{trans 'Company: ' }}</span>{{var lofquote.getCompany()|escape|nl2br}}
+					</td>
+				</tr>
+				{{/depend}}
+				{{depend lofquote.getTelephone()}}
+				<tr>
+					<td>
+						<span>{{trans 'Telephone: ' }}</span>{{var lofquote.getTelephone()|escape|nl2br}}
+					</td>
+				</tr>
+				{{/depend}}
+				{{depend lofquote.getAddress()}}
+				<tr>
+					<td>
+						<span>{{trans 'Address: ' }}</span>{{var lofquote.getAddress()|escape|nl2br}}
+					</td>
+				</tr>
+				{{/depend}}
+				{{depend lofquote.getStreet()}}
+				<tr>
+					<td>
+						<span>{{trans 'Street: ' }}</span>{{var lofquote.getStreet()|escape|nl2br}}
+					</td>
+				</tr>
+				{{/depend}}
+				{{depend lofquote.getCity()}}
+				<tr>
+					<td>
+						<span>{{trans 'City: ' }}</span>{{var lofquote.getCity()|escape|nl2br}}
+					</td>
+				</tr>
+				{{/depend}}
+				{{depend lofquote.getRegion()}}
+				<tr>
+					<td>
+						<span>{{trans 'Region: ' }}</span>{{var lofquote.getRegion()|escape|nl2br}}
+					</td>
+				</tr>
+				{{/depend}}
+
+				{{depend lofquote.getCountryId()}}
+				<tr>
+					<td>
+						<span>{{trans 'Country Id: ' }}</span>{{var lofquote.getCountryId()|escape|nl2br}}
+					</td>
+				</tr>
+				{{/depend}}
+
+				{{depend lofquote.getQuestion()}}
+				<tr>
+					<td>
+						<span>{{trans 'Questions: ' }}</span><br/>
+						{{var lofquote.getQuoteQuestions()|html}}
+					</td>
+				</tr>
+				{{/depend}}
+				
+			</table>
+		</td>
+	</tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

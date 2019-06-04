@@ -1,0 +1,29 @@
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"
+        >
+    <body>
+        <referenceContainer name="left">
+            <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit\Tabs" name="checkoutfieldsmanager_checkoutattribute_edit_tabs">
+                <container label="Main" name="main">
+                    <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit\Tab\Main" name="properties"/>
+                    <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit\Options\Options" as="options"/>
+                    <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit\Tab\Advanced" name="advanced"/>
+                </container>
+                <block class="Magento\Eav\Block\Adminhtml\Attribute\Edit\Options\Labels" as="labels"/>
+                <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit\Tab\Websitesstoreviews" name="checkoutfieldsmanager_checkoutattribute_edit_tab_websitesstoreviews"/>
+                <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit\Tab\Front" name="front"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit" name="checkoutfieldsmanager_checkoutattribute_edit"/>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\CheckoutAttribute\Edit\Template" name="attribute_edit_js" template="Aitoc_CheckoutFieldsManager::checkoutattribute/js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

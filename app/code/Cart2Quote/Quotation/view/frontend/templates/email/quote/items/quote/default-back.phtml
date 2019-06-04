@@ -1,0 +1,94 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+/** @var $block \Cart2Quote\Quotation\Block\Quote\Email\Items\DefaultItems */
+
+/** @var $_item \Magento\Quote\Model\Quote\Item */
+$_item = $block->getItem();
+$_quote = $_item->getQuote();
+?>
+<?php 
+$productId = $_item->getProductId();
+$objectManagerHere = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManagerHere->get('Magento\Catalog\Model\Product')->load($productId);
+$productImage = $this->helper('Magento\Catalog\Helper\Image')->init($product, 'category_page_list', array('height' => '135' , 'width'=> '135'))->getUrl();
+?>
+<tr>
+    <td class="item-info<?php if ($block->getItemOptions()) : ?> has-extra<?php endif; ?>">
+	   
+        <strong class="product-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+
+        <p class="sku"><?= __('SKU'); ?>: <?= $block->escapeHtml($block->getSku($_item)) ?></p>
+        <?php if ($block->getItemOptions()) : ?>
+            <dl class="item-options">
+                <?php foreach ($block->getItemOptions() as $option) : ?>
+                    <dt><strong><em><?= $option['label'] ?></em></strong></dt>
+                    <dd>
+                        <?= nl2br($option['value']) ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) : ?>
+            <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+        <?php endif; ?>
+    </td>
+	<td>
+	 <p class="sku">
+               <img height="100" width="100" src="<?= $productImage ?>" alt="<?= __('Product Image');?>">
+            </p>
+	</td>
+    <td class="item-qty"><?= $_item->getQty() * 1 ?></td>
+</tr>
+
+<?php if ($_item->getDescription()) : ?>
+    <tr>
+        <td class="item-comment">
+            <div class="item-comment-container">
+                <span class="product-name"><?= __('Comment'); ?></span>
+                <?php echo $_item->getDescription(); ?>
+            </div>
+        </td>
+        <td></td>
+    </tr>
+<?php endif; ?>
+<?php
+$_giftMessageHelper = $this->helper('Magento\GiftMessage\Helper\Message');
+if ($_item->getGiftMessageId() && $_giftMessage = $_giftMessageHelper->getGiftMessage($_item->getGiftMessageId())) : ?>
+    <tr>
+        <td colspan="3" class="item-extra">
+            <table class="message-gift">
+                <tr>
+                    <td>
+                        <h3><?= __('Gift Message') ?></h3>
+                        <strong><?= __('From:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                        <br/><strong><?= __('To:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br/><strong><?= __('Message:'); ?></strong>
+                        <br/><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+<?php endif; ?>

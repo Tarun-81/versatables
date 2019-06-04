@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the commercial license
+ * that is bundled with this package in the file LICENSE.txt.
+ *
+ * @category Extait
+ * @package Extait_ZendeskChat
+ * @copyright Copyright (c) 2016-2018 Extait, Inc. (http://www.extait.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="extait" translate="label" sortOrder="550">
+            <label>Extait Modules</label>
+        </tab>
+
+        <section id="extait_zendesk_chat" translate="label" showInDefault="1" showInStore="1" showInWebsite="1">
+            <resource>Extait_ZendeskChat::config</resource><!-- ACL -->
+            <class>separator-top</class>
+            <label>Zendesk Chat</label>
+            <tab>extait</tab>
+
+            <group id="general" translate="label" type="text" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>General Settings</label>
+
+                <field id="enable" translate="label comment" type="select" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="script" translate="label comment" type="textarea" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Zendesk Chat Script</label>
+                    <comment>Insert the script from your Zendesk Chat Account provided on the Widget Settings page</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

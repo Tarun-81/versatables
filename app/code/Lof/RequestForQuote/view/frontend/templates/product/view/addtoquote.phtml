@@ -1,0 +1,58 @@
+<?php
+/** @var $block \agento\Catalog\Block\Product\View */
+?>
+<?php 
+$helper                  = $this->helper("Lof\RequestForQuote\Helper\Data"); 
+$enable_addtoquote_product = $helper->getConfig('general/enable_addtoquote_product');
+$enable_addtoquote_product = ($enable_addtoquote_product !==null)?(int)$enable_addtoquote_product:1;
+$_product = $block->getProduct();
+if($is_enable_quote = $helper->isEnabledAddToQuote($_product, $enable_addtoquote_product)) {
+?>
+<?php $buttonTitle = __('Add to Quote'); ?>
+    <?php if($_product->isSaleable() || ($enable_addtoquote_nonsale && !$_product->isSaleable())) { ?>
+    <button type="button"
+                    title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+                    class="action primary toquote"
+                    id="product-addtoquote-button">
+        <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+    </button>
+    <script>
+    require([
+        'jquery',
+        'mage/mage',
+        'Lof_RequestForQuote/js/catalog-add-to-quote'
+    ], function($) {
+        'use strict'
+        var addToQuote = false;
+        $('#product_addtocart_form').mage('validation', {
+                radioCheckboxClosest: '.nested',
+                submitHandler: function (form) {
+                    if (addToQuote) {
+                        var widget = $(form).catalogAddToQuote({
+                            bindSubmit: false,
+                            quoteFormUrl: addToQuote
+                        });
+                        widget.catalogAddToQuote('submitForm', $(form));
+                        addToQuote = false;
+                    } else {
+                        
+                        var widget = $(form).catalogAddToCart({
+                            bindSubmit: false
+                        });
+                        widget.catalogAddToCart('submitForm', $(form));
+                    }
+                    return false;
+                }
+        });
+        $('#product-addtoquote-button').click(function (e) {
+            addToQuote = $('#product_addtocart_form').attr('action').replace("checkout/cart/add", "quotation/cart/add");
+            if(addToQuote){
+                $('#product_addtocart_form').submit();
+            }
+        });
+        
+        
+        });
+    </script>
+    <?php } ?>
+<?php } ?>

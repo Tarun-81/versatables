@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ *
+ * Magenest_ZohocrmIntegration extension
+ * NOTICE OF LICENSE
+ *
+ * @category  Magenest
+ * @package   Magenest_ZohocrmIntegration
+ * @author ThaoPV
+ */
+
+?>
+<?php
+/** @var $block \Magenest\ZohocrmIntegration\Block\Adminhtml\System\Config\GetAuthorizationCode */
+?>
+<div class="actions action-validate-get-authorization-code">
+
+    <button class="" type="button" id="<?php echo $block->getHtmlId() ?>">
+        <span><?php /* @escapeNotVerified */
+            echo $block->escapeHtml($block->getButtonLabel()) ?></span>
+    </button>
+
+</div>
+<script>
+    require(['jquery'], function (jQuery) {
+        jQuery('.action-validate-get-authorization-code').click(function () {
+            var clientId = jQuery('#zohocrm_config_client_id').val();
+            var scope = "<?= $block->getScope(); ?>";
+            var redirectUri = "<?= $block->getredirectUri(); ?>";
+            var url = '<?= $block->getUrlGetToken() ?>' +
+                '?scope=' + scope +
+                '&client_id=' + clientId +
+                '&response_type=code&access_type=offline&' +
+                'redirect_uri=' + redirectUri;
+
+            window.location.href = url;
+
+
+        });
+    });
+</script>

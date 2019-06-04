@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Order Items List" design_abstraction="custom">
+    <body>
+        <block class="Aitoc\CheckoutFieldsManager\Block\Adminhtml\Sales\Order\Invoice\AitocCheckoutFields" name="custom_fields" template="Aitoc_CheckoutFieldsManager::order/aitoccheckoutfields.phtml">
+            <arguments>
+                <argument name="edit_url" xsi:type="string">0</argument>
+            </arguments>
+        </block>
+    </body>
+</page>

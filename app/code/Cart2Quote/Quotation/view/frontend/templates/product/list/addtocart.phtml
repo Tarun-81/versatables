@@ -1,0 +1,92 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+use Magento\Framework\App\Action\Action;
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $parentBlock = $block->getParentBlock(); ?>
+<?php $_product = $block->getListProduct(); ?>
+<?php $cartButtonTitle = __('Add to Cart'); ?>
+<?php $quoteButtonTitle = __('Add to Quote'); ?>
+<?php $quoteCondition = 'cart2quote_quotation/global/show_btn_list'; ?>
+
+<?php if ($_product->isSaleable() || $block->showQuoteButton($quoteCondition)) : ?>
+
+    <!-- Cart button start -->
+    <?php if ($_product->isSaleable()) : ?>
+	    <a href="<?php echo $_product->getProductUrl() ?>" tabindex="-1"><span class="list-more-info">More Info</span></a>
+        <?php //$postParamsCart = $parentBlock->getAddToCartPostParams($_product); ?>
+        <!--<form data-role="tocart-form" action="<?php //echo $postParamsCart['action']; ?>" method="post">
+            <input type="hidden" name="product" value="<?php //echo $postParamsCart['data']['product']; ?>">
+            <input type="hidden" name="<?php //echo Action::PARAM_NAME_URL_ENCODED; ?>"
+                   value="<?php //echo $postParamsCart['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+            <?php //echo $parentBlock->getBlockHtml('formkey') ?>
+            <button type="submit"
+                    title="<?php //echo $block->escapeHtml($cartButtonTitle); ?>"
+                    class="action tocart primary">
+                <span><?php //echo $cartButtonTitle ?></span>
+            </button>
+        </form>-->
+    <?php endif; ?>
+    <!-- Cart button stop -->
+    <br/>
+    <!-- Quote button start -->
+    <?php if ($block->showQuoteButton($quoteCondition)) : ?>
+        <?php $postParamsQuote = $block->getAddToQuotePostParams($_product); ?>
+        <form data-role="toquote-form" action="<?php echo $postParamsQuote['action']; ?>" method="post">
+            <input type="hidden" name="product" value="<?php echo $postParamsQuote['data']['product']; ?>">
+            <input type="hidden" name="<?php echo Action::PARAM_NAME_URL_ENCODED; ?>"
+                   value="<?php echo $postParamsQuote['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+            <button type="submit"
+                    title="<?php echo $block->escapeHtml($quoteButtonTitle); ?>"
+                    class="action tocart quote-btn-list"
+                    onclick="event.preventDefault(); checkform(event)">
+                <span><?php echo $quoteButtonTitle ?></span>
+            </button>
+
+        </form>
+    <?php endif; ?>
+    <!-- Quote button stop -->
+
+<?php else : ?>
+    <?php if ($_product->getIsSalable()) : ?>
+        <div class="stock available"><span><?php echo __('In stock') ?></span></div>
+    <?php else : ?>
+        <div class="stock unavailable"><span><?php echo __('Out of stock') ?></span></div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    function checkform(event) {
+        var quoteForm = jQuery(event.target).parents('form:first').first();
+        var orderForm = quoteForm.siblings('form').first();
+        jQuery(orderForm).find('input.swatch-input').each(function() {
+            var input = jQuery(this);
+            if (input.val()) {
+                input.clone().appendTo(quoteForm);
+            }
+        });
+        quoteForm.submit();
+    }
+</script>

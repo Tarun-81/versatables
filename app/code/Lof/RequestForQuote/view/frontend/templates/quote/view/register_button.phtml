@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php  $_quote = $block->getRfqQuote() ?>
+<?php 
+if($_quote && !$this->checkExistsCustomer($_quote->getEmail())){ 
+?>
+<div class="actions">
+    <a style="float: right;" class="action signup"
+       href="<?php /* @escapeNotVerified */ echo $block->getSignInUrl($_quote) ?>"
+       onclick="this.target='_blank';">
+        <span><?php /* @escapeNotVerified */ echo __('Signup') ?></span>
+    </a>
+</div>
+<?php } ?>

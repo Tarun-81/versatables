@@ -1,0 +1,88 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+?>
+<?php if ($block->canDisplayGiftmessage()) : ?>
+    <?php $_required = $block->getMessage()->getMessage() != '' ?>
+    <div id="<?php echo $block->getHtmlId() ?>" class="admin__page-section-content giftmessage-whole-quote-container">
+        <form class="entry-edit form-inline" id="<?php echo $block->getFieldId('form'); ?>"
+              action="<?php echo $block->getSaveUrl(); ?>">
+            <fieldset class="admin__fieldset">
+                <legend class="admin__legend"><span><?php echo __('Gift Message for the Entire Quote'); ?></span>
+                </legend>
+                <br/>
+
+                <input type="hidden" id="<?php echo $block->getFieldId('type'); ?>"
+                       name="<?php echo $block->getFieldName('type'); ?>"
+                       value="quote"/>
+
+                <div class="admin__field field-from-name<?php echo $_required ? ' required' : ''; ?>">
+                    <label class="admin__field-label"
+                           for="<?php echo $block->getFieldId('sender'); ?>">
+                        <span><?php echo __('From Name'); ?></span>
+                    </label>
+
+                    <div class="admin__field-control">
+                        <input class="admin__control-text <?php echo $_required ? 'required-entry' : ''; ?>" type="text"
+                               id="<?php echo $block->getFieldId('sender'); ?>"
+                               name="<?php echo $block->getFieldName('sender'); ?>"
+                               value="<?php echo $block->escapeHtml($block->getMessage()->getSender()); ?>"/>
+                    </div>
+                </div>
+
+                <div class="admin__field field-to-name<?php echo $_required ? ' required' : ''; ?>">
+                    <label class="admin__field-label"
+                           for="<?php echo $block->getFieldId('recipient'); ?>">
+                        <span><?php echo __('To Name'); ?></span>
+                    </label>
+
+                    <div class="admin__field-control">
+                        <input class="admin__control-text <?php echo $_required ? 'required-entry' : ''; ?>" type="text"
+                               id="<?php echo $block->getFieldId('recipient'); ?>"
+                               name="<?php echo $block->getFieldName('recipient'); ?>"
+                               value="<?php echo $block->escapeHtml($block->getMessage()->getRecipient()); ?>"/>
+                    </div>
+                </div>
+
+                <div class="admin__field field-gift-message">
+                    <label class="admin__field-label"
+                           for="<?php echo $block->getFieldId('message'); ?>">
+                        <span><?php echo __('Gift Message'); ?></span>
+                    </label>
+
+                    <div class="admin__field-control">
+                    <textarea id="<?php echo $block->getFieldId('message'); ?>"
+                              name="<?php echo $block->getFieldName('message') ?>"
+                              class="admin__control-textarea"
+                              rows="2"
+                              cols="15"><?php echo $block->escapeHtml($block->getMessage()->getMessage()); ?></textarea>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <?php echo $block->getSaveButtonHtml(); ?>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+<?php endif ?>

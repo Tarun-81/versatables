@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="betterdeals" translate="label" sortOrder="100000">
+            <label>Better Deals</label>
+        </tab>
+
+        <section id="zopim" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Zopim Chat</label>
+            <tab>betterdeals</tab>
+            <resource>BetterDeals_ZopimChat::zopim</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="default" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                    <comment><![CDATA[Override the default behavior in the field <i>Exceptions</i> below.]]></comment>
+                </field>
+                <field id="override" translate="label comment" type="textarea" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exceptions</label>
+                    <comment><![CDATA[Layout handles for which you want to change the default behavior. <i>(Line-Delimited)</i><br/>Please see the documentation if you have troubles with this option.]]></comment>
+                </field>
+                <field id="widget_code" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Widget Code</label>
+                    <comment><![CDATA[Widget code provided on the Zopim dashboard page under <i>Settings &gt; Widget</i>.]]></comment>
+                </field>
+            </group>
+            <group id="cookie_law" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cookie Law</label>
+                <comment>EU Cookie Law (e-Privacy Directive) compliance modes</comment>
+                <field id="comply" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Comply</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Display a notice that cookies are used the first time the visitor opens the chat window. Visitors can choose to allow or disallow cookies from the Options menu only when this function is called.</comment>
+                </field>
+                <field id="comply_explicit" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Law Comply Explicit</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Disable the live chat widget and do not store cookies until the visitor explicitly allows the use of cookies.</comment>
+                    <depends><field id="comply">1</field></depends>
+                </field>
+            </group>
+            <group id="customer_data" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Data</label>
+                <comment>Use customer's data in the chat if the customer is logged in.</comment>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Name</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Send customer's name.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="email" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Send customer's email.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="telephone" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Telephone</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Send customer's telephone.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+                <field id="orders" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Send customer's orders as tags.</comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

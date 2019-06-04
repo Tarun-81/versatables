@@ -1,0 +1,58 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="catalog_product_view"/>
+    <body>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="checkout_cart_configure_head_components" template="Magento_Checkout::js/components.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="product.info">
+            <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Configure" name="checkout.cart.item.configure.block"/>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Cart2Quote_Quotation::checkout/cart/item/configure/updatequote.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Cart2Quote_Quotation::checkout/cart/item/configure/updatequote.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="reviews.tab">
+            <block class="Magento\Review\Block\Form\Configure" name="product.review.form" as="review_form">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="review-form" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Review/js/view/review</item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+                <container name="product.review.form.fields.before" as="form_fields_before" label="Review Form Fields Before"/>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<!--
+  ~
+  ~
+  ~ CART2QUOTE CONFIDENTIAL
+  ~ __________________
+  ~
+  ~  [2009] - [2017] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ All information contained herein is, and remains
+  ~ the property of Cart2Quote B.V. and its suppliers,
+  ~ if any.  The intellectual and technical concepts contained
+  ~ herein are proprietary to Cart2Quote B.V.
+  ~ and its suppliers and may be covered by European and Foreign Patents,
+  ~ patents in process, and are protected by trade secret or copyright law.
+  ~ Dissemination of this information or reproduction of this material
+  ~ is strictly forbidden unless prior written permission is obtained
+  ~ from Cart2Quote B.V.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Cart2Quote\AutoProposal\Model\Config\Source\AutoProposal\Strategies">
+        <arguments>
+            <argument name="options" xsi:type="array">
+                <item name="tier_pricing" xsi:type="string" translate="true">Tier Pricing</item>
+                <item name="subtotal_ranges" xsi:type="string" translate="true">Subtotal ranges</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\AutoProposal\Model\Quote\AutoProposal\Strategy\StrategyProvider">
+        <arguments>
+            <argument name="strategyMap" xsi:type="array">
+                <item name="tier_pricing" xsi:type="object">Cart2Quote\AutoProposal\Model\Quote\AutoProposal\Strategy\TierPricing</item>
+                <item name="subtotal_ranges" xsi:type="object">Cart2Quote\AutoProposal\Model\Quote\AutoProposal\Strategy\Range</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\Model\EmailsSenders">
+        <arguments>
+            <argument name="emailSenderHandlers" xsi:type="array">
+                <item name="Cart2QuoteQuotationNotifySalesRepEmail" xsi:type="object">Cart2QuoteQuotationNotifySalesRepEmail</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\AutoProposal\Model\Quote\Email\Sender\NotifySalesRepSender">
+        <arguments>
+            <argument name="identityContainer" xsi:type="object">Cart2Quote\AutoProposal\Model\Quote\Email\Container\NotifySalesRepIdentity</argument>
+        </arguments>
+    </type>
+    <virtualType name="Cart2QuoteQuotationNotifySalesRepEmail" type="Cart2Quote\Quotation\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Cart2Quote\AutoProposal\Model\Quote\Email\Sender\NotifySalesRepSender</argument>
+        </arguments>
+    </virtualType>
+</config>

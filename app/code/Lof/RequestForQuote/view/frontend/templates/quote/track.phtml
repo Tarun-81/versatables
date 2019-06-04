@@ -1,0 +1,40 @@
+<?php 
+$default_quote_id = "";
+$default_email = "";
+$rfqQuote = $this->getRfqQuote();
+if($rfqQuote){
+	$default_quote_id = $rfqQuote->getIncrementId();
+	$default_email = $rfqQuote->getEmail();
+}
+
+?>
+<div class="block block-tracking-quote">
+<div class="block-title"><strong role="heading" aria-level="2"><?php echo __('Track your quote'); ?></strong></div>
+<div class="block-content">
+<form name="track_quote" id="track_quote" class="form" action="<?php echo $this->getUrl("quotation/track/"); ?>" method="post" data-hasrequired="* Required Fields" novalidate="novalidate" enctype="multipart/form-data" autocomplete="off">
+    <fieldset class="fieldset create info" data-hasrequired="* Required Fields">
+        <div class="field note"><?php echo __('Enter your email address and Quote Id to track your quote summary.'); ?></div>
+        <div class="field quote-id required">
+            <label for="qid" class="label"><span><?php echo __('Quote Id') ?></span></label>
+            <div class="control">
+                <input type="text" name="qid" id="qid" value="<?php echo $default_quote_id; ?>" title="<?php echo __('Quote Id') ?>" class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field email-address required">
+            <label for="email" class="label"><span><?php echo __('Email Address') ?></span></label>
+            <div class="control">
+                <input type="email" name="email" id="email" value="<?php echo $default_email; ?>" title="<?php  echo __('Email Address') ?>" class="input-text" data-validate="{required:true, 'validate-email':true}">
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="<?php  echo __('Track Quote') ?>" name="track" id="track"><span><?php  echo __('Track Quote') ?></span></button>
+            </div>
+        </div>
+        <div class="hide">
+            <input type="hidden" name="ajax" value="0"/>
+        </div>
+    </fieldset>
+</form>
+</div>
+</div>

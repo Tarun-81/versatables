@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="get_quote" label="Get A Quote" file="quote_email_template.html" type="html" module="AppsyscoQuote_QuoteForm" area="frontend"/>
+	<template id="get_quote_to_customer" label="Get A Quote" file="customer_quote_email.html" type="html" module="AppsyscoQuote_QuoteForm" area="frontend"/>
+</config>

@@ -1,0 +1,18 @@
+<?php /** @var  $block \Cart2Quote\Quotation\Block\Quote\View */ ?>
+<div class="order-details-items ordered">
+    <?php $_quote = $block->getQuote(); ?>
+
+    <div class="order-title" style="display:none;">
+        <strong><?php echo __('Items Requested') ?></strong>
+    </div>
+    <?php echo $block->getChildHtml('quote_items') ?>
+
+    <div class="actions-toolbar">
+        <div class="secondary">
+            <a class="action back" href="<?php echo $block->getBackUrl() ?>">
+                <span><?php echo $block->getBackTitle() ?></span>
+            </a>
+        </div>
+    </div>
+</div>
+

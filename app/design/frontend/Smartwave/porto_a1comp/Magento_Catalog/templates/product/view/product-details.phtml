@@ -1,0 +1,37 @@
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<?php $_product = $block->getProduct(); ?>
+
+<div class="proOverView">
+	<h2><?php echo $_product->getName().' Product Details'; ?></h2>
+    <div class="inrBox">
+    	<div class="mainbox"> <!-- Main Box data Begins--> 
+            <?php if ($_product->getDescription()): ?> <!-- Product Description  --> 
+              <!--<p class="heading"><strong>Description</strong></p>-->
+              <div class="pro-desc">  <?php echo $this->helper('Magento\Catalog\Helper\Output')->productAttribute($block->getProduct(), $block->getProduct()->getDescription(), 'description'); ?></div>
+            <?php endif; ?>
+                
+            <?php if ($_product->getShortDescription()): ?>   <!-- Suggested Use Data    -->  
+              <p class="heading suggested"><strong>Product Features</strong></p>
+              <div class="pro-desc">    <?php echo $_product->getShortDescription(); ?></div>
+            <?php endif; ?>
+        </div>
+        <!-- Main Box data Ends-->
+    </div>
+</div> 
+<div style="clear: both;"></div>
+<script type="text/javascript">
+                    require([
+                        'jquery'
+                    ], function ($) {
+                        $(document).ready(function(){
+                            $(".product-reviews-summary .reviews-actions a.action.view").off("click").on("click", function(){
+                                $("#customer-reviews").scrollToMe();
+                                return false;
+                            });
+                            $(".product-reviews-summary .reviews-actions a.action.add").off("click").on("click", function(){
+                                $("#review-form").scrollToMe();
+                                return false;
+                            });
+                         });
+                    });
+                </script>

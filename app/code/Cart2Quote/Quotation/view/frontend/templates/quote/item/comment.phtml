@@ -1,0 +1,16 @@
+<?php /** @var Cart2Quote\Quotation\Block\Quote\Item\Renderer\DefaultRenderer $block */ ?>
+<?php if (!$block->isProductRemarkDisabled()) : ?>
+    <div class="control comment">
+        <textarea id="quote-<?php echo $block->getQuoteItem()->getId(); ?>-description"
+                  name="cart[<?php echo $block->getQuoteItem()->getId(); ?>][description]"
+                  title="Description"
+                  placeholder="<?php echo __('Enter your comments at any time.') ?>"
+                  class="input-text quotation-product-comment"
+                  maxlength="1024" disabled
+                  data-mage-init='{"productUpdater":{
+                        "itemId": <?php echo $block->getQuoteItem()->getId(); ?>,
+                        "sessionProductKey": "description"
+               }}'></textarea>
+    </div>
+    <?php
+endif;

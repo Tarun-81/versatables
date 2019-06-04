@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="MageWorx_Downloads::downloads"   title="MageWorx Downloads" module="MageWorx_Downloads" sortOrder="50" parent="Magento_Backend::stores"  resource="MageWorx_Downloads::downloads" />
+        <add id="MageWorx_Downloads::sections"  title="Manage Section" module="MageWorx_Downloads" sortOrder="5" parent="MageWorx_Downloads::downloads" action="mageworx_downloads/section/index" dependsOnModule="Magento_Catalog" resource="MageWorx_Downloads::sections" />
+        <add id="MageWorx_Downloads::attachments"  title="Manage Attachments" module="MageWorx_Downloads" sortOrder="10" parent="MageWorx_Downloads::downloads" action="mageworx_downloads/attachment/index" dependsOnModule="Magento_Catalog" resource="MageWorx_Downloads::attachments" />
+    </menu>
+</config>

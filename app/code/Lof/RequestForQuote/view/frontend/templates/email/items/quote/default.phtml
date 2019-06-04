@@ -1,0 +1,101 @@
+<?php
+/** @var $block \Lof\RequestForQuote\Block\Quote\Email\Items\Quote\DefaultQuote */
+$_item = $block->getItem();
+$store = $_item->getStore();
+$rfqHelper       = $this->helper('Lof\RequestForQuote\Helper\Data');
+$enable_price             = $rfqHelper->getConfig("general/enable_price");
+$qty_item = (int)($_item->getQty() * 1);
+$quote = $_item->getQuote();
+$currency_code = $quote?$quote->getQuoteCurrencyCode():null;
+/*$_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$currency = $_objectManager->create('Magento\Directory\Model\CurrencyFactory')->create()->load($currency_code);
+$currencySymbol = $currency->getCurrencySymbol();
+$price_text = (strip_tags($block->getItemPrice($_item)));
+$all_price = str_replace($currencySymbol,"",$price_text);
+$unit_price = ((int)$all_price) / $qty_item;*/
+$item_price = $_item->getCustomPrice();
+if($item_price == null || $item_price == '') {
+    $item_price = $_item->getPrice();
+}
+$unit_price = $item_price;
+?>
+<tr>
+    <td class="item-info<?php if ($block->getItemOptions()): ?> has-extra<?php endif; ?>">
+		<div class="product-img-sec" style="float:left;padding-right:0px; padding-left: 10px;">
+			<img src="<?php echo $block->getProductImage($store, $_item->getProduct()->getId()); ?>" width="165"/>
+		</div>
+    </td>
+	<td class="item-name">
+		<div class="product-info-sec" style="float:left; padding-top: 10px;">
+			<p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
+			<?php /*$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+				  $productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+				  $productObj = $productRepository->get($_item->getSku());*/
+				  if ($_item->getProduct()->getTypeInstance(true)->getOrderOptions($_item->getProduct())):
+				  $item_val = $_item->getProduct()->getTypeInstance(true)->getOrderOptions($_item->getProduct());
+				    echo '<dl class="item-options">';
+					/*$color_option = $productObj->getAttributeText("color");
+					if($color_option != '') {
+						echo '<dt style="padding-right:8px;float:left;"><strong><em>Color: </strong></dt>
+							  <dd>'.$color_option.'</dd>';
+					} */
+					if(isset($item_val['options'])){
+						foreach ($item_val['options'] as $option) {
+							echo '<dt style="padding-right:8px;float:left;margin-bottom:2px;"><strong><em>'.$option['label'].': </strong></dt>
+								  <dd style="margin-bottom:2px;">'.nl2br($option['value']).'</dd>';
+						}
+					}
+					if(isset($item_val['attributes_info'])){
+						foreach ($item_val['attributes_info'] as $options) {
+							echo '<dt style="padding-right:8px;float:left;margin-bottom:2px;"><strong><em>'.$options['label'].': </strong></dt>
+								  <dd style="margin-bottom:2px;">'.nl2br($options['value']).'</dd>';
+						}
+					}
+					echo '</dl>';
+				  endif;
+			?>
+			<?php if ($block->getItemOptions()): ?>
+				<dl class="item-options">
+				<?php foreach ($block->getItemOptions() as $option): ?>
+					<dt style="padding-right:8px;float:left;margin-bottom:2px;"><strong><em><?= /* @escapeNotVerified */  $option['label'] ?></em></strong></dt>
+					<dd style="margin-bottom:2px;">
+						<?= /* @escapeNotVerified */  nl2br($option['value']) ?>
+					</dd>
+				<?php endforeach; ?>
+				</dl>
+			<?php endif; ?>
+			<?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+			<?php if ($addInfoBlock) :?>
+				<?= $addInfoBlock->setItem($_item)->toHtml() ?>
+			<?php endif; ?>
+			<?= $block->escapeHtml($_item->getDescription()) ?>
+		</div>
+	</td>
+	<?php
+		//$product_sku = $_item->getProduct()->getSku();
+	?>
+	<td class="item-sku" style="padding-top:17px !important;"><?= /* @escapeNotVerified */  $_item->getSku() ?></td>
+	<td class="item-qty" style="padding-top:17px !important;"><?= /* @escapeNotVerified */  $_item->getQty() * 1 ?></td>
+   <?php if($enable_price) { ?>
+    <td class="item-price" style="padding-top:17px !important;">
+        <span class="price"><?php echo $rfqHelper->formatPrice($unit_price, false, $currency_code); ?></span>
+    </td>
+    <?php } ?>
+</tr>
+<?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessage($_item->getGiftMessageId())): ?>
+<tr>
+    <td colspan="3" class="item-extra">
+        <table class="message-gift">
+            <tr>
+                <td>
+                    <h3><?= /* @escapeNotVerified */  __('Gift Message') ?></h3>
+                    <strong><?= /* @escapeNotVerified */  __('From:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                    <br /><strong><?= /* @escapeNotVerified */  __('To:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                    <br /><strong><?= /* @escapeNotVerified */  __('Message:'); ?></strong>
+                    <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<?php endif; ?>

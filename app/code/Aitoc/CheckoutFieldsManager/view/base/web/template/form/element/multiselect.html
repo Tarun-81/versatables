@@ -1,0 +1,19 @@
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+<select multiple class="multiselect" data-bind="
+    attr: {
+        name: inputName,
+        id: uid,
+        size: size ? size : '6',
+        disabled: disabled,
+        'aria-describedby': noticeId,
+        placeholder: placeholder
+    },
+    hasFocus: focused,
+    optgroup: options,
+    selectedOptions: value,
+    optionsCaption: caption,
+    optionsValue: 'value',
+    optionsText: 'label'"
+/>

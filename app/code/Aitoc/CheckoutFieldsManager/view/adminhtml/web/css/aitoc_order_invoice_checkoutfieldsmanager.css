@@ -1,0 +1,16 @@
+/*
+ * Copyright © 2018 Aitoc. All rights reserved.
+ */
+
+
+.order-invoice-additional-fields-block-a
+{
+  float: left;
+  width: calc( (100%) * .5 - 30px );
+}
+
+.order-invoice-additional-fields-block-b
+{
+  float: right;
+  width: calc( (100%) * .5 - 30px );
+}

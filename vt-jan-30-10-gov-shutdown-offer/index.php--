@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta charset="utf-8">
+    
+    <title>VersaTables</title>
+    
+    <link rel="icon" type="image/x-icon" href="https://www.versatables.com/pub/media/favicon/stores/1/VersaTablesLogo_favicon.png">
+    
+    <link rel="stylesheet" href="main.css">
+    
+        <style>
+    
+        .button:hover, .button-sml:hover {
+            background-color:#f69b31 !important;
+            transition: .5s;
+        }    
+        
+        @media only screen and (max-width: 600px) {
+            
+        .responsive-table {
+            width: 100% !important; 
+        }
+            
+        .responsive-img {
+            width: 100% !important; 
+            height: auto !important;
+        }
+        
+        .button-txt {
+            font-size: 20px !important;
+        }
+            
+        .terms {
+            font-size: 14px !important;
+        }
+                    
+        .links {
+            font-size: 20px !important;
+        }
+
+  
+        }
+            
+    </style>
+    
+    <style>
+    
+        .email-background {
+    background: #ffffff;
+    margin: 0 auto;
+    background: #eeeeee;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.email-container {
+    font-family: 'Muli', sans-serif, "Century Gothic", "CenturyGothic", "AppleGothic";
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 5px;
+    text-align: center;
+    font-style: normal;
+}
+
+table {
+    margin: 0 auto;
+}
+
+h1, h2, h3, h4, h5 {
+    padding: 2px;
+    margin: 0;
+    font-weight: normal;
+    line-height: 1.2;
+    text-decoration: none;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    border: none;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 45px;
+    font-weight: bold;
+    font-variant: small-caps;
+    line-height: 1.1;
+}
+
+h2 {
+    font-size: 24.5px;
+    font-weight: bold;
+    color: #1baec6;
+}
+
+h4 {
+    font-size: 19px;
+    text-transform: uppercase;
+    color: #000000;
+    letter-spacing: -1px;
+}
+
+h3 {
+    font-size: 18.5px;
+    color: #000000;
+}
+
+.button {
+    background-color:#ee9022;
+    border-radius: 10px;   
+    margin: auto;
+    cursor: pointer;
+}
+
+.button-txt {
+    font-size: 32.5px;
+    padding: 20px 30px;
+    color: #ffffff;
+}
+
+.footer-text {
+    margin: auto;
+    text-align: center;
+}
+
+.terms {
+    font-size: 15px;
+    color: #000000;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.limited {
+    font-weight: bold;
+    font-size: 24px;
+    color: #1baec6;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.footer-text a {
+    text-decoration: underline;
+}
+
+.links {
+    color:#000000;
+    font-size: 24px;
+}
+    
+    </style>
+        
+</head>
+    
+<body style="margin: 0;padding: 0;">
+    
+<!-- Gmail hack -->
+<div style="display:none; white-space:nowrap; font:15px courier; color:#ffffff; line-height:0; width:600px !important; min-width:600px !important; max-width:600px !important;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+<!-- /Gmail hack -->
+    
+<!--[if mso]>
+<style type="text/css">
+body, table, td, h1, h2, h3, h4, h5, p, a {font-family: 'Muli', sans-serif, "Century Gothic", "CenturyGothic", "AppleGothic" !important;}
+</style>
+<![endif]-->
+    
+<table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#eeeeee" class="responsive-table email-background email-container" role="presentation" align="center" style="margin: 0 auto;background: #eeeeee;font-family: 'Muli', sans-serif, &quot;Century Gothic&quot;, &quot;CenturyGothic&quot;, &quot;AppleGothic&quot;;overflow: hidden;border-radius: 5px;text-align: center;font-style: normal;">
+    <tr>
+        <td> 
+            <table width="1000" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" class="responsive-table" role="presentation" align="center" style="margin: 0 auto;">
+                <tr>
+                    <td>                        
+                        <a href="https://www.versatables.com/" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/i/pocNJ1q6j" alt="VersaTables" width="" border="0" style="font-size: 30px;color: #ee9022;text-align: center;text-transform: uppercase;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/standing-desks" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img921/9979/rINWAF.jpg" alt="For less than the cost of a yearly gym membership...  30% OFF - USE CODE: WECARE" width="" border="0" style="font-size: 30px;color: #ffffff;background: #b5b5b7;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/standing-desks" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/i/pmSvXZogj" alt="VersaTables Improves your health for a lifetime!" width="" border="0" style="font-size: 30px;color: #ffffff;background: #b5b5b7;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/standing-desks" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img923/987/fQ6N4k.jpg" alt="Decrease Back and Neck Pain - Helps with Weight Loss - Helps You Maintain a Better Posture - Better Circulation - Improved Core and Leg Muscles" width="1000" border="0" style="font-size: 16px;color: #000000;background: #edae5f;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/versa-desktop-riser" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img923/8700/K1OYLB.jpg" alt="10% OFF Power Pro & Power Pro Corner" width="" border="0" style="font-size: 30px;color: #ee9022;background: #ffffff;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/versa-desktop-riser" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img923/5180/Q2ROyE.jpg" alt="Power Pro" width="1000" border="0" style="font-size: 30px;color: #000000;background: #ffffff;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                    </td>
+                </tr>
+            </table>
+            
+            <table width="1000" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" class="responsive-table" role="presentation" align="center" style="margin: 0 auto;">
+                <tr>
+                    <td>
+                        <a href="https://www.versatables.com/versa-desktop-riser" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img924/3262/4y4W20.jpg" alt="Power Pro 36 Now $314.10" border="0" style="font-size: 20px;color: #000000;background: #ffffff;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.versatables.com/versadesk-power-pro-corner-desktop-riser" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img922/6497/6Cl9f9.jpg" alt="Power Pro Corner 36 Now $398.70" border="0" style="font-size: 20px;color: #000000;background: #ffffff;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                    </td>
+                </tr>
+            </table>
+            
+            <table width="1000" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" class="responsive-table" role="presentation" align="center" style="margin: 0 auto;">
+                <tr>
+                    <td> 
+                        <a href="https://www.versatables.com/standing-desks" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img921/6921/EeuDBR.jpg" alt="All Other Products 30% OFF" width="1000" border="0" style="font-size: 30px;color: #ee9022;background: #e9e9ea;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/sit-to-stand-desk" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img922/2931/u2jOfm.jpg" alt="Power Life Sit-to-Stand Desk System Was $799 - Now $559.30" width="" border="0" style="font-size: 20px;color: #000000;background: #ffffff;text-align: center;margin: auto;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                        
+                        <a href="https://www.youtube.com/watch?v=BLB5R5XXemI" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img924/283/nA02qF.jpg" alt="Jane & The Powerlift Sit-to-Stand Desk" style="background: #74ced8;color: #ffffff;font-size: 20px;text-align: center;max-width: 100%;display: block;border: none;" width="" border="0" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/standing-desks" target="_blank" style="text-decoration: none;">
+                        <img src="https://imageshack.com/a/img923/476/uXxbu7.jpg" alt="Improve Your Health at the Push of a Button!" style="background: #ffffff;color: #b5b5b7;font-size: 25px;text-align: center;max-width: 100%;display: block;border: none;" width="" border="0" class="responsive-img"></a>
+                        
+                        <a href="https://www.versatables.com/versa-desktop-riser" target="_blank" style="text-decoration: none;">
+                        <img src="http://i65.tinypic.com/258cxvl.gif" alt="" width="400" border="0" class="responsive-img" style="margin: auto;max-width: 100%;display: block;border: none;text-align: center;"></a>
+                        <br><br><br>
+                    </td>   
+                </tr>
+                
+                <tr>
+                    <td>                        
+                        <table border="0" cellpadding="0" cellspacing="0" align="center" class="button" role="presentation" style="margin: auto;background-color: #ee9022;border-radius: 10px;cursor: pointer;">
+                                <tr>
+                                    <td align="middle" class="button-txt" style="font-size: 32.5px;padding: 20px 30px;color: #ffffff;">
+                                        <a href="https://www.versatables.com/standing-desks" target="_blank" style="color:#FFFFFF; text-decoration:none;">
+                                            LEARN MORE</a>
+                                    </td>
+                                </tr>
+                        </table>               
+
+                        <br><br><br>
+                    </td>
+                </tr>
+            </table>
+            
+             <table width="1000" cellspacing="0" cellpadding="0" bgcolor="#ffffff" border="0" class="responsive-table" role="presentation" align="center" style="margin: 0 auto;">                
+                <tr>
+                    <td>   
+                        <br>
+                        <table width="1000" cellspacing="0" cellpadding="0" bgcolor="#ffffff" border="0" role="presentation" class="responsive-table" align="center" style="margin: 0 auto;">
+                            <tr>
+                                <td> 
+                                    <table width="700" cellspacing="0" cellpadding="0" bgcolor="#ffffff" border="0" role="presentation" class="responsive-table" align="center" style="margin: 0 auto;">
+                                        <tr>
+                                            <td>
+                                            <br>
+                                            <h2 style="font-weight: bold;color: #aeaeae;vertical-align: middle;padding: 2px;margin: 0;line-height: 1.2;text-decoration: none;text-align: center;font-size: 24.5px;">Follow:</h2>
+                                            <br>
+                                        </td>
+
+                                        <td>    
+                                            <a href="https://www.instagram.com/versa_tables/" target="_blank" style="text-decoration: none;">
+                                                <img src="https://i.imgsafe.org/8a/8a8dfbcab1.jpeg" alt="Instagram" border="0" class="responsive-img" style="max-width: 100%;display: block;border: none;text-align: center;"></a>
+                                        </td> 
+
+                                        <td>    
+                                            <a href="https://www.facebook.com/VersaTables" target="_blank" style="text-decoration: none;">
+                                                <img src="https://i.imgsafe.org/8a/8a8dfbb605.jpeg" alt="Facebook" border="0" class="responsive-img" style="max-width: 100%;display: block;border: none;text-align: center;"></a>
+                                        </td> 
+
+                                        <td>    
+                                             <a href="https://www.linkedin.com/showcase/versatables/" target="_blank" style="text-decoration: none;">
+                                                <img src="https://i.imgsafe.org/8a/8a8e01b002.jpeg" alt="LinkedIn" border="0" class="responsive-img" style="max-width: 100%;display: block;border: none;text-align: center;"></a>
+                                        </td> 
+
+                                        <td>    
+                                            <a href="https://www.youtube.com/channel/UC2h0GQmXJ3Gz5nDK0a65Pdw" target="_blank" style="text-decoration: none;">
+                                                <img src="https://i.imgsafe.org/8a/8a8e06d46b.jpeg" alt="Youtube" border="0" class="responsive-img" style="max-width: 100%;display: block;border: none;text-align: center;"></a>
+                                        </td> 
+
+                                        <td>    
+                                            <br>
+                                             <a href="https://twitter.com/versatables?lang=en" target="_blank" style="text-decoration: none;">
+                                                <img src="https://i.imgsafe.org/8a/8a8e03d1e0.jpeg" alt="Twitter" border="0" class="responsive-img" style="max-width: 100%;display: block;border: none;text-align: center;"></a>
+                                            <br>
+                                            </td> 
+                                        </tr>
+                                    </table> 
+                                    <br>
+                                </td> 
+                            </tr>
+                        </table> 
+                    </td>
+                </tr>
+                 
+                 <tr>
+                    <td>            
+                        <table width="1000" cellspacing="0" cellpadding="0" bgcolor="#ffffff" border="0" role="presentation" class="responsive-table" align="center" style="border-top: 1px solid #000000;border-bottom: 1px solid #000000;margin: 0 auto;">
+                            <tr>
+                                <td> 
+                                    <br>
+                                    <table width="600" cellspacing="0" cellpadding="0" bgcolor="#ffffff" border="0" role="presentation" class="responsive-table" align="center" style="margin: auto;">
+                                        <tr>
+                                            <td>
+                                                <a href="https://www.versatables.com/versa-desktop-riser" target="_blank" class="links" style="text-decoration: none;color: #000000;font-size: 24px;"><h3 class="links" style="text-align: left;padding: 2px;margin: 0;font-weight: normal;line-height: 1.2;text-decoration: none;font-size: 24px;color: #000000;">Desks</h3></a>
+                                            </td>
+                                            <td>
+                                                <a href="https://www.versatables.com/sit-to-stand-desk" target="_blank" class="links" style="text-decoration: none;color: #000000;font-size: 24px;"><h3 class="links" style="text-align: right;padding: 2px;margin: 0;font-weight: normal;line-height: 1.2;text-decoration: none;font-size: 24px;color: #000000;">Desk Risers</h3></a>
+                                            </td>
+                                            <td>
+                                                <a href="https://www.versatables.com/accessories" target="_blank" class="links" style="text-decoration: none;color: #000000;font-size: 24px;"><h3 class="links" style="text-align: right;padding: 2px;margin: 0;font-weight: normal;line-height: 1.2;text-decoration: none;font-size: 24px;color: #000000;">Accessories</h3></a>
+                                            </td>
+                                        </tr>
+                                    </table> 
+                                    <br>
+                                </td> 
+                            </tr>
+                        </table> 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="600" cellspacing="0" cellpadding="0" bgcolor="#ffffff" border="0" role="presentation" class="responsive-table" align="center" style="margin: 0 auto;">
+                            <tr>
+                                <td>
+                                    <br><br>
+                                    <a href="https://www.versatables.com/" target="_blank" style="text-decoration: none;">
+                                    <img src="https://i.imgsafe.org/8a/8a5b127164.jpeg" alt="Limited Lifetime Warranty" width="800" border="0" style="font-size: 20px;color: #1baec6;text-align: center;max-width: 100%;display: block;border: none;" class="responsive-img"></a>
+                                    <br>
+                                    <p class="terms" style="font-size: 15px;line-height: 1.2;margin: 0;padding: 0 10px;text-decoration: none;color: #000000;text-align: center;">
+                                    <span style="color: #1baec6">We now offer Free Shipping to the 48 Contiguous States. Free Shipping is NOT available for Alaska, Hawaii and Canada. Free Shipping does not include white glove delivery. For a full overview on our shipping policy please <a href="https://www.versatables.com/" target="_blank" style="color: blue;text-decoration: none;">click here.</a></span>
+                                    <br><br><br>
+                                    <span style="color: #000000;"><b>Standing Desk Benefits:</b> Increases productivity, alertness &amp;  energy, improves mood, decreases back and neck pain, improves core and leg muscles, helps you maintain a better posture, reduces the risk of cancer, helps with obesity, cardiovascular disease, helps with weight loss, reduces cholesterol and promotes better circulation.</span>
+                                    </p>
+                                    <br><br>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                 </tr>
+            </table>            
+        </td>
+    </tr>
+</table>
+        
+    
+</body>
+</html>

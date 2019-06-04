@@ -1,0 +1,100 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Cart2Quote_Quotation::js/bootstrap/quote-view-index.js"/>
+        <css src="Cart2Quote_Quotation::css/styles.css"/>
+    </head>
+    <update handle="quotation_quote_view_item_price"/>
+    <update handle="quotation_quote_view_items"/>
+    <update handle="quotation_quote_view_load_block_totals"/>
+    <body>
+        <!-- Move the quote items after search see handle: quotation_quote_view_items -->
+        <move element="items" destination="data" after="search"/>
+        <!-- Move the quote items after search see handle: quotation_quote_view_items -->
+        <move element="totals" destination="data" after="reminder_date"/>
+        <referenceContainer name="admin.scope.col.wrap" htmlClass="admin__old"/>
+        <referenceBlock name="page.title">
+            <action method="setTitleId">
+                <argument translate="true" name="id" xsi:type="string">order-header</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="js">
+            <block class="Magento\Backend\Block\Template" template="Cart2Quote_Quotation::quote/view/js.phtml" name="view"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View" name="quotation_quote_view"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Tabs" name="quotation_quote_tabs">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Tab\Info" name="quote_tab_info" template="quote/view/tab/info.phtml">
+                    <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Messages" name="message"/>
+                    <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Data" template="quote/view/data.phtml" name="data">
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\Sections" name="quote_sections" template="Cart2Quote_Quotation::quote/view/actions/sections.phtml"/>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Shipping\Method" template="quote/view/abstract.phtml" name="shipping_method">
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Shipping\Method\Form" template="quote/view/shipping/method/form.phtml" name="quote.view.shipping.method.form" as="form">
+                                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Shipping\Method\Form\Quotation" template="quote/view/shipping/method/form/quotation.phtml" name="quote.view.shipping.method.form.quotation"/>
+                            </block>
+                        </block>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Search" template="quote/view/abstract.phtml" name="search">
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Search\Grid" name="search_grid" as="grid"/>
+                        </block>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Data" template="quote/view/subtotalProposal.phtml" name="proposal"/>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Info" name="quote_details" template="quote/view/details.phtml">
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Details\Account\Details" name="quote_details_account_details" template="quote/view/details/account/details.phtml">
+                                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Details\Account\Details" name="quote_details_account_fields_customer_name" template="quote/view/details/account/fields/customerName.phtml"/>
+                                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Details\Account\Details" name="quote_details_account_fields_email" template="quote/view/details/account/fields/email.phtml"/>
+                                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Details\Account\Details" name="quote_details_account_fields_customer_group" template="quote/view/details/account/fields/customerGroup.phtml"/>
+                                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Details\Account\Details" name="quote_details_account_fields_customer_account_data" template="quote/view/details/account/fields/customerAccountData.phtml"/>
+                            </block>
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Info" name="quote_details_quote_details" template="quote/view/details/quote/details.phtml">
+                                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\SelectRate" name="quote_details_quote_select_rate" template="quote/view/details/quote/selectRate.phtml"/>
+                            </block>
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Info" name="quote_details_order_details" template="quote/view/details/order/details.phtml"/>
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Comment" name="quote_details_quote_comment" template="quote/view/details/quote/comment.phtml"/>
+                        </block>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Info" name="quote_address" template="quote/view/address.phtml">
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Info" name="quote_address_billing" template="quote/view/address/billing.phtml"/>
+                            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Info" name="quote_address_shipping" template="quote/view/address/shipping.phtml"/>
+                        </block>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\QuoteStatus" template="quote/view/quotestatus.phtml" name="quote_status"/>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\ExpiryDate" template="quote/view/expirydate.phtml" name="expiry_date"/>
+                        <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\View\ReminderDate" template="quote/view/reminderdate.phtml" name="reminder_date"/>
+                        <block class="Magento\Framework\View\Element\Text\ListText" name="quote_item_extra_info"/>
+                    </block>
+                </block>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">quote_info</argument>
+                    <argument name="block" xsi:type="string">quote_tab_info</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Catalog\Block\Adminhtml\Product\Composite\Configure" template="Magento_Catalog::catalog/product/composite/configure.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="quotation_page_head_components" template="Cart2Quote_Quotation::page/js/components.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

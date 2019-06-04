@@ -1,0 +1,11 @@
+<div id="order-search" style="display: none" class="admin__page-section order-search-items">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /* @escapeNotVerified */
+            $block->getHeaderText() ?></span>
+        <?php if ($block->getButtonsHtml()): ?>
+            <div class="actions"><?= $block->getButtonsHtml() ?></div>
+        <?php endif; ?>
+    </div>
+
+    <?= $block->getChildHtml('', true) ?>
+</div>

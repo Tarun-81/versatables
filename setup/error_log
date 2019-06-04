@@ -1,0 +1,32 @@
+[11-Apr-2018 09:54:42 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'aonedevs_mage223.store_website' doesn't exist in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php:228
+Stack trace:
+#0 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php(228): PDOStatement->execute(Array)
+#1 /home3/aonedevs/public_html/vendor/magento/framework/DB/Statement/Pdo/Mysql.php(93): Zend_Db_Statement_Pdo->_execute(Array)
+#2 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement.php(303): Magento\Framework\DB\Statement\Pdo\Mysql->_execute(Array)
+#3 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Abstract.php(480): Zend_Db_Statement->execute(Array)
+#4 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SELECT `store_w...', Array)
+#5 /home3/aonedevs/public_html/vendor/magento/framework/DB/Adapte in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php on line 235
+[11-Apr-2018 09:54:44 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'aonedevs_mage223.store_website' doesn't exist in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php:228
+Stack trace:
+#0 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php(228): PDOStatement->execute(Array)
+#1 /home3/aonedevs/public_html/vendor/magento/framework/DB/Statement/Pdo/Mysql.php(93): Zend_Db_Statement_Pdo->_execute(Array)
+#2 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement.php(303): Magento\Framework\DB\Statement\Pdo\Mysql->_execute(Array)
+#3 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Abstract.php(480): Zend_Db_Statement->execute(Array)
+#4 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SELECT `store_w...', Array)
+#5 /home3/aonedevs/public_html/vendor/magento/framework/DB/Adapte in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php on line 235
+[11-Apr-2018 09:55:07 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'aonedevs_mage223.store_website' doesn't exist in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php:228
+Stack trace:
+#0 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php(228): PDOStatement->execute(Array)
+#1 /home3/aonedevs/public_html/vendor/magento/framework/DB/Statement/Pdo/Mysql.php(93): Zend_Db_Statement_Pdo->_execute(Array)
+#2 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement.php(303): Magento\Framework\DB\Statement\Pdo\Mysql->_execute(Array)
+#3 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Abstract.php(480): Zend_Db_Statement->execute(Array)
+#4 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SELECT `store_w...', Array)
+#5 /home3/aonedevs/public_html/vendor/magento/framework/DB/Adapte in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php on line 235
+[11-Apr-2018 09:55:10 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'aonedevs_mage223.store_website' doesn't exist in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php:228
+Stack trace:
+#0 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php(228): PDOStatement->execute(Array)
+#1 /home3/aonedevs/public_html/vendor/magento/framework/DB/Statement/Pdo/Mysql.php(93): Zend_Db_Statement_Pdo->_execute(Array)
+#2 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement.php(303): Magento\Framework\DB\Statement\Pdo\Mysql->_execute(Array)
+#3 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Abstract.php(480): Zend_Db_Statement->execute(Array)
+#4 /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('SELECT `store_w...', Array)
+#5 /home3/aonedevs/public_html/vendor/magento/framework/DB/Adapte in /home3/aonedevs/public_html/vendor/magento/zendframework1/library/Zend/Db/Statement/Pdo.php on line 235

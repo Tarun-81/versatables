@@ -1,0 +1,156 @@
+<?php
+
+$mageQuote = $block->getMageQuote();
+$quote = $block->getQuote();
+$moduleHelper = $block->getModuleHelper();
+$editorHelper = $this->helper('Lof\RequestForQuote\Helper\Wysiwygeditor');
+$enable_admin_note = $moduleHelper->getConfig("quote_admin_setting/enable_admin_note");
+$enable_terms = $moduleHelper->getConfig("quote_admin_setting/enable_terms");
+$enable_wtexpect = $moduleHelper->getConfig("quote_admin_setting/enable_wtexpect");
+$enable_break_line = $moduleHelper->getConfig("quote_admin_setting/enable_break_line");
+
+$config = $block->getWysiwygConfig()->getConfig();
+$config['height'] = '300px';
+$config = json_encode($config->getData());
+
+?>
+
+<?php
+
+if ($mageQuote->getCustomerNote()) {
+    $element_note = ["html_id" => "customer_note",
+        "name" => "mage_quote[customer_note]",
+        "class" => "admin__control-textarea",
+        "value" => $block->stripScriptTags($mageQuote->getCustomerNote()),
+        "label" => '<label class="label admin__field-label" for="customer_note"><span>' . __('Quote Comments') . '</span></label>',
+        "field_id" => "customer_note"
+    ];
+}
+if ($enable_admin_note) {
+    $element_admin_note = ["html_id" => "admin_note",
+        "name" => "admin_note",
+        "class" => "admin__control-textarea",
+        "value" => $block->stripScriptTags($quote->getAdminNote()),
+        "label" => '<label class="label admin__field-label" for="admin_note"><span>' . __('Admin Note') . '</span></label>',
+        "field_id" => "admin_note"
+    ];
+}
+if ($enable_terms) {
+    $element_terms = ["html_id" => "quote_terms",
+        "name" => "terms",
+        "class" => "admin__control-textarea",
+        "value" => $block->stripScriptTags($quote->getTerms()),
+        "label" => '<label class="label admin__field-label" for="quote_terms"><span>' . __('Quote Terms') . '</span></label>',
+        "field_id" => "quote_terms"
+    ];
+}
+if ($enable_wtexpect) {
+    $element_wtexpect = ["html_id" => "quote_wtexpect",
+        "name" => "wtexpect",
+        "class" => "admin__control-textarea",
+        "value" => $block->stripScriptTags($quote->getWtexpect()),
+        "label" => '<label class="label admin__field-label" for="quote_wtexpect"><span>' . __('What To Expect') . '</span></label>',
+        "field_id" => "quote_wtexpect"
+    ];
+}
+if ($enable_break_line) {
+    $element_break_line = ["html_id" => "quote_break_line",
+        "name" => "break_line",
+        "class" => "admin__control-textarea",
+        "value" => $block->stripScriptTags($quote->getBreakLine()),
+        "label" => '<label class="label admin__field-label" for="quote_break_line"><span>' . __('Break Lines') . '</span></label>',
+        "field_id" => "quote_break_line"
+    ];
+}
+?>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __('Additional Information') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item quote-additional-information">
+            <div class="admin__page-section-item-leftside">
+                <?php
+                if (isset($element_note)) {
+                    echo $editorHelper->render($element_note, false);
+                }
+                if (isset($element_admin_note)) {
+                    echo $editorHelper->render($element_admin_note, false);
+                }
+                if (isset($element_terms)) {
+                    echo $editorHelper->render($element_terms, false);
+                }
+                ?>
+            </div>
+            <div class="admin__page-section-item-rightside">
+                <?php
+                if (isset($element_wtexpect)) {
+                    echo $editorHelper->render($element_wtexpect, false);
+                }
+                if (isset($element_break_line)) {
+                    echo $editorHelper->render($element_break_line, false);
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    window.tinyMCE_GZ = window.tinyMCE_GZ || {};
+    window.tinyMCE_GZ.loaded = true;
+    require(["jquery",
+            "mage/translate",
+            "mage/adminhtml/events",
+            "Lof_RequestForQuote/js/wysiwyg/tiny_mce/setup",
+            "mage/adminhtml/wysiwyg/widget"], function (jQuery) {
+
+            var config = <?php echo $config ?>;
+            var editor = [];
+            var editorFormValidationHandler;
+
+            jQuery.extend(config, {
+                settings: {
+                    theme_advanced_buttons1: 'bold,italic,|,justifyleft,justifycenter,justifyright,|,' +
+                    'fontselect,fontsizeselect,|,forecolor,backcolor,|,link,unlink,image,|,bullist,numlist,|,code',
+                    theme_advanced_buttons2: null,
+                    theme_advanced_buttons3: null,
+                    theme_advanced_buttons4: null
+                }
+            });
+
+            jQuery('.textarea.admin__control-textarea.wysiwyg-editor.admin__control-textarea').each(function () {
+                var elementId = jQuery(this).attr('id');
+                editor[elementId] = new rfqTinyMceWysiwygSetup(
+                    elementId,
+                    config
+                );
+
+                editorFormValidationHandler = editor[elementId].onFormValidation.bind(editor[elementId]);
+                Event.observe('toggle' + elementId, 'click', editor[elementId].toggle.bind(editor[elementId]));
+                Event.observe('toggle' + elementId, 'click', function () {
+                    jQuery('#toggle' + elementId).toggleClass('texteditor-enabled');
+                    jQuery('.action-wysiwyg').toggleClass('hidden');
+                });
+                varienGlobalEvents.attachEventHandler('formSubmit', editorFormValidationHandler);
+                varienGlobalEvents.clearEventHandlers('open_browser_callback');
+                var currentEditor = editor[elementId];
+                varienGlobalEvents.attachEventHandler('open_browser_callback', currentEditor.openFileBrowser);
+
+                jQuery('#' + elementId)
+                    .addClass('wysiwyg-editor')
+                    .data(
+                        'wysiwygEditor',
+                        null
+                    );
+
+                //Init Wysiwygeditor when start
+                editor[elementId].turnOn();
+                jQuery('#toggle' + elementId).toggleClass('texteditor-enabled');
+                jQuery('.action-wysiwyg').toggleClass('hidden');
+                //End Init Wysiwygeditor when start
+            });
+        }
+    );
+</script>

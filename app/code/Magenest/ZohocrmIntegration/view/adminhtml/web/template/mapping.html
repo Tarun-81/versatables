@@ -1,0 +1,67 @@
+<section class="admin__page-section zohocrm-manage-mapping">
+    <div class="admin__page-section-title">
+        <span class="title">Mapping</span>
+    </div>
+    <div class="note-mapping">
+        <strong><span style="color: #ff0512;" class="required">* </span>Note: </strong>
+        <span class="note-content">You should map the fields have the same name or the same data type</span>
+    </div>
+    <div class="admin__page-section-content" style="margin-top:20px; width: 100%;">
+        <div class="admin__page-section-item order-payment-method admin__fieldset-wrapper" style="width: 100%;">
+            <div class="admin__page-section-item-content" style="width: 100%;">
+                <select class="admin__control-select"
+                        style="width: 400px; height: 30px;"
+                        name="zohocrm-fields-mapping"
+                        data-bind="options: availableTypes,
+                                   optionsCaption: '--Choose Type--',
+                                   value: selectedType,
+                                   event : {change : getOptionValue()}">
+                </select>
+                <button id="submit_mapping" class="primary" style="width: 25%;" data-bind="click : saveMapping, visible: isTypeSelected()">Save Mapping</button>
+                <form id="mapping_form">
+                    <!-- ko if : isTypeSelected -->
+                    <table class="admin__table-secondary">
+                        <thead>
+                        <tr>
+                            <td><h3>Magento Fields</h3></td>
+                            <td><h3>Zoho CRM Fields</h3></td>
+                            <td><h3>Description</h3></td>
+                            <td><h3>Status</h3></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- ko foreach : magentoFields -->
+                        <tr>
+                            <td data-bind="text : key, value : value"></td>
+                            <td>
+                                <select class="admin__control-select"
+                                        id="select_zohocrm"
+                                        data-bind="options: zohocrmFields,
+                                                   optionsText : 'key',
+                                                   optionsValue : 'value',
+                                                   value : selectedField,
+                                                   optionsCaption: '--Choose Fields--',">
+                                </select>
+                            </td>
+                            <td>
+                                <input name="description_mapping" type="text" data-bind="attr: {value: description}">
+                            </td>
+                            <td>
+                                <select class="admin__control-select" id="select_status" data-bind="value: status">
+                                    <option value="1">Enabled</option>
+                                    <option value="0">Disabled</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!-- /ko -->
+                        </tbody>
+                    </table>
+                    <!-- /ko -->
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</section>

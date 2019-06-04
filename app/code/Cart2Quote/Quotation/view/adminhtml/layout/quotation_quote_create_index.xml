@@ -1,0 +1,52 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_create_index"/>
+    <body>
+        <referenceBlock name="content">
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\Create" name="order_content">
+                <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\Create\Form" template="Magento_Sales::order/create/form.phtml" name="order_create_form" as="form">
+                    <block class="Magento\Sales\Block\Adminhtml\Order\Create\Messages" name="message"/>
+                    <block class="Magento\Sales\Block\Adminhtml\Order\Create\Customer" template="Magento_Sales::order/create/abstract.phtml" name="customer.grid.container"/>
+                    <block class="Magento\Sales\Block\Adminhtml\Order\Create\Store" template="Magento_Sales::order/create/abstract.phtml" name="store">
+                        <block class="Magento\Sales\Block\Adminhtml\Order\Create\Store\Select" template="Magento_Sales::order/create/store/select.phtml" name="select"/>
+                    </block>
+                    <block class="Magento\Sales\Block\Adminhtml\Order\Create\Data" template="Cart2Quote_Quotation::quote/create/data.phtml" name="data">
+                        <block class="Magento\Sales\Block\Adminhtml\Order\Create\Form\Account" template="Magento_Sales::order/create/form/account.phtml" name="form_account"/>
+                        <block class="Magento\Sales\Block\Adminhtml\Order\Create\Shipping\Address" template="Magento_Sales::order/create/form/address.phtml" name="shipping_address"/>
+                        <block class="Magento\Sales\Block\Adminhtml\Order\Create\Billing\Address" template="Magento_Sales::order/create/form/address.phtml" name="billing_address"/>
+                        <block class="Magento\Sales\Block\Adminhtml\Order\Create\Newsletter" template="Magento_Sales::order/create/abstract.phtml" name="newsletter">
+                            <block class="Magento\Sales\Block\Adminhtml\Order\Create\Newsletter\Form" template="Magento_Sales::order/create/newsletter/form.phtml" name="order_create_newsletter_form" as="form"/>
+                        </block>
+                        <block class="Magento\Sales\Block\Adminhtml\Order\Create\Comment" template="Cart2Quote_Quotation::quote/create/comment.phtml" name="comment"/>
+                        <block class="Magento\Backend\Block\Template" name="gift_options" template="Magento_Sales::order/giftoptions.phtml">
+                            <block class="Magento\Sales\Block\Adminhtml\Order\Create\Giftmessage" template="Magento_Sales::order/create/giftmessage.phtml" name="giftmessage"/>
+                        </block>
+                        <block class="Magento\Framework\View\Element\Text\ListText" name="order_item_extra_info"/>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

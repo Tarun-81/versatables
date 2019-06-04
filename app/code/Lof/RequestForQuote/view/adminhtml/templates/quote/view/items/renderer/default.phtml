@@ -1,0 +1,104 @@
+<?php
+
+$_item = $block->getItem();
+$store = $_item->getStore();
+$block->setPriceDataObject($_item);
+$customPrice = $_item->getCustomPrice();
+$basePrice = $_item->getBasePrice();
+$price = $_item->getPrice();
+$originalPrice = $_item->getOriginalPrice();
+$rfqHelper                = $this->helper('Lof\RequestForQuote\Helper\Data');
+$quote = $_item->getQuote();
+$currency_code            = $quote?$quote->getQuoteCurrencyCode():null;
+?>
+
+<?php
+$currencySymbol = $block->getCurrencySymbol();
+
+$options = $block->getSelectedOptionsOfQuoteItem($_item);
+?>
+<tr class="quote-item-<?php echo $_item->getId(); ?>">
+	<td class="quote-item-row-tier col-image ">
+		<img src="<?php echo $block->getProductImage($store, $_item->getProduct()->getId()) ?>" width="165"/>
+	</td>
+	<?php $i = 0;
+	$columns = $block->getColumns();
+	$lastItemNumber = count($columns) ?>
+	<?php foreach ($columns as $columnName => $columnClass):?>
+		<?php $i++; ?>
+		<?php if ($columnName == 'product') { ?>
+		<td class="quote-item-row-tier <?php echo $columnClass?><?php echo ($i === $lastItemNumber ? ' last' : '')?>">
+			<?php echo $block->getColumnHtml($_item, $columnName) ?>
+			<?php 
+			if(!empty($options))
+			{
+				echo '<p class="custom-options"><ul>';
+				foreach ($options as $option)
+			    {
+			        $optionTitle = $option['label'];
+			        $optionId = $option['option_id'];
+			        $optionType = $option['option_type'];
+			        $optionValue = $option['print_value'];
+			        $optionCustomView = $option['custom_view'];
+			        echo $optionCustomView?('<li>'.$optionCustomView.'</li>'):('<li><strong>'.$optionTitle."</strong>: ".$optionValue.'</li>');
+			    }
+			    echo '</ul></p>';
+			}
+			?>
+			<?php if ($_item->getDescription()) { ?>
+			<p style="margin-top: 10px;">
+				<b><?php echo __('Note: '); ?></b>
+				<?php echo strip_tags($_item->getDescription()) ?>
+			</p>
+			<?php } ?>
+		</td>
+		<?php } ?>
+	<?php endforeach; ?>
+	<td class="quote-item-row-tier item-cost-price-<?php echo $i; ?>">
+		<?php 
+		if($cost_price = $_item->getBaseCost()){
+            echo $rfqHelper->formatPrice($cost_price, false, $currency_code);
+		} else {
+			echo __("N/A");
+		}
+		?>
+		
+	</td>
+	<td class="quote-item-row-tier item-base-price-<?php echo $i; ?>">
+		<?php 
+		if($basePrice){
+            echo $rfqHelper->formatPrice($originalPrice, false, $currency_code);
+		} else {
+			echo __("N/A");
+		}
+		?>
+		
+	</td>
+	<td class="quote-item-row-tier col-customprice ">
+		<input name="quote[<?php echo $_item->getId() ?>][customprice]" type="text" class="input-text admin__control-text" value="<?php echo $customPrice ?: $price; ?>"/>
+	</td>
+	<td class="quote-item-row-tier col-qty ">
+		<input name="quote[<?php echo $_item->getId() ?>][qty]" type="text" class="input-text admin__control-text" value="<?php echo $_item->getQty(); ?>"/>
+	</td>
+	<td class="quote-item-row-tier col-discount ">     
+        <span class="price"><?php echo $rfqHelper->formatPrice($_item->getDiscountAmount(), false, $currency_code); ?></span>
+    </td>
+    <td class="quote-item-row-tier col-total ">     
+        <span class="price"><?php echo $rfqHelper->formatPrice($_item->getRowTotal(), false, $currency_code); ?></span>
+    </td>
+    <td class="quote-item-row-tier col-gpmargin ">     
+        <span class="price"><?php
+         	$price = (float)$price;
+	        if($price && $price > 0) {
+                 $gp_margin = round((($customPrice - $price)/$price)*100);
+                 echo $gp_margin."%";
+	     	}
+	    ?></span>
+    </td>
+    <td class="quote-item-row-tier col-remove ">
+        <span class="remove">
+            <input name="quote[<?php echo $_item->getId() ?>][remove]" type="checkbox" value="true" class="admin__control-checkbox"/>
+            <label class="admin__field-label" for="quote[<?php echo $_item->getId() ?>][remove]"/>
+        </span>
+    </td>
+</tr>

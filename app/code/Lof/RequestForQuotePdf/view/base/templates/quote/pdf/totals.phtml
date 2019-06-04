@@ -1,0 +1,103 @@
+<?php
+$currencySymbol          = $this->getCurrencySymbol();             
+$quote = $mageQuote = $block->getMageQuote();
+if($quote){
+$rfqHelper                = $this->helper('Lof\RequestForQuote\Helper\Data');
+$currency_code            = $quote?$quote->getQuoteCurrencyCode():null;
+$grand_total = $mageQuote->getData('grand_total');
+$subtotal = $mageQuote->getData('subtotal');
+$subtotal_with_discount = $mageQuote->getData('subtotal_with_discount');
+$discount = $subtotal - $subtotal_with_discount;
+$shipping_discount = intval($subtotal)*12/100;
+$adjustment_total = 0.00;
+$qty = $mageQuote->getData('items_qty');
+$coupon_code = $quote->getData('coupon_code');
+$shipping_amount = '';
+$totals = $quote->getShippingAddress()->getTotals();
+if(isset($totals['shipping']) && $totals['shipping']){
+    $shipping_amount = $totals['shipping']->getValue();
+}
+$shipping_amount = $shipping_amount?(float)$shipping_amount:'';
+$shipping_note = $quote->getData('shipping_note');
+$shipping_note = $shipping_note?$shipping_note:'';
+$rate_id    = $quote->getData('rate_id');
+$tax_amount = $quote->getData('tax_amount');
+$tax_amount = $tax_amount?(float)$tax_amount:'';
+$total_discount = $shipping_discount+$discount;
+//$tax_amount2 = $tax_amount?$tax_amount:($grand_total - $subtotal_with_discount);
+//$tax_amount2 = 0;
+//$tax = $currencySymbol . $tax_amount2;
+$helper                = $this->helper('Lof\RequestForQuotePdf\Helper\Data');
+$enable_image = $helper->getConfig("general/enable_image");
+$colspan = 5;
+if($enable_image) {
+    $colspan +=1;
+}
+?>
+
+<style>
+.questot{float:right; width:100%; margin-top:20px;}
+.sub_total{float:left; width:100%; background:#b5b5b7; color:#fff; margin-top:140px;  }
+
+
+.table_bot table,.table_bot tr th,.table_bot tr td {    border: 1px solid #ccc;  border-collapse: collapse;  }
+</style>
+<div class="questot" style="float:right;width:300px;margin-top:0px;">
+<div class="quein" style="float:right;width:300px;margin-top:0px;">
+<table style="float:right;width:300px;margin-top:0px;  border: 1px solid #ccc;" bor><tfoot>
+<!--
+<tr>
+    <td colspan="5"></td>
+    <td align="right"><?php echo __("Original Subtotal:"); ?></td>
+    <td align="right">$1635.00</td>
+</tr>-->
+<tr>
+    <td  align="left" style="border-bottom:1px solid #ccc; border-right:1px solid #ccc; "><?php echo __("Base Price");?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($subtotal, false, $currency_code); ?></td>
+</tr>
+<tr>
+    <td  align="left" style="border-bottom:1px solid #ccc; border-right:1px solid #ccc; "><?php echo __("Quantity Discount");?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo "-".$rfqHelper->formatPrice($discount, false, $currency_code); ?></td>
+</tr>
+<tr>
+    <td  align="left" style="border-bottom:1px solid #ccc; border-right:1px solid #ccc; "><?php echo __("Your Price");?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($grand_total, false, $currency_code) ; ?></td>
+</tr>
+<!--
+<tr>
+    <td colspan="5"></td>
+    <td align="right"><?php echo __("Quote Adjustment:");?></td>
+    <td align="right"><?php echo $rfqHelper->formatPrice($adjustment_total, false, $currency_code); ?></td>
+</tr>
+-->
+<tr>
+   
+    <td  align="left" style="border-bottom:1px solid #ccc;border-right:1px solid #ccc; "><?php echo __("Shipping ");//echo __(($totals['shipping'])->getTitle());?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?></td>
+</tr>
+
+<tr>
+   
+    <td  align="left" style="border-bottom:1px solid #ccc;border-right:1px solid #ccc; "><?php echo __("Shipping Discount");//echo __(($totals['shipping'])->getTitle());?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo "-".$rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?></td>
+</tr>
+<tr>
+   
+    <td  align="left" style="border-bottom:1px solid #ccc;border-right:1px solid #ccc; "><?php echo __("Total discount");//echo __(($totals['shipping'])->getTitle());?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo "-".$rfqHelper->formatPrice($total_discount, false, $currency_code); ?></td>
+</tr>
+<tr>
+   <td  align="left" style="border-right:1px solid #ccc; "><?php echo __("Tax");?></td>
+   <td  align="right" ><?php echo $rfqHelper->formatPrice($tax_amount, false, $currency_code); ?></td>
+</tr>
+
+
+</tfoot> 
+</table>
+</div>
+</div>
+<div class="sub_total" style="padding:10px 50px 10px 10px;margin-right:-50px;">
+<span style="width:50%"><?php echo __("Estimated Total");?></span>
+<span style="width:50% ; float:right;text-align:right" ><?php echo $rfqHelper->formatPrice($grand_total, false, $currency_code) ; ?></span>
+</div>
+<?php } ?>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Aitoc_CheckoutFieldsManager::system_extensions_checkoutattribute_grid"
+             toolTip="Aitoc Extension"
+             title="Checkout Fields Manager"
+             module="Aitoc_CheckoutFieldsManager"
+             parent="Magento_Integration::system_extensions"
+             action="aitoccheckoutfieldsmanager/checkoutattribute"
+             resource="Aitoc_CheckoutFieldsManager::attributes"/>
+
+        <add id="Aitoc_CheckoutFieldsManager::stores_attribute_adminhtml_checkoutattribute_grid"
+             title="Checkout"
+             module="Aitoc_CheckoutFieldsManager"
+             sortOrder="100"
+             parent="Magento_Backend::stores_attributes"
+             action="aitoccheckoutfieldsmanager/checkoutattribute"
+             resource="Aitoc_CheckoutFieldsManager::attributes"/>
+    </menu>
+</config>

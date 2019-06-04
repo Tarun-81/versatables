@@ -1,0 +1,18 @@
+<?php $_quote = $block->getQuote() ?>
+
+<?php echo $block->getChildHtml('search') ?>
+
+<?php echo $block->getItemsHtml() ?>
+
+<?php echo $block->getChildHtml('quote_info') ?>
+
+<?php echo $block->getChildHtml('shipping_info') ?>
+
+<?php echo $block->getChildHtml('proposal') ?>
+
+<section id="order-totals" class="admin__page-section"> 
+    <?php echo $block->getChildHtml('totals') ?>
+</section>
+
+
+<?php echo $block->getChildHtml('additional_info') ?>

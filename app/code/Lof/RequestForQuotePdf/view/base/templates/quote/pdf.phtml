@@ -1,0 +1,293 @@
+<?php
+/**
+ * Copyright © 2018 Landofcoder. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$helper = $this->helper('Lof\RequestForQuotePdf\Helper\Data');
+$rfqHelper = $this->helper('Lof\RequestForQuote\Helper\Data');
+//$pdf_footer = $helper->getConfig("general/pdf_footer");
+$logoUrl = $helper->getConfig("general/store_logo");
+$logoUrl = $block->getLogoPath($logoUrl);
+$company_name = $helper->getConfig("general/company_name");
+$store_name = $helper->getConfig("general/store_name");
+$tax_id = $helper->getConfig("general/tax_id");
+$store_address = $helper->getConfig("general/store_address");
+$store_phone = $helper->getConfig("general/store_phone");
+$store_email = $helper->getConfig("general/store_email");
+$enable_image = $helper->getConfig("general/enable_image");
+$enable_quote_info = $helper->getConfig("general/enable_quote_info");
+$enable_quote_info = ($enable_quote_info != null)?(int)$enable_quote_info: 1;
+$enable_billing = $helper->getConfig("general/enable_billing");
+$enable_billing = ($enable_billing != null)?(int)$enable_billing: 1;
+$enable_shipping = $helper->getConfig("general/enable_shipping");
+$enable_shipping = ($enable_shipping != null)?(int)$enable_shipping: 1;
+$enable_other_info = $helper->getConfig("general/enable_other_info");
+$enable_other_info = ($enable_other_info != null)?(int)$enable_other_info: 1;
+$quote = $block->getQuote();
+$mage_quote = $block->getMageQuote(); 
+$grand_total = $mage_quote->getData('grand_total');  
+$currency_code  = $quote?$quote->getQuoteCurrencyCode():null;         
+if($quote && $mage_quote) { 
+$created_date = $block->formatDate($quote->getCreatedDate(), \IntlDateFormatter::MEDIUM);
+$expiry_date = $block->formatDate($quote->getExpiry(), \IntlDateFormatter::MEDIUM);
+$pdf_footer1="<div class='pdf_footer' style='padding-top:30px;'>The above information is not an invoice and is only an estimate of good described above.<br>Payment will be collected in prior to provision of goods described in this quote.</div>
+<div class='pdf_footer_heading'><h1>Thank you for your business!</h1></div><div class='pdf_description' style='line-height:20px;'>Should you have any inquries concerning this quote or if you are ready to place your order,<br><br><b class='phone_numbers' style='margin-top:20px;padding-top:20px;color:#f7921e;font-size:18px'>Please Call: (888) 338.1445 </b></div>";
+$pdf_footer2="<div class='pdf_web'><span>WWW.VERSATABLES.COM</span><br><label>VersaTables 14105 Avalon Blvd Los Angees,CA 90061 </label></div>";
+?>
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><?php echo __("QUOTE #%1", $quote->getIncrementId());?></title>
+<style>
+@font-face {
+	font-family: 'BebasNeuewebfont';
+	src: url('fonts/BebasNeuewebfont.eot');
+	src: local('fonts/BebasNeuewebfont'), url('fonts/BebasNeuewebfont.woff') format('woff'), url('fonts/BebasNeuewebfont.ttf') format('truetype');
+}
+html body
+{
+   font-family:Helvetica !important;
+    padding:0 !important;
+}
+
+    table{
+        font-size: x-small;
+    }
+    tfoot tr td{
+        font-weight: bold;
+        font-size: x-small;
+    }
+
+    .gray {
+        background-color: #b5b5b7
+    }
+    .dark-gray{
+      background-color: gray;
+      color: #FFFFFF;
+    }
+    .quote-info{
+      padding: 10px;
+      font-size: 13px;
+    }
+    .center{
+      text-align: center;
+    }
+    tbody.odd th, tbody.odd td {
+      background-color: none;
+    }
+	
+	.pdf_footer_heading h1{
+		    font-size: 25px;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: 'Helvetica';
+    font-weight: 600;
+    color: #f09023;
+    padding-top:10px;
+	}
+	
+	.pdf_footer{
+		font-size:12px;
+		width:100%;
+		float:left;
+		margin-top:85px;
+		text-align:center;
+		clear:left;
+	}
+	
+	.pdf_description{
+		font-size:15px;
+		margin-top:25px;
+		width:100%;
+		float:left;
+		text-align:center;
+	}
+	
+	.phn_details b{
+		font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    float: left;
+	}
+	
+	.pdf_web {
+    width: 100%;
+    float: left;
+    text-align: left;
+    border-top:5px solid #b5b5b7;
+    margin-top:100px;
+    padding: 10px 50px;
+	margin-left:-50px;margin-right:-50px;
+}
+	
+	.pdf_web span{
+		color:#f7921e;
+	}
+	
+	.pdf_web label{
+		font-size:12px;
+		color:#747474;
+	}
+	
+	.table_bot table,.table_bot tr th,.table_bot tr td { border: 1px solid #ccc;  border-collapse: collapse; text-align:center; }
+	.table_bot tr th{ background-color:#b5b5b7;color:#fff;}
+	.quote_head{width:100%;float:left;background-color:#b5b5b7;padding:40px 0;box-sizing: border-box;position:relative;}
+	
+	
+	.general_details {float:left;width:40%;border: 1px solid #ccc; margin:30px 0;}
+	
+	.general{padding:15px 10px 0px;}
+       	
+  	.quote_heading{padding:10px;} 
+	/*.abc table tr td span{line-height:1px; display:inline-block;}*/
+	.blow_text{margin-top:100px; display:inline-block;}
+       .abc table tr td span a{text-decoration:none; color:#000;}
+	
+
+.pdf_footer_heading h1
+{
+    font-family: 'Helvetica';
+
+}
+* .main_font tr td span{font-family:Helvetica !important;}
+</style>
+</head>
+<body>
+  
+  <table width="100%">
+    <tr>
+        <td valign="top"><img src="<?php echo $logoUrl ?>" style="width:350px; max-width:350px;"></td>
+       
+    </tr>
+
+  </table>
+ 
+  <div style="text-align:right;background-color:#b5b5b7;color:#ffffff;position:relative;height:20px;margin-left:-50px;margin-right:-50px;" class="quote_heading"><h1 style="background-color:#fff;color:#000;padding:0px 50px 8px 50px; font-size:45px;position: absolute;
+    top: -35px;
+    right: 100px;font-family:Helvetica;">QUOTE</h1></div>
+  <?php if($enable_billing || $enable_shipping) { ?>
+ <div class="abc">
+  <table  class="main_font" style="width:1000px; margin:20px 0;">
+    <tr style="width:1000px;">
+    	<?php if($enable_billing){ ?>
+            <?php $billing_address = $block->getCustomerAddress("billing"); ?>
+            <?php if($billing_address){ 
+             // $addre = str_replace(' ','',$billing_address['address']);
+              //$string = 'A string with <br/> & "double quotes".';
+//$string = str_replace(array('<br/>', '&', '"'), ' ', $addre);
+//echo $string;
+              ?>
+              <td style="width:350px;float:left;"><strong style='font-family:Helvetica; font-weight:600;font-size:20px;padding-bottom:10px;'><?php echo "CUSTOMER"; ?></strong><br/>
+                <?php echo "<span style='font-family:Helvetica; font-size:15px;padding:0 0 10px 18px; '>".$billing_address['first_name'].($billing_address['middlename']?(' '.$billing_address['middlename']):'').' '.$billing_address['last_name']."</span>";?><br/>
+                <?php echo __("<span style='font-size:15px;font-family:Helvetica !important;padding:0 0 10px 18px;'>".$billing_address['company']."</span>"); ?><br/>
+                <?php echo "<span style='font-family:Helvetica;font-size:15px;padding:0 0 0 18px;display: inline-block;'>".$billing_address['address']."</span>"; ?><br/>
+                <?php echo __("<span style='font-size:15px;padding:0 0 10px 18px;'>".$billing_address['telephone']."</span>"); ?><br/>
+                <?php echo __('<span style="font-family:Helvetica; font-size:15px;padding:0 0 0px 18px;">Email: <a href="mailto:%1">%2</a></span>', "<span style='font-size:15px; width:50px;'>".$billing_address['email']."</span>", "<span style='width:300px; word-wrap: break-word; margin-top:3px;'>".$billing_address['email']."</span>"); ?>
+              </td>
+	<td style="width:500px;float:left;">
+       <?php echo __("<span style='font-weight: 600;font-size:15px;padding-right:58px; margin-bottom:22px;display:inline-block; margin-right:20px;'>DATE: </span>%1","<span style='font-size:12px;text-align:right; display:inline-block; '>".$created_date."</span>");?><br/>
+
+    <?php echo __("<span style='font-weight: 600;font-size:15px;padding-right:7px;display:inline-block; margin-right:20px; font-family:Helvetica !important;'>VALID UNTIL: </span>%1", "<span style='font-size:12px;text-align:right;margin-bottom:0px;display:inline-block;font-family:Helvetica !important;'>".$expiry_date."</span>");?><br/>
+    
+  <?php echo __("<span style='font-weight: 600;font-size:15px;padding-right:50px; margin-right:20px;'>QUOTE </span>VT#%1", "<span style='font-size:12px;text-align:right;'>".$quote->getIncrementId()."</span>");?>
+
+</td>
+
+
+            <?php } ?>
+              
+        <?php } ?>
+       
+    </tr>
+
+
+  </table>
+  <?php } ?>
+
+  </div>
+<div class="table_bot" >
+  <table width="100%"  >
+    <thead style="background-color: #b5b5b7;">
+      <tr>
+       
+        <?php if($enable_image) { ?>
+        <th style="text"><?php echo __("Image");?></th>  
+        <?php } ?>
+        <th><?php echo __("Qty"); ?></th>
+        <th><?php echo __("SKU"); ?></th>
+        <th><?php echo __("Description");?></th>
+        <th><?php echo __("Unit Price"); ?></th>
+        <th><?php echo __("Disc Price"); ?></th>
+        <th><?php echo __("Savings"); ?></th>
+        <!--th><?php echo __("Tax"); ?></th-->
+        <th><?php echo __("Line Total"); ?></th>
+      </tr>
+    </thead>
+
+    <?php echo $block->getChildHtml("quote.pdf.items"); ?>
+    
+  </table>
+</div>
+	
+
+
+  <?php if($enable_other_info) { ?>
+  <div class="notes style="width:1000px;">
+       <div class='general_details' style="border:1px solid #ccc;width:350px;float:left;">
+		   <div class="general_details1">
+			   <p style="background-color:#b5b5b7;font-size:13px;padding:0px;color:#fff;font-weight:600;width:100%;float:left;margin-top:-1px;padding-left:15px;">Special Notes & Instructions</p>
+					<div class="general">
+						<p style="line-height:5px; padding-top:10px; color:#000; font-size:12px;">General Terms & Conditions:</p>
+						<p style="line-height:6px; color:#000; font-size:12px;">Lifetime Warranty on All Products</p>
+						<p style="line-height:5px; color:#000; font-size:12px;">All Products are deisgned and assembled in the USA</p>
+						<p style="line-height:5px; color:#000; font-size:12px;">Quote is valid for 180 days</p>
+						<!--p style="line-height:5px; color:#000; font-size:12px;">10% discount plus free shipping</p-->
+				</div>
+
+
+
+			</div>
+		</div> 
+	<div class="total_table" style="width:300px;float:right;"> 
+		
+		<?php echo $block->getChildHtml("quote.pdf.totals"); ?>
+	    	
+	</div>
+
+	</div>
+  
+   <table width="100%" class="special_notes">
+   	<?//php if($remarks = $mage_quote->getCustomerNote()){  ?>
+    <tr><td><strong><?php //echo "Special Notes & Instructions";?></strong></td></tr>
+    <tr><td><?php //echo $custom_message; ?></td></tr>
+    <?php //} ?>
+    <?php if($admin_notes = $quote->getAdminNotes()){  ?>
+    <tr><td><strong><?php echo __("Admin Notes");?></strong></td></tr>
+    <tr><td><?php echo $admin_notes; ?></td></tr>
+    <?php } ?>
+    <?php if($terms = $quote->getTerms()){  ?>
+    <tr><td><strong><?php echo __("Terms");?></strong></td></tr>
+    <tr><td><?php echo $terms; ?></td></tr>
+    <?php } ?>
+    <?php if($what_to_expect = $quote->getWtexpect()){  ?>
+    <tr><td><strong><?php echo __("What to expect");?></strong></td></tr>
+    <tr><td><?php echo $what_to_expect; ?></td></tr>
+    <?php } ?>
+    <?php if($break_line = $quote->getBreakLine()){ ?>
+    <tr><td><strong><?php echo __("Break Line");?></strong></td></tr>
+    <tr><td><?php echo $break_line; ?></td></tr>
+    <?php } ?>
+   </table>
+  </div>
+  <?php } ?>
+
+ <div class="blow_text" style="width:100%;">
+    <?php echo $pdf_footer1;?>
+	<?php echo $pdf_footer2; ?>
+  </div>
+</body>
+</html>
+<?php } ?>
+

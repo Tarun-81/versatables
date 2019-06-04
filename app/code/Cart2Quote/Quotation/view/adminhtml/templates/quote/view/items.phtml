@@ -1,0 +1,159 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+/** @var $block \Cart2Quote\Quotation\Block\Adminhtml\Quote\View\Items\GridItems */
+?>
+
+    <div class="admin__page-section-title">
+        <strong class="title"><?php echo $block->getHeaderText() ?></strong>
+
+        <div class="actions">
+            <?php echo $block->getItemsGridBlock()->getButtonsHtml() ?>
+        </div>
+    </div>
+
+    <div class="admin__table-wrapper" id="quote-items_grid">
+
+        <?php if ($block->getItemsCollection()->count() > 10) : ?>
+            <div class="actions update actions-update">
+                <?php echo $block->getButtonHtml(__('Update Items and Quantities'), 'quote.itemsUpdate()',
+                    'action-secondary'); ?>
+            </div>
+        <?php endif; ?>
+        <button type="button" title="<?php echo $block->escapeHtml(__('Collapse/Expand All Items')); ?>" class="action-collapse-item collapse-all-items"><?php echo $block->escapeHtml(__('Collapse/Expand All Items')); ?></button>
+        <?php foreach ($block->getSections() as $section): ?>
+            <table id="section-table-id-<?php echo $section->getSectionId() ?>"
+                   class="data-table admin__table-primary quote-tables order-tables sortable-quote-item-table">
+                <thead>
+                <?php $itemCount = 0;
+                $columns = $block->getColumns();
+                $lastItemNumber = count($columns) ?>
+                <tr class="section-heading">
+                    <?php if ($section->getLabel()): ?>
+                    <td colspan="<?php echo count($columns) + 1; ?>"><h2><b><?= $section->getLabel(); ?></b></h2></td>
+                    <input type="hidden" class="section-id" value="<?php echo $section->getSectionId(); ?>">
+                </tr>
+                <?php endif; ?>
+                <tr class="headings">
+                    <th class="sort-handler-header">#</th>
+                    <?php foreach ($columns as $columnName => $columnTitle): ?>
+                        <?php $itemCount++; ?>
+                        <th class="col-<?php echo $columnName ?><?php echo($itemCount === $lastItemNumber ? ' last' : '') ?>">
+                            <span><?php echo $columnTitle ?></span>
+                        </th>
+                    <?php endforeach; ?>
+                </tr>
+                </thead>
+                <?php $itemCount = 0;
+                foreach ($block->getQuote()->getSectionItems($section->getSectionId()) as $item): ?>
+                    <?php $itemCount++; ?>
+                    <tbody class="<?php echo $itemCount % 2 ? 'even' : 'odd' ?>">
+                    <input name="item[<?php echo $item->getItemId() ?>][section_id]" class="item-section-id"
+                           type="hidden"
+                           value="<?php echo $item->getExtensionAttributes()->getSection()->getSectionId(); ?>"/>
+                    <input name="item[<?php echo $item->getItemId() ?>][sort_order]" class="item-sort-order"
+                           type="hidden"
+                           value="<?php echo $item->getExtensionAttributes()->getSection()->getSortOrder(); ?>"/>
+                    <?php echo $block->getTierItemsHtml($item) ?>
+                    <?php echo $block->getEmptyItemHtml($item) ?>
+                    <?php echo $block->getItemExtraInfoHtml($item) ?>
+                    </tbody>
+                <?php endforeach; ?>
+                <tfoot>
+                <?php echo $block->getItemFooterHtml() ?>
+                </tfoot>
+            </table>
+        <?php endforeach; ?>
+    </div>
+    <p>
+        <small><?php echo $block->getInclExclTaxMessage(); ?></small>
+    </p>
+
+    <div class="quote-discounts">
+        <?php echo $block->getItemsGridBlock()->getButtonHtml(__('Update Items and Quantities'), 'quote.itemsUpdate()',
+            'action-secondary'); ?>
+        <div id="quote-coupons" class="quote-coupons"><?php echo $block->getChildHtml('coupons'); ?></div>
+    </div>
+    <script>
+        require([
+            'jquery',
+            'jquery/ui',
+            'Cart2Quote_Quotation/quote/view/form'
+        ], function ($) {
+            $('button.action-collapse-item').click(function() {
+                collapseQuoteItem($(this).closest('tbody'));
+            });
+            $('.collapse-all-items').click(function() {
+                collapseQuoteItem($(this).parent().find('.quote-tables tbody'));
+                collapseQuoteItem($(this));
+            });
+            function collapseQuoteItem(element) {
+                if(element.hasClass('show')) {
+                    element.removeClass('show');
+                } else {
+                    element.addClass('show');
+                }
+            }
+            $(".sortable-quote-item-table").sortable({
+                connectWith: ".sortable-quote-item-table",
+                handle: ".col-sort-order",
+                items: "> tbody",
+                opacity: 0.7,
+                zIndex: 999990,
+                placeholder: {
+                    element: function(currentItem) {
+                        return $("<tbody class=\'placeholder\'><tr><td colspan=\'12\'></td></tr></tbody>")[0];
+                    },
+                    update: function(container, p) {
+                        return;
+                    }
+                },
+                start: function(e, ui){
+                    $('tbody.placeholder tr td').height(ui.helper[0].scrollHeight+'px');
+                },
+                stop: function (event, ui) {
+                    var itemElement = $(ui.item.context);
+                    itemElement.find('input.item-section-id').val(itemElement.parent('table').find('input.section-id').val());
+                    $('input.item-sort-order').each(function (index, element) {
+                        $(element).val(index + 1);
+                    });
+                },
+                update: function(event, ui){
+                    hideOnEmpty($(this));
+                },
+                create: function(event, ui) {
+                    hideOnEmpty($(this));
+                }
+            });
+            function hideOnEmpty(table) {
+                if(table.find('tbody').length > 0) {
+                    table.addClass('has-content');
+                } else {
+                    table.removeClass('has-content');
+                }
+            }
+            quote.itemsOnchangeBind();
+        });
+    </script>
+
+<?php echo $block->getChildHtml('items_giftmessage') ?>

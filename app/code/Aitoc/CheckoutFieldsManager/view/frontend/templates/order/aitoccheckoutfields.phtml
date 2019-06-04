@@ -1,0 +1,20 @@
+<?php /** @var \Aitoc\CheckoutFieldsManager\Block\Sales\Order\AitocCheckoutFields $block */ ?>
+<?php $order = $block->getOrder() ?>
+<?php if ($checkoutFieldsDataLeft = $block->getCheckoutFieldsData()) : ?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <strong><?php /* @escapeNotVerified */ echo __('Additional Info') ?></strong>
+    </div>
+    <div>
+        <table>
+            <tbody>
+            <?php foreach ($checkoutFieldsDataLeft as $oneField) : ?>
+                <tr>
+                    <?php /* @escapeNotVerified */ echo $oneField; ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php endif; ?>

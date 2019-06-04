@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Sales\Block\Adminhtml\Order\Create\Form $block */
+?>
+<section id="quote-helper-data" class="admin__page-section order-methods" style="display: none;">
+    <div id="quote-data" data-order-config='<?= $block->escapeHtml($block->getOrderDataJson()) ?>' data-load-base-url="<?= /* @escapeNotVerified */ $block->getLoadBlockUrl() ?>"></div>
+    <div id="order-billing_method" class="admin__page-section-item order-billing-method"></div>
+</section>

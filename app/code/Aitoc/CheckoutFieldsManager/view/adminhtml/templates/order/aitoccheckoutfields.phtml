@@ -1,0 +1,31 @@
+<?php /** @var \Aitoc\CheckoutFieldsManager\Block\Adminhtml\Sales\Order\Invoice\AitocCheckoutFields $block */ ?>
+<?php /** @noinspection PhpUnhandledExceptionInspection */
+$order = $block->getOrder() ?>
+<?php /** @noinspection PhpUnhandledExceptionInspection */
+if ($checkoutFieldsDataLeft = $block->getCheckoutFieldsData()) : ?>
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title">
+            <?php /* @escapeNotVerified */ echo __('Additional Info'); ?>
+            <div class="actions">
+                <?php /* @escapeNotVerified */ echo $block->getCustomerCheckoutAttributeEditLink($order->getId()) ?>
+            </div>
+        </span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-invoice-additional-fields-block-a">
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-invoice-additional-fields-table">
+                    <tbody>
+                    <?php foreach ($checkoutFieldsDataLeft as $oneField) : ?>
+                        <tr>
+                            <?php /* @escapeNotVerified */ echo $oneField; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<?php endif; ?>

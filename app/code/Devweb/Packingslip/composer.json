@@ -1,0 +1,20 @@
+{
+    "name": "devweb/module-packingslip",
+    "description": "Print Packing Slips prior to shipping",
+    "require": {
+        "php": ">=5.0.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "OSL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Devweb\\Packingslip\\": ""
+        }
+    }
+}

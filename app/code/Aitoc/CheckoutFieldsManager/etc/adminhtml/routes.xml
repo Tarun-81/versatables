@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../lib/internal/Magento/Framework/App/etc/routes.xsd">
+    <router id="admin">
+        <route id="aitoccheckoutfieldsmanager" frontName="aitoccheckoutfieldsmanager">
+            <module name="Aitoc_CheckoutFieldsManager"/>
+        </route>
+    </router>
+</config>

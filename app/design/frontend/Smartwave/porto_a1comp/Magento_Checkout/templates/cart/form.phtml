@@ -1,0 +1,172 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+?>
+
+
+<?php $mergedCells = ($this->helper('Magento\Tax\Helper\Data')->displayCartBothPrices() ? 2 : 1); ?>
+<?= $block->getChildHtml('form_before') ?>
+<form action="<?= /* @escapeNotVerified */ $block->getUrl('checkout/cart/updatePost') ?>"
+          method="post"
+          id="form-validate"
+          data-mage-init='{"validation":{}}'
+          class="form form-cart">
+    <?= $block->getBlockHtml('formkey') ?>
+    <div id="shopping-contents" class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
+	
+	<input id="printBtn" type="button" value="print"  style="display:none;"/>
+	
+<style type="text/css">
+    @media print
+    {
+        body {
+            /* styles */
+// Customize by Amit
+    .checkout-cart-index .cart.table-wrapper .items {
+        min-width: 100%;
+        width: auto;
+    }
+	.checkout-cart-index .table-caption {
+	   display:none;
+	}
+	.checkout-cart-index .cart.table-wrapper .cart thead tr th.col {
+       border-bottom: 1px solid #ccc;
+       padding-bottom: 12px;
+       padding-top: 24px;
+       font-size: 14px;
+       font-weight: 600;
+    }
+	.checkout-cart-index .cart.table-wrapper .cart thead tr th.col {
+       font-size: 14px;
+       font-weight: 600;
+	   text-align:left;
+    }
+	.checkout-cart-index .cart.table-wrapper .col.qty, .checkout-cart-index .cart.table-wrapper .col.price, .checkout-cart-index .cart.table-wrapper .col.subtotal, {
+        text-align: center;
+    }
+	.checkout-cart-index .cart.table-wrapper .cart > .item {
+       border-bottom: 1px solid #ccc;
+       position: relative;
+    }
+	.checkout-cart-index .cart.table-wrapper .item .col.item {
+       padding: 20px 8px 18px 0;
+	   width: 100%;
+	   position: relative;
+    }
+	
+	.cart.table-wrapper .product-item-photo {
+        display: table-cell;
+        max-width: 100%;
+        padding-right: 18px;
+        position: static;
+        vertical-align: middle;
+        width: 1%;
+    }
+	.product-image-container {
+        display: inline-block;
+        max-width: 100%;
+        min-width: 100%;
+        position: relative;
+        background: #fff;
+        overflow: hidden;
+        z-index: 0;
+	}
+    .cart.table-wrapper .product-image-wrapper {
+	    height: auto;
+        padding: 0 !important; 
+		position: relative;
+	}
+	
+	.cart.table-wrapper .product-item-details {
+        display: table-cell;
+        vertical-align: middle;
+        white-space: normal;
+        width: 99%;
+    }
+	
+	
+		}	
+ }	
+
+</style>
+	
+	
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-top toolbar" data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?></div>
+        <?php endif ?>
+        <table id="shopping-cart-table"
+               class="cart items data table"
+               data-mage-init='{"shoppingCart":{"emptyCartButton": "action.clear",
+               "updateCartActionContainer": "#update_cart_action_container"}}'>
+            <caption role="heading" aria-level="2" class="table-caption"><?= /* @escapeNotVerified */ __('Shopping Cart Items') ?></caption>
+            <thead>
+                <tr>
+                    <th class="col item" scope="col"><span><?= /* @escapeNotVerified */ __('Item') ?></span></th>
+                    <th class="col price" scope="col"><span><?= /* @escapeNotVerified */ __('Price') ?></span></th>
+                    <th class="col qty" scope="col"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></th>
+                    <th class="col subtotal" scope="col"><span><?= /* @escapeNotVerified */ __('Subtotal') ?></span></th>
+                </tr>
+            </thead>
+            <?php foreach ($block->getItems() as $_item): ?>
+                <?= $block->getItemHtml($_item) ?>
+            <?php endforeach ?>
+        </table>
+        <?php if ($block->getPagerHtml()): ?>
+            <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar" data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?></div>
+        <?php endif ?>
+    </div>
+    <div class="cart main actions">
+        <?php if ($block->getContinueShoppingUrl()): ?>
+            <a class="action continue"
+               href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
+               title="<?= $block->escapeHtml(__('Continue Shopping')) ?>">
+                <span><?= /* @escapeNotVerified */ __('Continue Shopping') ?></span>
+            </a>
+        <?php endif; ?>
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-empty=""
+                value="empty_cart"
+                title="<?= $block->escapeHtml(__('Clear Shopping Cart')) ?>"
+                class="action clear" id="empty_cart_button">
+            <span><?= /* @escapeNotVerified */ __('Clear Shopping Cart') ?></span>
+        </button>
+        <button type="submit"
+                name="update_cart_action"
+                data-cart-item-update=""
+                value="update_qty"
+                title="<?= $block->escapeHtml(__('Update Shopping Cart')) ?>"
+                class="action update">
+            <span><?= /* @escapeNotVerified */ __('Update Shopping Cart') ?></span>
+        </button>
+        <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update=""/>
+    </div>
+</form>
+<?= $block->getChildHtml('checkout.cart.order.actions') ?>
+<?= $block->getChildHtml('shopping.cart.table.after') ?>
+
+<script>
+require(['jquery', 'jquery/ui'], function($){ 
+$("#printBtn").click(function(){
+    //printcontent($("#shopping-contents").html());
+	printcontent($(".logo").html() + '<br/><br/>' + $("#shopping-contents").html());
+});
+
+function printcontent(content)
+{
+    var mywindow = window.open('', '', '');
+    mywindow.document.write('<html><title>Print</title><body>');
+    mywindow.document.write(content);
+    mywindow.document.write('</body></html>');
+    mywindow.document.close();
+    mywindow.print();
+    return true;
+}
+ });
+</script>

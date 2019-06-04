@@ -1,0 +1,12 @@
+<?php
+/** @var \Magento\Sales\Block\Order\Email\Items\DefaultItems $block */
+$helper = $this->helper('Lof\RequestForQuote\Helper\Data');
+$_item = $block->getItem();
+$enable_price             = $helper->getConfig("general/enable_price");
+if($enable_price) {
+    $quote = $_item->getQuote();
+    $currency_code            = $quote?$quote->getQuoteCurrencyCode():null;
+?>
+
+<?= /* @escapeNotVerified */  $helper->formatPrice($_item->getRowTotal(), false, $currency_code) ?>
+<?php } ?>

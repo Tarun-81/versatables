@@ -1,0 +1,516 @@
+/*
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+.quote-billing-address, .quote-billing-method, .quote-information, .quote-payment-method, .quote-methods {
+    float: left;
+    width: calc((100%) * .5 - 30px)
+}
+
+.quote-shipping-address, .quote-view-account-information .quote-account-information, .quote-summary, .quote-linked-order {
+    float: right;
+    margin-bottom: 25px;
+    width: calc((100%) * .5 - 30px)
+}
+
+.linked-quote-request {
+    float: right;
+    margin-top: 25px;
+    width: calc((100%) * .5 - 30px)
+}
+
+.quote-history, .quote-comments-history, .quote-totals, .quote-shipping-method, .quote-comment {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+#quote-totals > div.quote-totals-actions > div.actions:after, .quote-discounts:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+#quote-totals > div.quote-totals-actions > div.actions {
+    padding-top: 10px;
+}
+
+#quote-totals > div.quote-totals-actions > div.actions > button {
+    float: right;
+}
+
+#quote-totals > div.quote-totals-actions > div.actions > button.primary {
+    margin-left: 20px;
+}
+
+@media (max-width: 1500px) {
+    #quote-totals > div.quote-totals-actions > div.actions > button, #quote-totals > div.quote-totals-actions > div.actions > button.primary, .quote-convert .fieldset-wrapper-title .actions button {
+        display: table;
+        float: none;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.quote-convert {
+    float: left;
+}
+
+@media (max-width: 1500px) {
+    .quote-convert, .quote-convert .fieldset-wrapper-title .actions {
+        float: none;
+    }
+}
+
+.quote-convert > .fieldset-wrapper-title {
+    padding: 0;
+    border-bottom: 0;
+}
+
+#quote-items_grid .quote-tables td .tier-item .admin__field-option {
+    padding: 0;
+}
+
+#quote-items_grid .quote-tables td .tier-item {
+    display: table;
+}
+
+#quote-items_grid .quote-tables td .tier-item .tier-item-margin {
+    display: table-cell;
+}
+
+.admin__quote-shipment-methods-title {
+    font-weight: 700;
+    margin: 0 0 .5rem
+}
+
+.admin__quote-shipment-methods-options {
+    margin: 0 0 2rem
+}
+
+.admin__quote-shipment-methods-options-list {
+    margin: 0;
+}
+
+.admin__quote-shipment-methods-options-list li {
+    list-style: none;
+}
+
+#quote-pdf {
+    margin-left: 10px;
+}
+
+@media (max-width: 1500px) {
+    #quote-pdf {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+table.quote-tables tr td.col-comment textarea {
+    width: 500px;
+}
+
+.admin__table-primary tbody {
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.admin__table-primary td {
+    border-bottom: 0;
+}
+
+.quote-details .quote-items .admin__page-section-title .actions, .quote-details .quote-search-items .admin__page-section-title .actions {
+    float: right;
+    margin-bottom: 1.7rem;
+    margin-top: -0.3rem;
+}
+
+#quote-items {
+    margin-bottom: 18px;
+}
+
+.quote-search-items .data-grid .action-configure {
+    float: right;
+}
+
+.quote-search-items .data-grid .action-configure.disabled {
+    display: none;
+}
+
+/* Change Apply Coupon/Subtotal Proposal Button To Magento Arrow Icon */
+.quote-proposal .action-default, .field-apply-coupon-code .action-default {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+.quote-proposal .action-default > span, .field-apply-coupon-code .action-default > span {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.quote-proposal .action-default:before, .field-apply-coupon-code .action-default:before {
+    content: '\e625';
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Admin Icons';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    speak: none;
+}
+
+.quote-proposal .action-default, .field-apply-coupon-code .action-default {
+    position: absolute;
+    right: 0;
+    top: 7px;
+}
+
+.quote-proposal .admin__field-control, .field-apply-coupon-code .admin__field-control {
+    position: relative;
+    padding-right: 32px;
+}
+
+.field-apply-subtotal-proposal .admin__control-number {
+    -webkit-appearance: none;
+    background-color: #fff;
+    border: 1px solid #adadad;
+    border-radius: 1px;
+    box-shadow: none;
+    color: #303030;
+    font-size: 1.4rem;
+    font-weight: 400;
+    height: auto;
+    line-height: 1.36;
+    padding: .6rem 1rem .6rem;
+    transition: border-color .1s linear;
+    vertical-align: baseline;
+}
+
+.field-apply-subtotal-proposal .admin__control-number:focus {
+    border-color: #007bdb;
+    box-shadow: none;
+    outline: 0;
+}
+
+.quote-coupons, .field-apply-subtotal-proposal {
+    float: left;
+}
+
+.quote-discounts {
+    margin-top: 2rem;
+}
+
+.quote-discounts > button {
+    float: right;
+    margin-top: 2.1rem;
+}
+
+.checkboxes-container {
+    padding-bottom: 10px;
+}
+
+.checkboxes-container .make-optional {
+    padding-right: 25px;
+}
+
+.checkboxes-container .make-optional, .checkboxes-container .item-comment-block {
+    display: inline-block;
+}
+
+.switcher-caption {
+    font-size: 8px;
+    height: 10px;
+    line-height: 16px;
+}
+
+span.datebox-datepicker {
+    display: inline-table;
+}
+
+.quotation-quote-view .item-options dt {
+    font-weight: bold;
+}
+
+.product-footer-extra-text {
+    display: none;
+}
+
+.quote-tables .tier-item .tier-item-price .item-price {
+    min-width: 0;
+    width: 10rem;
+}
+
+.quote-tables .col-remark {
+    min-width: 220px;
+    padding: 1rem 0rem 1rem 1.5rem;
+}
+
+.quote-tables .col-remark textarea {
+    margin-top: 5px;
+    width: 210px;
+}
+
+.quote-tables .col-action .make-optional {
+    margin-top: 10px;
+}
+
+.shipping-input {
+    margin: 15px 25px;
+}
+
+.shipping-input input {
+    width: 75px;
+    margin-bottom: 5px;
+}
+
+.delete-item-price-tier, .delete-section, .action-collapse-item {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.collapse-all-items {
+    float: right;
+    margin-bottom: -32px;
+}
+
+.collapse-all-items:before {
+    margin-right: 7px;
+    top: 1px;
+    position: relative;
+}
+
+.delete-item-price-tier > span, .delete-section span {
+    display: none;
+}
+
+.delete-item-price-tier:hover, .delete-section:hover, .action-collapse-item:hover, .action-collapse-item:focus {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.delete-item-price-tier:before, .delete-section:before {
+    content: '\e630';
+    font-size: 2rem;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Admin Icons';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    speak: none;
+}
+
+.selected-tier-row {
+    background-color: #e5f7fe;
+}
+
+.quote-item-row:hover {
+    background-color: #f8f8f8;
+}
+
+.col-product,
+.col-action {
+    background-color: white;
+}
+
+.col-tier-select {
+    padding-left: 1.5rem !important;
+}
+
+.quote-tables .child-item {
+    border-bottom: 0;
+}
+
+.quote-tables .parent-item {
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 0;
+}
+
+.quote-tables .child-tier-row .col-product {
+    padding-left: 30px;
+}
+
+#quotation_quote_view_tabs_quote_info_content .admin__table-primary td {
+    padding: 1rem 1rem;
+}
+
+/* Sections */
+#quote-data .col-sort-order, #sortable-table .col-sort-order {
+    vertical-align: middle;
+}
+
+#quote-data .col-sort-order:hover, #sortable-table .col-sort-order:hover {
+    cursor: move;
+}
+
+#quote-items table tfoot {
+    display: none;
+}
+
+#quote-items table:last-child tfoot {
+    display: table-footer-group;
+}
+
+.placeholder {
+    display: table-row-group !important;
+    width: 100% !important;
+    visibility: visible !important;
+}
+
+
+.sortable-quote-item-table tbody tr td:first-child {
+    background: #fff !important;
+}
+
+.sortable-quote-item-table tbody.placeholder tr td, #sortable-table .placeholder td {
+    width: 100% !important;
+    outline: 1px dashed #e3e3e3;
+    outline-offset: -10px;
+}
+
+#sortable-table .placeholder {
+    display: table-row!important;
+}
+
+#sortable-table .placeholder td {
+    height: 73px;
+}
+
+#sortable-table .ui-sortable-helper td:nth-child(2) {
+    width: 100%;
+}
+
+.sortable-quote-item-table tfoot tr td.col-product {
+    background: #f8f8f8;
+}
+
+.action-collapse-item:before {
+    padding-left: 2px;
+    padding-right: 2px;
+    content: '\e616';
+    font-size: 1.5rem;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Admin Icons';
+}
+
+table.quote-tables tbody.show .action-collapse-item:before, .collapse-all-items.show:before {
+    content: '\e615';
+}
+
+.sortable-quote-item-table tbody {
+    position: relative;
+}
+
+table.quote-tables .col-product {
+    width: 300px;
+}
+
+table.quote-tables tbody tr:not(.selected-tier-row) {
+    display: none;
+}
+
+table.quote-tables dl.item-options {
+    display: none;
+}
+
+table.quote-tables tbody.show dl.item-options {
+    display: block;
+}
+
+table.quote-tables .product-configure-block {
+    display: none;
+}
+
+table.quote-tables tbody.show .product-configure-block {
+    display: block;
+}
+
+table.quote-tables tbody.show tr:not(.selected-tier-row), table.quote-tables tbody tr:first-of-type {
+    display: table-row;
+}
+
+table.quote-tables tbody.placeholder tr {
+    display: table-row;
+}
+
+#quote-items table:last-child tfoot:before {
+    content: '';
+    display: block;
+    height: 30px;
+    background: #fff;
+    width: 100%;
+}
+
+#quote-items_grid .sortable-quote-item-table:not(.has-content) tr.section-heading td {
+    padding-bottom: 30px;
+}
+
+#quotation_quote_view_tabs_quote_info_content .section-heading td {
+    padding: 40px 0 5px 0;
+}
+
+.section-heading h2 {
+    background: #fff;
+    position: relative;
+    margin: 0;
+}
+
+.section-heading h2:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    background: #cccccc;
+    z-index: 0;
+}
+
+.section-heading b {
+    display: inline-block;
+    background: #fff;
+    z-index: 1;
+    position: relative;
+    padding: 0 10px 0 0;
+}
+
+.quote-tables.order-tables.sortable-quote-item-table {
+    margin: 0;
+}
+
+.sortable-quote-item-table:not(.has-content) tr.headings {
+    display: none;
+}

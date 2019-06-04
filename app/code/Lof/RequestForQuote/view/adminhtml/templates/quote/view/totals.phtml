@@ -1,0 +1,138 @@
+<?php
+//Get MageQuote and Quote
+$mageQuote = $block->getMageQuote();
+$quote = $block->getQuote();
+
+$moduleHelper = $block->getModuleHelper();
+$enable_quote_totals = $moduleHelper->getConfig("quote_admin_setting/enable_quote_totals");
+$rfqHelper                = $this->helper('Lof\RequestForQuote\Helper\Data');
+
+$currencySymbol = $block->getCurrencySymbol();
+$quote = $mageQuote;
+$currency_code            = $quote?$quote->getQuoteCurrencyCode():null;
+$grand_total = $mageQuote->getData('grand_total');
+$subtotal = number_format($mageQuote->getData('subtotal'), 2, '.', '');
+$adjust_subtotal = number_format($mageQuote->getData('adjust_subtotal'), 2, '.', '');
+$original_subtotal = 0;
+foreach ($quote->getAllVisibleItems() as $item) {
+    $original_subtotal += $item->getOriginalPrice() * $item->getQty(); 
+}
+$subtotal_with_discount = $mageQuote->getData('subtotal_with_discount');
+$discount = $subtotal - $subtotal_with_discount;
+$qty = $mageQuote->getData('items_qty');
+$coupon_code = $quote->getData('coupon_code');
+$shipping_amount = $quote->getData('shipping_amount');
+$shipping_amount = $shipping_amount ? (float)$shipping_amount : '';
+$shipping_note = $quote->getData('shipping_note');
+$shipping_note = $shipping_note ? $shipping_note : '';
+$rate_id = $quote->getData('rate_id');
+$tax_amount = $quote->getData('tax_amount');
+$tax_amount = $tax_amount ? (float)$tax_amount : '';
+$tax_amount2 = $tax_amount ? $tax_amount : ($grand_total - $subtotal_with_discount);
+$tax = $currencySymbol . $tax_amount2;
+
+$quote->collectTotals();
+$totals = $quote->getShippingAddress()->getTotals();
+$shipping = $totals['shipping'];
+$tax_amount2 = ($totals['tax'])->getValue();
+$grand_total = ($totals['grand_total'])->getValue();
+
+
+$request = \Magento\Framework\App\ObjectManager::getInstance()->get("\Magento\Framework\App\RequestInterface");
+
+?>
+
+<?php if($enable_quote_totals): ?>
+
+
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __('Quote Totals') ?></span>
+    </div>
+    <div class="admin__page-section-content">  
+        <div class="admin__page-section-item order-totals"> 
+            <div class="admin__page-section-item-title">
+                <span class="title"><?php echo __('Quote Totals'); ?></span>
+            </div>
+            <table class="data-table admin__table-secondary order-subtotal-table">
+                <tbody> 
+                <tr class="totals original">
+                    <th class="mark" scope="row"><?php echo __('Original Subtotal'); ?></th>
+                    <td class="amount">
+                    <span class="price"
+                          data-th="Original Subtotal"><?php echo $rfqHelper->formatPrice($original_subtotal, false, $currency_code); ?></span>
+                    </td>
+                </tr> 
+
+                <tr class="totals proposal">
+                    <th class="mark" scope="row"><?php echo __('Adjust Subtotal'); ?></th>
+                    <td class="amount">
+                    <span class="price"
+                          data-th="Adjust Subtotal"><?php echo $rfqHelper->formatPrice($adjust_subtotal, false, $currency_code); ?></span>
+                    </td>
+                </tr>
+
+                <tr class="totals sub">
+                    <th class="mark" scope="row"><?php echo __('Quote Subtotal'); ?></th>
+                    <td class="amount">
+                    <span class="price"
+                          data-th="Quote Subtotal"><?php echo $rfqHelper->formatPrice($subtotal, false, $currency_code); ?></span>
+                    </td>
+                </tr>
+
+                <tr class="totals discount">
+                    <th class="mark" scope="row">
+                        <span class="title"><?php echo __('Discount'); ?></span>
+                    </th>
+                    <td class="amount">
+                        <span class="price">-<?php echo $rfqHelper->formatPrice($discount, false, $currency_code); ?></span>
+                    </td>
+                </tr>
+
+                <tr class="totals discount-code hidden hide" style="display: none">
+                    <th class="mark" scope="row">
+                        <span class="title"><?php echo __('Coupon Code'); ?></span>
+                    </th>
+                    <td class="amount">
+                <span><input id="quote-couponcode" type="text" name="coupon_code"
+                             class="input-text admin__control-text" style="width:100%"
+                             value="<?php echo $coupon_code; ?>"/></span>
+                    </td>
+                </tr>
+
+                <tr class="totals-tax">
+                    <th class="mark" scope="row"><?php echo __('Tax'); ?></th>
+                    <td class="amount" data-th="Tax">
+                        <span><?php echo $rfqHelper->formatPrice($tax_amount2, false, $currency_code); ?></span>
+                    </td>
+                </tr>
+
+                <tr class="shipping">
+                    <th class="mark" scope="row"><?= /* @escapeNotVerified */
+                        $shipping->getTitle() ?></th>
+                    <td class="amount" data-th="Shipping">
+                        <span><?php echo $rfqHelper->formatPrice($shipping->getValue(), false, $currency_code); ?></span>
+                    </td>
+                </tr>
+
+                <tr class="grand totals">
+                    <th class="mark" scope="row">
+                        <strong><?php echo __('Quote Total'); ?></strong>
+                    </th>
+                    <td class="amount" data-th="Quote Total">
+                        <strong><span class="price" id="grand_total" data-currency="<?php echo $currencySymbol; ?>"
+                                      data-amount="<?php echo $grand_total; ?>"><?php echo $rfqHelper->formatPrice($grand_total, false, $currency_code); ?></span></strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+
+<?php endif ?>
+
+<?php if ($request->isAjax()) : ?>
+    <script type="application/javascript">
+        jQuery('#method_quotation_quotation_change_button').trigger('contentUpdated');
+    </script>
+<?php endif; ?>

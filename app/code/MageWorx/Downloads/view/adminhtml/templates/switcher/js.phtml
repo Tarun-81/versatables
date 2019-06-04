@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+/**
+ * @see \MageWorx\Downloads\Block\Adminhtml\Attachment\Edit\Switcher
+ */
+
+?>
+<script>
+    require([
+       'jquery'
+    ], function($) {
+
+        $('#attachment_assign_type1').on('change', function() {
+
+            if ($('#attachment_assign_type1:checked')) {
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-products]').show();
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-productids]').hide();
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-productskus]').hide();
+            }
+        });
+
+        $('#attachment_assign_type2').on('change', function() {
+
+            if ($('#attachment_assign_type2:checked')) {
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-productids]').show();
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-productskus]').hide();
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-products]').hide();
+            }
+        });
+
+        $('#attachment_assign_type3').on('change', function() {
+            if ($('#attachment_assign_type3:checked')) {
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-productids]').hide();
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-productskus]').show();
+                $('[data-ui-id=mageworx-downloads-attachment-tabs-tab-item-attachment-products]').hide();
+            }
+        });
+    });
+</script>

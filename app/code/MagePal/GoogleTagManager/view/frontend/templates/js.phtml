@@ -1,0 +1,32 @@
+<?php
+/**
+ * Google Tag Manager
+ *
+ * Copyright © MagePal LLC. All rights reserved.
+ * See COPYING.txt for license details.
+ * http://www.magepal.com | support@magepal.com
+ */
+?>
+<?php /** @var $block \MagePal\GoogleTagManager\Block\GtmCode **/ ?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "magepalGtmDatalayer": {"dataLayer" : "<?php echo $block->getDataLayerName() ?>"}
+        }
+    }
+</script>
+<!-- BEGIN GOOGLE ANALYTICS CODE -->
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_GoogleAnalytics/js/google-analytics": {
+            "isCookieRestrictionModeEnabled": 0,
+            "currentWebsite": 1,
+            "cookieName": "user_allowed_save_cookie",
+            "ordersTrackingData": [],
+            "pageTrackingData": {"optPageUrl":"","isAnonymizedIpActive":"0","accountId":"UA-31117-1","isDisplayFeaturesActive":1,"isEnhancedLinksActive":1}        }
+    }
+}
+</script>
+<!-- END GOOGLE ANALYTICS CODE -->

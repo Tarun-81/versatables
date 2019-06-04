@@ -1,0 +1,105 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+ 
+$_item = $block->getOrder();
+$grand_total = $_item->getData('grand_total');
+$subtotal = $_item->getData('subtotal');
+$subtotal_with_discount = $_item->getData('subtotal_with_discount');
+$discount = $subtotal - $subtotal_with_discount;
+$shipping_discount = intval($subtotal)*12/100;
+$qty = $_item->getData('items_qty');
+//$tax = ($grand_total - $subtotal_with_discount);
+$tax = $_item->getData('tax_amount');
+$rfqHelper                = $this->helper('Lof\RequestForQuote\Helper\Data');
+$enable_price             = $rfqHelper->getConfig("general/enable_price");
+$currentcySymbol          = $rfqHelper->getCurrentCurrencySymbol();
+$currency_code            = $_item?$_item->getQuoteCurrencyCode():null;
+if($enable_price) {
+$shipping_amount = '';
+$totals = $_item->getShippingAddress()->getTotals();
+if(isset($totals['shipping']) && $totals['shipping']){
+    $shipping_amount = $totals['shipping']->getValue();
+}
+$shipping_amount = $shipping_amount?(float)$shipping_amount:'';
+$shipping_note = $_item->getData('shipping_note');
+$shipping_note = $shipping_note?$shipping_note:'';
+?>
+
+<tr class="subtotal">
+    <th colspan="2" scope="row" style="text-align: left; padding-bottom:0;">
+        <?php echo __('Subtotal');?>
+    </th>
+    <td  data-th="<?php echo __('Sub Total');?>" align="right" style="padding-bottom:0;">
+        <?php /* @escapeNotVerified */ echo $rfqHelper->formatPrice($subtotal, false, $currency_code); ?>
+    </td>
+</tr>
+<?php // if($subtotal != $subtotal_with_discount) { ?>
+<tr class="discount">
+    <th colspan="2" scope="row" style="text-align: left; padding-bottom:0;color:#FD9404;">
+        <?php echo __('Quantity Discount');?>
+    </th>
+    <td  data-th="<?php echo __('Quantity Discount');?>" align="right" style="padding-bottom:0;color:#FF834D;" >
+        <?php /* @escapeNotVerified */ echo '-'.$rfqHelper->formatPrice($discount, false, $currency_code); ?>
+    </td>
+</tr>
+<?php // } ?>
+<tr class="shipping">
+	<th colspan="2" scope="row" style="text-align: left padding-bottom:0;">
+        <?php echo __('Shipping');?>
+    </th>
+    <td  data-th="<?php echo __('Shipping');?>" align="right" style="padding-bottom:0;" >
+        <?php echo $rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?>
+    </td>
+</tr>
+
+<tr class="shipping-discount">
+	<th colspan="2" scope="row" style="text-align: left;padding-bottom:5px;color:#FD9404;">
+        <?php echo __('Shipping Discount');?>
+    </th>
+    <td  data-th="<?php echo __('Shipping Discount');?>" align="right" style="padding-bottom:5px;color:#FF834D;" >
+        <?php echo "-".$rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?>
+    </td>
+</tr>
+
+<tr class="total-discount" style="border-top:1px solid #e8e6e7;">
+	<th colspan="2" scope="row" style="text-align: left;color:#FD9404;padding-bottom:0px; padding-top:5px;">
+        <?php echo __('Total Discount');?>
+    </th>
+    <td  data-th="<?php echo __('Total Discount');?>" align="right" style="color:#FF834D;padding-bottom:0px; padding-top:5px;" >
+        <?php echo "-".$rfqHelper->formatPrice(($shipping_discount + $discount), false, $currency_code); ?>
+    </td>
+</tr>
+
+<tr class="tax">
+    <th colspan="2" scope="row" style="text-align: left padding-bottom:5px;">
+        <?php echo __('Tax');?>
+    </th>
+    <td  data-th="<?php echo __('Tax');?>" align="right" style="padding-bottom:5px;">
+        <?php $tax=0; /* @escapeNotVerified */ echo $rfqHelper->formatPrice($tax, false, $currency_code); ?>
+    </td>
+</tr>
+<?php if($shipping_amount) { ?>
+<tr>
+    <td colspan="2" scope="row" style="text-align: left" align="right"><?php echo __(($totals['shipping'])->getTitle());?></td>
+    <td data-th="<?php echo __('Shipping');?>" align="right"><?php echo $rfqHelper->formatPrice($shipping_amount, false, $currency_code); ?></td>
+</tr>
+<?php } ?>
+<tr class="grand-total" style="border-top:1px solid #e8e6e7;">
+    <th colspan="2" scope="row" style="text-align: left; font-size: 18px; padding-bottom: 15px;">
+        <?php echo __('Quote Total');?>
+    </th>
+    <td  data-th="<?php echo __('Grand Total');?>" align="right" style=" font-size: 18px; font-weight: 600; padding-bottom: 15px;">
+        <?php /* @escapeNotVerified */ echo $rfqHelper->formatPrice($grand_total, false, $currency_code); ?>
+    </td>
+</tr>
+<?php } ?>

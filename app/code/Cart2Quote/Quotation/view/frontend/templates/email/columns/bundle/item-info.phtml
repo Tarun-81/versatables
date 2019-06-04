@@ -1,0 +1,56 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+/** @var \Cart2Quote\Quotation\Block\Quote\Email\Items\Quote\Column $block */
+
+?>
+
+<?php if ($block->getItem()->getParentItem()): ?>
+    <tr class="options-label">
+        <?php $attributes = json_decode($block->getItem()->getOptionByCode('bundle_selection_attributes')
+            ->getValue(), true); ?>
+        <td class="col label options-label-content" colspan="5"><?php echo $attributes['option_label']; ?></td>
+    </tr>
+<?php endif; ?>
+
+<tr id="order-item-row-<?php echo $block->getItem()->getItemId() ?>"
+    class="<?php if ($block->getIndex() == $block->getCount() - 1): ?>last-element <?php endif; ?><?php if ($block->getItem()->getParentItem()): ?>
+        item-options-container<?php else: ?>item-parent<?php endif; ?>"<?php if ($block->getItem()->getParentItem()): ?>
+    data-th="<?php echo $block->getItem()->getName() ?>"<?php endif; ?>>
+    <?php if (!$block->getItem()->getParentItem()): ?>
+        <td class="col name" colspan="2" data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>">
+            <strong class="product name product-item-name"><?php echo $block->getItem()->getName() ?></strong>
+
+            <p class="sku"><?php echo __('SKU'); ?>: <?php echo $block->escapeHtml($block->getItem()->getSku()); ?></p>
+        </td>
+    <?php else: ?>
+        <td class="col value value-padding" colspan="4"
+            data-th="<?php echo $block->escapeHtml(__('Product Name')); ?>">
+            <?php echo $block->escapeHtml($block->getItem()->getQty() . ' x ' . $block->getItem()->getName()); ?>
+            <span class="price">
+                    <?php
+                    echo $this->helper('Magento\Framework\Pricing\Helper\Data')
+                        ->currency($block->getItem()->getCurrentTierItem()->getCustomPrice(), true, false)
+                    ?>
+                </span>
+        </td>
+    <?php endif; ?>
+

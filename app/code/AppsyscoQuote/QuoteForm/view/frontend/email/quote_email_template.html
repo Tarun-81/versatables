@@ -1,0 +1,25 @@
+<!--@subject Get A Quote Email  @-->
+<!--@vars {
+"var data.first_name":"Firstname",
+"var data.last_name":"Lastname",
+"var data.telephone":"Telephone",
+"var data.email":"Email",
+"var data.industry_name":"What Industry Are You In?",
+"var data.hear_about":"How Did You Hear About Us?",
+"var data.business_type":"Type?",
+"var data.comment":"Notes"
+} @-->
+ 
+{{template config_path="design/email/header_template"}} 
+
+<table>
+	<tr><strong>Name</strong>: {{var data.first_name}} {{var data.last_name}}</tr>
+    <tr><strong>Telephone</strong>: {{var data.telephone}}</tr>
+	<tr><strong>Email</strong>: {{var data.email}}</tr>
+	<tr><strong>What Industry Are You In?</strong>: {{var data.industry_name}}</tr>
+	<tr><strong>How Did You Hear About Us?</strong>: {{var data.hear_about}}</tr>
+	<tr><strong>Type?</strong>: {{var data.business_type}}</tr>
+	<tr><strong>Notes</strong>: {{var data.comment}}</tr>
+</table>
+ 
+{{template config_path="design/email/footer_template"}} <!--footer of template-->

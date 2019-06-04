@@ -1,0 +1,88 @@
+<?php
+/**
+ * Copyright © 2017 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Adminhtml\Product\Helper\Form\Gallery\Content */
+?>
+
+<div id="<?php echo $block->getMultiFile()->getHtmlId() ?>" class="multifile-uploads">
+
+        <div id="id_<?php echo $block->getMultiFile()->getHtmlId() ?>_Uploader" class="uploader"
+             data-mage-init='{
+                "MageWorx_Downloads/js/downloads-uploader" :
+                {
+                    "maxFileSize": <?php echo $this->helper('MageWorx\Downloads\Helper\Data')->getMaximumAllowedFileSize(); ?>
+                }
+            }'
+        >
+            <div class="image image-placeholder">
+                <div class="product-image-wrapper">
+                    <div class="fileinput-button form-buttons button">
+                        <span><?php echo __('Browse Files...'); ?></span>
+                        <input id="fileupload" type="file" name="multifile"
+                               data-url="<?php echo $block->getMultiFile()->getUrl() ?>" multiple="multiple" />
+                    </div>
+                    <p class="image-placeholder-text">
+                        <?php echo __('Browse to find or drag files here'); ?>
+                    </p>
+                </div>
+            </div>
+
+            <div class="total-upload-progress">
+                <div><?php echo __('Total upload progress'); ?></div>
+                <div class="total-progressbar-container">
+                    <div class="total-progressbar upload-progress" style="width: 0%;"></div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+            <table id="files-to-upload">
+                <thead>
+                <tr>
+                    <th><?php echo __('Name'); ?></th>
+                    <th width="18%"><?php echo __('Size'); ?></th>
+                    <th width="1%"><?php echo __('Status'); ?></th>
+                    <th width="1%">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+<script id="id_Uploader-template" type="text/x-magento-template" data-template="uploader">
+    <tr id="<%- data.id %>" class="f-ile-row download-item">
+        <td><strong><%- data.name %></strong></td>
+        <td><%- data.size %></td>
+        <td class="text-center">
+            <div class="progressbar-container">
+                <div class="progressbar upload-progress" style="width: 0%;"></div>
+            </div>
+            <span class="sign-icon admin-icon-ok"></span>
+            <span class="sign-icon admin-icon-error"></span>
+        </td>
+        <td class="buttons-or-info">
+            <button type="button" class="buton btn-remove">
+                <span class="admin-icon-trash"></span><?php echo __("Remove") ?>
+            </button>
+        </td>
+    </tr>
+</script>
+
+<script id="id_input-template" type="text/x-magento-template" data-template="inputter">
+    <div id="hidden-input-<%- data.id %>">
+        <input type="hidden"
+               name="attachment[realname][]"
+               value="<%- data.realname %>"/>
+        <input type="hidden"
+               name="attachment[multifile][]"
+               value="<%- data.name %>"/>
+    </div>
+</script>

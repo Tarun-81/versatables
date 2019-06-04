@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction">
+            <action name="sync_account">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">text1</item>
+                        <item name="label" xsi:type="string" translate="true">Add to queue as Account</item>
+                        <item name="url" xsi:type="url" path="zohocrm/massqueue/account"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="sync_contact">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">text2</item>
+                        <item name="label" xsi:type="string" translate="true">Add to queue as Contact</item>
+                        <item name="url" xsi:type="url" path="zohocrm/massqueue/contact"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="sync_lead">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">text3</item>
+                        <item name="label" xsi:type="string" translate="true">Add to queue as Lead</item>
+                        <item name="url" xsi:type="url" path="zohocrm/massqueue/lead"/>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+</listing>

@@ -1,0 +1,98 @@
+<?xml version="1.0"?><!--
+  ~
+  ~
+  ~ CART2QUOTE CONFIDENTIAL
+  ~ __________________
+  ~
+  ~  [2009] - [2017] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~
+  ~ NOTICE OF LICENSE
+  ~
+  ~ All information contained herein is, and remains
+  ~ the property of Cart2Quote B.V. and its suppliers,
+  ~ if any.  The intellectual and technical concepts contained
+  ~ herein are proprietary to Cart2Quote B.V.
+  ~ and its suppliers and may be covered by European and Foreign Patents,
+  ~ patents in process, and are protected by trade secret or copyright law.
+  ~ Dissemination of this information or reproduction of this material
+  ~ is strictly forbidden unless prior written permission is obtained
+  ~ from Cart2Quote B.V.
+  -->
+
+<!--
+/**
+ * Cart2Quote
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="cart2quote_quotation">
+            <tab>cart2quote</tab>
+            <group id="proposal" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Proposal</label>
+                <field id="auto_proposal" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto Proposal</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Price proposals are sent automatically, based on standard catalog prices including tier pricing. (Cart2Quote Business license or higher required.)</comment>
+                </field>
+                <field id="auto_proposal_delay" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto proposal email sending delay</label>
+                    <comment>In minutes. Set to "0" to disable this feature.</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <depends>
+                        <field id="auto_proposal">1</field>
+                    </depends>
+                </field>
+                <field id="auto_proposal_strategy" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto proposal strategy</label>
+                    <source_model>Cart2Quote\AutoProposal\Model\Config\Source\AutoProposal\Strategies</source_model>
+                    <comment></comment>
+                    <depends>
+                        <field id="auto_proposal">1</field>
+                    </depends>
+                </field>
+                <field id="auto_proposal_ranges" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto Proposal ranges</label>
+                    <frontend_model>Cart2Quote\AutoProposal\Block\Adminhtml\System\Config\AutoProposalRanges</frontend_model>
+                    <backend_model>Cart2Quote\AutoProposal\Model\System\Config\AutoProposalRanges</backend_model>
+                    <comment></comment>
+                    <depends>
+                        <field id="auto_proposal">1</field>
+                        <field id="auto_proposal_strategy">subtotal_ranges</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="cart2quote_email" translate="label comment" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>cart2quote</tab>
+            <group id="notify_salesrep" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Notify Salesrep</label>
+                <field id="enabled" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="identity" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notifty Salesrep Email Reciever</label>
+                    <comment>Set the reciever of the email (to: field)</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notifty Salesrep Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>
+                        <![CDATA[See <a target="_blank" href="http://devdocs.magento.com/guides/v2.1/frontend-dev-guide/templates/template-email.html">Transactional E-Mails</a>]]>
+                    </comment>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Notifty Salesrep Email Copy To</label>
+                    <comment>Comma-separated</comment>
+                </field>
+                <field id="copy_method" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Notifty Salesrep Email Copy Method</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Method</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

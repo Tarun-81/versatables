@@ -1,0 +1,40 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Osc
+ * @copyright   Copyright (c) 2016 Mageplaza (http://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php if (($deliveryTimeHtml = $block->getDeliveryTime())||($block->getHouseSecurityCode())): ?>
+    <div class="admin__page-section-item order-delivery-time">
+        <div class="admin__page-section-item-title">
+            <span class="title"><?php if($block->getDeliveryTime() && $block->getHouseSecurityCode()){/* @escapeNotVerified */ echo __('Delivery Time & House Security Code');}elseif($block->getHouseSecurityCode()){/* @escapeNotVerified */ echo __('House Security Code');}elseif($block->getDeliveryTime()){/* @escapeNotVerified */ echo __('Delivery Time');} ?></span>
+        </div>
+        <div class="admin__page-section-item-content">
+            <?php if($deliveryTimeHtml): ?>
+                <br><strong><?php /* @escapeNotVerified */ echo __('Delivery Time') ?>: </strong><span><?php echo $deliveryTimeHtml ?></span>
+			<?php endif; ?>
+			<?php if($houseSecurityCodeHtml = $block->getHouseSecurityCode()): ?>
+                <br><strong><?php /* @escapeNotVerified */ echo __('House Security Code') ?>: </strong><span><?php echo $houseSecurityCodeHtml ?></span>
+			<?php endif; ?>
+        </div>
+
+    </div>
+<?php endif; ?>

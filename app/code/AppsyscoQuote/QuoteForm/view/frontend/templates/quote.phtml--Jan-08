@@ -1,0 +1,90 @@
+<style>
+	.quote-page-content input.form-control {
+		font-size: 1em;
+		display: block;
+		width: 100%;
+		height: auto;
+		box-sizing: border-box;
+		color: inherit;
+		margin-bottom: 1em;
+		padding: 1em;
+		background-color: #ffffff;
+		border: 1px solid #cecece;
+		appearance: none;
+		border-radius: 2px;
+		box-shadow: 0 0 5px #dddddd;
+}
+	.quote-page-content input[type="submit"] {
+		width: 340px;
+		background: #7BC052;
+		border-color: #7BC052;
+		font-weight: bold;
+		text-transform: uppercase;
+		font-size: 15px;
+		color: #fff;
+}
+	.quote-page-content select.form-control {
+		float: none;
+		width: 100%;
+		height: 44px;
+		margin-bottom: 1em;
+		padding: 1em;
+}
+	.quote-page-content textarea {
+		height: 200px;
+		resize: vertical;
+		margin-bottom: 1em;
+}
+	.quote-page-content .form-cc.center {
+		text-align: center !important;
+}
+.quote-page-content .form-cc.center input {
+		display: inline-block;
+}
+</style>
+<div class="quote-page-content">
+	<form action="<?php echo $block->getBaseUrl().'appsyscoquoteform/index/quote/'; ?>" method="post">
+		<div class="col-md-12">
+			<div class="col-md-6 float-left">
+				<div class="form-group form-cc">
+					<input name="names" class="form-control" placeholder="Your name" type="text">
+				</div>
+			</div>
+			<div class="col-md-6 float-left">
+				<div class="form-group form-cc">
+					<input name="telephone" class="form-control" placeholder="Phone" type="text">
+				</div>
+			</div>
+			<div class="col-md-6 float-left">
+				<div class="form-group form-cc">
+					<input name="email" class="form-control" placeholder="Your e-mail" type="email">
+				</div>
+			</div>
+			<div class="col-md-6 float-left">
+				<div class="form-group form-cc">
+					<input name="desks" class="form-control" placeholder="How many desks?" type="text">
+				</div>
+			</div>
+			<div class="col-md-6 float-left">
+				<div class="form-group form-cc">
+					<select name="contact" class="form-control" type="text">
+                            <option value="#" disabled selected>How would you like to be contacted?</option>
+                            <option value="email1">Email</option>
+                            <option value="phone">Phone</option>
+                            <option value="texxt">Text</option>
+                        </select>
+				</div>
+			</div>
+			<div class="col-md-12 float-left">
+				<div class="form-group form-cc">
+					<textarea name="comment" class="form-control" placeholder="Notes..." type="text"></textarea>
+				</div>
+			</div>
+			<div class="col-md-12 float-left">
+				<div class="form-group form-cc center">
+					<input type="submit" class="form-control" value="Submit">
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

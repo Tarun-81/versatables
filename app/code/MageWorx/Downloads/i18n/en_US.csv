@@ -1,0 +1,129 @@
+"Edit Attachment '%1'","Edit Attachment '%1'"
+"New Attachment","New Attachment"
+Section,Section
+Name,Name
+Description,Description
+"Downloads Limit","Downloads Limit"
+"See the changed tab on the tab list","See the changed tab on the tab list"
+File(s),File(s)
+File,File
+URL,URL
+"Customer Groups","Customer Groups"
+"Store View","Store View"
+"Is Active","Is Active"
+"Attachment Settings","Attachment Settings"
+"The maximum file size limit is %1M.","The maximum file size limit is %1M."
+"We can't provide the upload settings right now.","We can't provide the upload settings right now."
+"Product IDs","Product IDs"
+"To enter a new product ID, either start a new line or separate it from the previous one with a coma.","To enter a new product ID, either start a new line or separate it from the previous one with a coma."
+"Product SKUs","Product SKUs"
+"To enter a new product SKU, either start a new line or separate it from the previous one with a coma.","To enter a new product SKU, either start a new line or separate it from the previous one with a coma."
+ID,ID
+Type,Type
+"Attribute Set","Attribute Set"
+Status,Status
+Visibility,Visibility
+SKU,SKU
+Price,Price
+Products,Products
+"Attachment Information","Attachment Information"
+Attachments,Attachments
+"Save Section","Save Section"
+"Delete Section","Delete Section"
+"Edit Section '%1'","Edit Section '%1'"
+"New Section","New Section"
+"Section Settings","Section Settings"
+"Section Information","Section Information"
+B,B
+KB,KB
+MB,MB
+"The attachment has been deleted.","The attachment has been deleted."
+"We can't find an attachment to delete.","We can't find an attachment to delete."
+Attachment,Attachment
+"The attachment no longer exists!","The attachment no longer exists!"
+"Please correct the sent data.","Please correct the sent data."
+"Something went wrong while saving the page.","Something went wrong while saving the page."
+"The attachment has been saved.","The attachment has been saved."
+"Something went wrong while saving the attachment %1.","Something went wrong while saving the attachment %1."
+"Only %1 attachment(s) out of %2 have been saved.","Only %1 attachment(s) out of %2 have been saved."
+"At least one file must be attached.","At least one file must be attached."
+"%1 attachments have been saved.","%1 attachments have been saved."
+"This product no longer exists.","This product no longer exists."
+"The section has been deleted.","The section has been deleted."
+"We can't find a section to delete.","We can't find a section to delete."
+"The section no longer exists.","The section no longer exists."
+Sections,Sections
+"The section has been saved.","The section has been saved."
+"Something went wrong while saving the section.","Something went wrong while saving the section."
+"We can't find the link or file you requested.","We can't find the link or file you requested."
+"Something went wrong while getting the requested content.","Something went wrong while getting the requested content."
+"The link is not available.","The link is not available."
+"You have to %login% or %register% to download this file","You have to %login% or %register% to download this file"
+Login,Login
+Register,Register
+"File Downloads","File Downloads"
+"Product Grid","Product Grid"
+Auto,Auto
+Kilobytes,Kilobytes
+Megabytes,Megabytes
+Yes,Yes
+No,No
+Alphabetical,Alphabetical
+"Upload Date","Upload Date"
+Size,Size
+Downloads,Downloads
+Edit,Edit
+Delete,Delete
+"Delete ""${ $.$data.name }""","Delete ""${ $.$data.name }"""
+"Are you sure you want to delete the Attachment ""${ $.$data.name }"" ?","Are you sure you want to delete the Attachment ""${ $.$data.name }"" ?"
+"Are you sure you want to delete the Section ""${ $.$data.name }"" ?","Are you sure you want to delete the Section ""${ $.$data.name }"" ?"
+"Product Attachments","Product Attachments"
+"Related attachments are shown to customers in ""Attachments"" tab on the product page.","Related attachments are shown to customers in ""Attachments"" tab on the product page."
+"Add Attachments","Add Attachments"
+Cancel,Cancel
+"Add Selected Attachments","Add Selected Attachments"
+Remove,Remove
+Filename,Filename
+"Date Modified","Date Modified"
+Actions,Actions
+Unknown,Unknown
+"Browse Files...","Browse Files..."
+"Browse to find or drag files here","Browse to find or drag files here"
+"Total upload progress","Total upload progress"
+"We could not detect a size.","We could not detect a size."
+"This file is too big. Maximum allowed size is","This file is too big. Maximum allowed size is"
+"We don't recognize or support this file extension type.","We don't recognize or support this file extension type."
+"File Downloads & Product Attachments","File Downloads & Product Attachments"
+"Main Settings","Main Settings"
+"Display File Size","Display File Size"
+"File Size Precision","File Size Precision"
+"Group By Section","Group By Section"
+"Sort Order","Sort Order"
+"Hide files","Hide files"
+"'How to download' message","'How to download' message"
+"
+                        You can use %login% and %title% vars to insert links. <br>Example: <br> You have to %login% or %register% to download this file
+                    ","
+                        You can use %login% and %title% vars to insert links. <br>Example: <br> You have to %login% or %register% to download this file
+                    "
+"Display the # of Downloads","Display the # of Downloads"
+"Product Downloads Tab Title","Product Downloads Tab Title"
+"Used for product pages. If empty, the ‘Downloads' title will be used","Used for product pages. If empty, the ‘Downloads' title will be used"
+"Product Downloads Block Title","Product Downloads Block Title"
+"Used for product pages","Used for product pages"
+"Maximus Allowed File Size","Maximus Allowed File Size"
+"If empty or greater than server limitation, server limitation will be applied.</br>
+                                php.ini memory size format can be used (for example, ""100k"", ""1m"", etc).","If empty or greater than server limitation, server limitation will be applied.</br>
+                                php.ini memory size format can be used (for example, ""100k"", ""1m"", etc)."
+"File Downloads Title","File Downloads Title"
+"Used for static blocks and cms pages","Used for static blocks and cms pages"
+"Add New Attachment","Add New Attachment"
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+Disable,Disable
+Enable,Enable
+"File Name","File Name"
+StatusText,StatusText
+EnableText,EnableText
+"Add New Section","Add New Section"
+Title,Title

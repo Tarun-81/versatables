@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Sales\Block\Adminhtml\Order\Create\Shipping\Method" template="Lof_RequestForQuote::quote/edit/shipping/method.phtml" name="shipping_method">
+                <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Shipping\Method\Form" template="Lof_RequestForQuote::quote/edit/shipping/method/form.phtml" name="order_create_shipping_form" as="form"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

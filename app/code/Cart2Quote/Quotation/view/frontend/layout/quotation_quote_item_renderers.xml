@@ -1,0 +1,56 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="quotation_item_price_renderers"/>
+    <body>
+        <referenceBlock name="quotation.quote.item.renderers">
+            <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer" name="quote.item.renderer.simple" as="simple" template="Cart2Quote_Quotation::quote/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.simple.actions" as="actions">
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.simple.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.simple.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+            <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer" name="quote.item.renderer.default" as="default" template="Cart2Quote_Quotation::quote/item/default.phtml"/>
+            <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer" name="downloadable.product.links" template="Magento_Downloadable::checkout/links.phtml"/>
+            <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="quote.item.renderer.configurable" as="configurable" template="Cart2Quote_Quotation::quote/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.configurable.actions" as="actions">
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.configurable.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.configurable.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" name="quote.item.renderer.bundle" as="bundle" template="Cart2Quote_Quotation::quote/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.bundle.actions" as="actions">
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.bundle.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.bundle.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+            <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped" name="quote.item.renderer.grouped" as="grouped" template="Cart2Quote_Quotation::quote/item/default.phtml">
+                <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.grouped.actions" as="actions">
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.grouped.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+                    <block class="Cart2Quote\Quotation\Block\Checkout\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.grouped.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

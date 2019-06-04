@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="customer.wishlist">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Lof_RequestForQuote::wishlist/view.phtml</argument>
+                </action>
+            </referenceBlock>
+            <referenceBlock name="customer.wishlist.item.inner">
+                <block class="Lof\RequestForQuote\Block\Wishlist\Item\Column\Quote" name="customer.wishlist.item.quote" after="customer.wishlist.item.cart" template="Lof_RequestForQuote::wishlist/column/quote.phtml" cacheable="false">
+                    <arguments>
+                        <argument name="title" translate="true" xsi:type="string">Add to Quote</argument>
+                    </arguments>
+                </block>
+            </referenceBlock>
+        </referenceContainer>
+        <referenceBlock name="customer.wishlist.item.cart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Lof_RequestForQuote::wishlist/column/cart.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="customer.wishlist.buttons">
+            <block class="Magento\Wishlist\Block\Customer\Wishlist\Button" name="customer.wishlist.button.toQuote" template="Lof_RequestForQuote::wishlist/button/toquote.phtml" after="-" cacheable="false"/>
+        </referenceContainer>
+        <move element="customer.wishlist.item.inner" destination="customer.wishlist.items" after="-"/>
+    </body>
+</page>

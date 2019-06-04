@@ -1,0 +1,18 @@
+<?php if ($this->helper('Cart2Quote\Quotation\Helper\Data')->canAccept($block->getQuote()) && $this->showCheckoutButton()) : ?>
+    <form action="<?php echo $block->getAcceptUrl() ?>" method="post" id="form-validate"
+          data-mage-init='{"validation":{}}'
+          class="form form-quote">
+        <?php echo $block->getBlockHtml('formkey'); ?>
+        <div class="quote main actions clearfix">
+            <?php $buttonData = $block->getActionButtonData(); ?>
+            <button <?php echo $buttonData['flag'] ?>
+                    type="submit" name="update_quote_action"
+                    value="accept_checkout"
+                    title="<?php echo $buttonData['label'] ?>"
+                    class="action primary cart2quote-accept-checkout-btn"
+                    id="accept_checkout_button">
+                <span><?php echo __($buttonData['label']) ?></span>
+            </button>
+        </div>
+    </form>
+<?php endif; ?>

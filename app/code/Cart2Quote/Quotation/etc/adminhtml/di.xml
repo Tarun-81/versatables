@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Create\Header" type="Cart2Quote\Quotation\Block\Adminhtml\Quote\Create\Header"/>
+    <type name="Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Field\License">
+        <arguments>
+            <argument name="licenseData" xsi:type="object">\Cart2Quote\Quotation\Helper\Data\License</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Notification\MessageList">
+        <arguments>
+            <argument name="messages" xsi:type="array">
+                <item name="AdminQuoteMessages" xsi:type="string">Cart2Quote\Quotation\Model\Admin\Quote\Messages</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

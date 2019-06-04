@@ -1,0 +1,74 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+
+// CS: not clear how magento would like to use that global
+// @codingStandardsIgnoreFile
+?>
+<?php
+$quote = $block->getQuote();
+$source = $block->getSource();
+$fullInfo = $this->helper('Magento\Tax\Helper\Data')->getCalculatedTaxes($source);
+global $taxIter;
+$taxIter++;
+?>
+
+<?php if ($fullInfo && $block->displayFullSummary()) : ?>
+    <?php foreach ($fullInfo as $info) : ?>
+        <?php $percent = $info['percent']; ?>
+        <?php $amount = $info['tax_amount']; ?>
+        <?php $baseAmount = $info['base_tax_amount']; ?>
+        <?php $title = $info['title']; ?>
+        <?php $planeMode = ($block->getIsPlaneMode()) ? ' plane' : ''; ?>
+        <tr class="totals tax details details-<?php echo $taxIter; ?> <?php echo $planeMode; ?>">
+            <td <?php echo $block->getLabelProperties(); ?>>
+                <?php echo $block->escapeHtml($title); ?>
+                <?php if (!$percent !== null) : ?>
+                    (<?php echo (float)$percent; ?>%)
+                <?php endif; ?>
+                <br/>
+            </td>
+            <td <?php echo $block->getValueProperties() ?> rowspan="1">
+                <?php echo $quote->formatPrice($amount); ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if ($block->displayFullSummary() && $fullInfo && !$block->getIsPlaneMode()) : ?>
+    <tr class="totals-tax-summary">
+        <?php elseif ($block->displayFullSummary() && $fullInfo && $block->getIsPlaneMode()) : ?>
+    <tr class="totals-tax-summary plane">
+        <?php else : ?>
+    <tr class="totals-tax">
+        <?php endif; ?>
+        <th <?php echo $block->getLabelProperties(); ?> scope="row" class="tax-header">
+            <?php if ($block->displayFullSummary()) : ?>
+                <div class="detailed"><?php echo __('Tax'); ?></div>
+            <?php else : ?>
+                <?php echo __('Tax'); ?>
+            <?php endif; ?>
+        </th>
+        <td <?php echo $block->getValueProperties() ?> data-th="<?php echo $block->escapeHtml(__('Tax')); ?>" class="tax-content">
+            <?php echo $quote->formatPrice($source->getTaxAmount()) ?>
+        </td>
+    </tr>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <cryozonic_stripesubscriptions>
+                <active>1</active>
+                <model>StripeSubscriptionsFacade</model>
+
+                <!-- What can we do? -->
+                <is_gateway>0</is_gateway>
+                <can_authorize>0</can_authorize>
+                <can_capture>0</can_capture>
+                <can_capture_partial>0</can_capture_partial>
+                <can_refund>0</can_refund>
+                <can_refund_partial_per_invoice>0</can_refund_partial_per_invoice>
+                <can_void>0</can_void>
+                <can_cancel>0</can_cancel>
+                <can_use_internal>0</can_use_internal>
+                <can_use_checkout>0</can_use_checkout>
+                <can_save_cc>0</can_save_cc>
+            </cryozonic_stripesubscriptions>
+        </payment>
+    </default>
+</config>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="MageWorx_Downloads::file_uploader.css"/>
+    </head>
+    <body>
+        <referenceBlock name="product_tabs">
+            <block class="MageWorx\Downloads\Block\Adminhtml\Catalog\Product\Edit\Tab\Attachment" name="mageworx_downloads.attachment" />
+            <action method="addTab">
+                <argument name="name" xsi:type="string">mageworx_downloads_attachment</argument>
+                <argument name="block" xsi:type="string">mageworx_downloads.attachment</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,67 @@
+<?php
+
+$helper = $this->helper("Lof\RequestForQuote\Helper\Data");
+$enable = $helper->isEnabledQuote();
+$enable_addtoquote_nonsale = $helper->getConfig('general/enable_addtoquote_nonsale');
+$enable_addtoquote_nonsale = ($enable_addtoquote_nonsale !== null) ? (int)$enable_addtoquote_nonsale : 0;
+$enable_addtoquote = $helper->getConfig('general/enable_addtoquote');
+$enable_addtoquote = ($enable_addtoquote != null) ? (int)$enable_addtoquote : 1;
+$enable_addtoquote_product = $helper->getConfig('general/enable_addtoquote_product');
+$enable_addtoquote_product = ($enable_addtoquote_product !== null) ? (int)$enable_addtoquote_product : 1;
+
+$item = $block->getItem();
+$product = $item->getProduct();
+
+$is_enable_addtoquote = $helper->isEnabledAddToQuote($product, true);
+?>
+
+<?php if ($is_enable_addtoquote) { ?>
+
+    <?php if ($product->isSaleable() || ($enable_addtoquote_nonsale && !$product->isSaleable())) { ?>
+        <?php foreach ($block->getChildNames() as $childName): ?>
+            <?= /* @noEscape */
+            $block->getLayout()->renderElement($childName, false) ?>
+        <?php endforeach; ?>
+        <div class="box-tocart">
+            <fieldset class="fieldset">
+                <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility()): ?>
+                    <div class="field qty">
+                        <label class="label"
+                               for="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+                        <div class="control">
+                            <input type="number" data-role="qty" id="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"
+                                   class="input-text qty"
+                                   data-validate="{'required-number':true,'validate-greater-than-zero':true}"
+                                   name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" value="<?= /* @noEscape */
+                            (int)($block->getAddToQuoteQty($item) * 1) ?>">
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if ($product->isSaleable()): ?>
+                    <div class="product-item-actions">
+                        <div class="actions-primary">
+                            <button type="button" data-role="toquote" data-post='<?= /* @noEscape */
+                            $block->getItemAddToQuoteParams($item) ?>'
+                                    title="<?= $block->escapeHtmlAttr(__('Add to Quote')) ?>"
+                                    data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>"
+                                    class="action tocart primary">
+                                <span><?= $block->escapeHtml(__('Add to Quote')) ?></span>
+                            </button>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <?php if ($product->getIsSalable()): ?>
+                        <p class="available stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                            <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                        </p>
+                    <?php else: ?>
+                        <p class="unavailable stock" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                        </p>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </fieldset>
+        </div>
+
+    <?php } ?>
+<?php } ?>

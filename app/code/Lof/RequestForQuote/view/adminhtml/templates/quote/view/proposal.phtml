@@ -1,0 +1,24 @@
+<div class="admin__field field-apply-subtotal-proposal">
+    <div class="admin__page-section-item-title">
+        <span class="title"><?php echo __('Apply Subtotal Proposal'); ?></span>
+    </div>
+
+    <div class="admin__field-control">
+        <input type="number" step="any" min="0" class="admin__control-number" id="proposal:subtotal_proposal" value=""
+               name="subtotal_proposal"/>
+
+        <div class="admin__field admin__field-option">
+            <input type="checkbox" class="admin__control-checkbox" id="proposal:is_percentage" value="1"
+                   name="is_percentage"/>
+            <label class="admin__field-label"
+                   for="proposal:is_percentage"> <?php echo __('as percentage'); ?></label>
+        </div>
+        <?php echo $block->getButtonHtml(
+            __('Apply'),
+            'order.setProposal(
+                $F(\'proposal:subtotal_proposal\'),
+                $(\'proposal:is_percentage\').checked
+            )'
+        ) ?>
+    </div>
+</div>

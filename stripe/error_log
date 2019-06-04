@@ -1,0 +1,75 @@
+[08-May-2019 10:12:59 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/in3a8kl7j7op/public_html/stripe/init.php on line 6
+[08-May-2019 10:13:55 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/in3a8kl7j7op/public_html/stripe/init.php on line 6
+[08-May-2019 10:42:43 UTC] PHP Fatal error:  Uncaught Stripe\Error\InvalidRequest: No such sku: sku_F1q4uVcw0nOB09 in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:210 from API request 'req_g9FRC8bvb7zCdO'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiOperations/Request.php(57): Stripe\ApiRequestor->request('post', '/v1/orders', Array, Array)
+#4 /home/in3a in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 210
+[08-May-2019 10:43:35 UTC] PHP Fatal error:  Uncaught Stripe\Error\InvalidRequest: No such sku: sku_F1q4uVcw0nOB09 in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:210 from API request 'req_N8WqVB2UVjOCBk'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiOperations/Request.php(57): Stripe\ApiRequestor->request('post', '/v1/orders', Array, Array)
+#4 /home/in3a in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 210
+[08-May-2019 10:44:30 UTC] PHP Fatal error:  Uncaught Stripe\Error\InvalidRequest: No such sku: sku_F1q4uVcw0nOB09 in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:210 from API request 'req_gjCi27FP1LaE3P'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiOperations/Request.php(57): Stripe\ApiRequestor->request('post', '/v1/orders', Array, Array)
+#4 /home/in3a in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 210
+[08-May-2019 10:44:42 UTC] PHP Fatal error:  Uncaught Stripe\Error\InvalidRequest: No such sku: sku_F1q4uVcw0nOB09 in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:210 from API request 'req_GLMbjufbAP7Y6k'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiOperations/Request.php(57): Stripe\ApiRequestor->request('post', '/v1/orders', Array, Array)
+#4 /home/in3a in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 210
+[08-May-2019 10:45:05 UTC] PHP Fatal error:  Uncaught Stripe\Error\Idempotency: Keys for idempotent requests can only be used with the same parameters they were first used with. Try using a key other than 'QoNKkv7Q22BN1wRK' if you meant to execute a different request. in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:205 from API request 'req_de2OYJXkTLacI2'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_ht in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 205
+[08-May-2019 10:45:39 UTC] PHP Fatal error:  Uncaught Stripe\Error\Idempotency: Keys for idempotent requests can only be used with the same parameters they were first used with. Try using a key other than 'QoNKkv7Q22BN1wRK' if you meant to execute a different request. in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:205 from API request 'req_n7WmU1aS7yWLdb'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_ht in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 205
+[08-May-2019 10:56:28 UTC] PHP Fatal error:  Uncaught Stripe\Error\Idempotency: Keys for idempotent requests can only be used with the same parameters they were first used with. Try using a key other than 'QoNKkv7Q22BN1wRK' if you meant to execute a different request. in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:205 from API request 'req_ABC6KapV3JLbCU'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_ht in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 205
+[08-May-2019 10:57:36 UTC] PHP Fatal error:  Uncaught Stripe\Error\Idempotency: Keys for idempotent requests can only be used with the same parameters they were first used with. Try using a key other than 'QoNKkv7Q22BN1wRK' if you meant to execute a different request. in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:205 from API request 'req_CvYpUJ4rgcG7f8'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{"error":{"mess...', 400, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_ht in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 205
+[08-May-2019 10:59:59 UTC] PHP Fatal error:  Uncaught Stripe\Error\InvalidRequest: No such charge: ch_1EXmNyJYjWAdSCOnLSfaeBC7 in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:210 from API request 'req_mkSpJzedKQqwJq'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiResource.php(62): Stripe\ApiRequestor->request('get', '/v1/charges/ch_...', Array, Array)
+#4 / in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 210
+[08-May-2019 11:00:29 UTC] PHP Fatal error:  Uncaught Stripe\Error\InvalidRequest: No such charge: ch_1EXmNyJYjWAdSCOnLSfaeBC7 in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:210 from API request 'req_JN91Rp2ea4DaJ6'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiResource.php(62): Stripe\ApiRequestor->request('get', '/v1/charges/ch_...', Array, Array)
+#4 / in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 210
+[08-May-2019 11:00:40 UTC] PHP Fatal error:  Uncaught Stripe\Error\InvalidRequest: No such charge: ch_1EXmNyJYjWAdSCOnLSfaeBC7 in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php:210 from API request 'req_2WIU5sB7dhmQ1m'
+Stack trace:
+#0 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(173): Stripe\ApiRequestor::_specificAPIError('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#1 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(473): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray), Array)
+#2 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php(126): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 404, Object(Stripe\Util\CaseInsensitiveArray))
+#3 /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiResource.php(62): Stripe\ApiRequestor->request('get', '/v1/charges/ch_...', Array, Array)
+#4 / in /home/in3a8kl7j7op/public_html/stripe/vendor/stripe/stripe-php/lib/ApiRequestor.php on line 210

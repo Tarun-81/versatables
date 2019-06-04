@@ -1,0 +1,13 @@
+<?php
+
+$shippingAddress = $block->getMageQuoteAddress()
+
+?>
+
+<div class="admin__page-section-item quote-shipping-address">
+    <?php /* Shipping Address */ ?>
+    <div class="admin__page-section-item-title">
+        <span class="title"><?= $block->escapeHtml(__('Shipping Address')) ?></span>
+    </div>
+    <address class="admin__page-section-item-content"><?= /* @noEscape */ $block->getFormattedAddress($shippingAddress); ?></address>
+</div>

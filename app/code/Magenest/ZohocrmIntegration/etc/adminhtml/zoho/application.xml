@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="config" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+
+        <label>Setup</label>
+        <!--<field id="email" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">-->
+            <!--<label>Email</label>-->
+            <!--<tooltip>Enter email of ZohoCRM</tooltip>-->
+            <!--<config_path>zohocrm/config/email</config_path>-->
+        <!--</field>-->
+        <!--<field id="passwd" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">-->
+            <!--<label>Password</label>-->
+            <!--<frontend_model>Magenest\ZohocrmIntegration\Block\System\Config\Form\Field\Password</frontend_model>-->
+            <!--<tooltip>Enter password of ZohoCRM</tooltip>-->
+            <!--<config_path>zohocrm/config/passwd</config_path>-->
+        <!--</field>-->
+        <!--<field id="get_auth_token" translate="button_label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">-->
+            <!--<button_label>Get Auth Token</button_label>-->
+            <!--<frontend_model>Magenest\ZohocrmIntegration\Block\Adminhtml\System\Config\GetAuth</frontend_model>-->
+            <!--<tooltip>Click this button to get Auth Tokens automatically</tooltip>-->
+        <!--</field>-->
+        <!--<field id="auth_token" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">-->
+            <!--<label>Auth Token</label>-->
+            <!--<frontend_model>Magenest\ZohocrmIntegration\Block\System\Config\Form\Field\Disable</frontend_model>-->
+            <!--<config_path>zohocrm/config/auth_token</config_path>-->
+        <!--</field>-->
+        <!--<field id="save_report" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">-->
+            <!--<label>Save Report</label>-->
+            <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+        <!--</field>-->
+        <field id="client_id" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Client Id</label>
+            <tooltip>Enter client_id of ZohoCRM</tooltip>
+            <config_path>zohocrm/config/client_id</config_path>
+            <comment>
+                <![CDATA[Get <font color="red">Client Id</font> and <font color="red">Client Secret</font> at <a target="_blank" href="https://accounts.zoho.com/developerconsole">here</a></br>
+                <strong><font color="red">Note*</font></strong> Authorized redirect URIs:</br>
+                 (Client Domain)/admin/zohocrm/system_config_getauth/getAuthCode/</br>
+                eg: yourdomain.com/admin/zohocrm/system_config_getauth/getAuthCode/]]>
+            </comment>
+        </field>
+        <field id="client_secret" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Client Secret</label>
+            <config_path>zohocrm/config/client_secret</config_path>
+        </field>
+        <field id="get_authorization_code" translate="button_label" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+            <button_label>Get Access Token</button_label>
+            <frontend_model>Magenest\ZohocrmIntegration\Block\Adminhtml\System\Config\GetAuthorizationCode</frontend_model>
+            <tooltip>Click this button to get Access Token automatically</tooltip>
+            <comment><![CDATA[<strong><font color="red">Note*</font></strong> Save <font color="red">Client Id & Client Secret</font> Configuration AND <font color="red">disable Add Secret Key to URLs in Admin configuration</font> before get Access Token.]]>
+            </comment>
+        </field>
+        <field id="access_token" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Access Token</label>
+            <frontend_model>Magenest\ZohocrmIntegration\Block\System\Config\Form\Field\Disable</frontend_model>
+            <config_path>zohocrm/config/access_token</config_path>
+        </field>
+        <field id="zoho_domains" translate="label comment" type="select" sortOrder="65" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Zoho CRM Url Endpoint</label>
+            <source_model>Magenest\ZohocrmIntegration\Model\Config\Source\ZohoServer</source_model>
+        </field>
+        <field id="time_get_token"  type="text" sortOrder="70" showInDefault="0" showInWebsite="0" showInStore="0">
+            <config_path>zohocrm/config/time_get_token</config_path>
+        </field>
+        <field id="refresh_token" type="text" sortOrder="80" showInDefault="0" showInWebsite="0" showInStore="0">
+            <config_path>zohocrm/config/refresh_token</config_path>
+        </field>
+        <field id="save_report" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Save Report</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+    </group>
+</include>

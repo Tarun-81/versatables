@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="lof_requestforquote">
+        <job name="lof_requestforquote_cron_expiry" instance="Lof\RequestForQuote\Model\Cron" method="scheduledSendExpiry">
+            <schedule>00 00 * * *</schedule>
+        </job>
+        <job name="lof_requestforquote_cron_remind" instance="Lof\RequestForQuote\Model\Cron" method="scheduledSendRemind">
+            <schedule>00 00 * * *</schedule>
+        </job>
+        <job name="lof_requestforquote_cron_update_expiry" instance="Lof\RequestForQuote\Model\Cron" method="scheduledUpdateExpiredStatus">
+            <schedule>00 00 * * *</schedule>
+        </job>
+    </group>
+</config>

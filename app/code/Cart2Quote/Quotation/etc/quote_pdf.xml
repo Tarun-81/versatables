@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+/**
+ * Cart2Quote
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Cart2Quote_Quotation:etc/quote_pdf_file.xsd">
+    <renderers>
+        <page type="quotation">
+            <renderer product_type="quoteItem">Cart2Quote\Quotation\Model\Quote\Pdf\Items\QuoteItem</renderer>
+        </page>
+    </renderers>
+    <totals>
+        <total name="subtotal">
+            <title translate="true">Subtotal</title>
+            <source_field>subtotal</source_field>
+            <font_size>7</font_size>
+            <display_zero>true</display_zero>
+            <sort_order>0</sort_order>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\Subtotal</model>
+        </total>
+        <total name="quote_adjustment">
+            <title translate="true">Quote Adjustment</title>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\QuoteAdjustment</model>
+            <display_zero>true</display_zero>
+            <sort_order>1</sort_order>
+            <source_field>discount</source_field>
+            <font_size>7</font_size>
+        </total>
+        <total name="discount">
+            <title translate="true">Discount</title>
+            <source_field>discount</source_field>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\Discount</model>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>200</sort_order>
+        </total>
+        <total name="weee">
+            <title translate="true">FPT</title>
+            <source_field>weee_amount</source_field>
+            <model>Magento\Weee\Model\Sales\Pdf\Weee</model>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>250</sort_order>
+        </total>
+        <total name="shipping">
+            <title translate="true">Shipping &amp; Handling</title>
+            <source_field>shipping_amount</source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>400</sort_order>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\Shipping</model>
+        </total>
+        <total name="adjustment_positive">
+            <title translate="true">Adjustment Refund</title>
+            <source_field>adjustment_positive</source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>500</sort_order>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\DefaultTotal</model>
+        </total>
+        <total name="adjustment_negative">
+            <title translate="true">Adjustment Fee</title>
+            <source_field>adjustment_negative</source_field>
+            <font_size>7</font_size>
+            <display_zero>false</display_zero>
+            <sort_order>600</sort_order>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\DefaultTotal</model>
+        </total>
+        <total name="tax">
+            <title translate="true">Tax</title>
+            <source_field>tax_amount</source_field>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\Tax</model>
+            <font_size>7</font_size>
+            <display_zero>true</display_zero>
+            <sort_order>998</sort_order>
+        </total>
+        <total name="grand_total">
+            <title translate="true">Grand Total</title>
+            <source_field>grand_total</source_field>
+            <font_size>8</font_size>
+            <display_zero>true</display_zero>
+            <model>Cart2Quote\Quotation\Model\Quote\Pdf\Total\Grandtotal</model>
+            <sort_order>999</sort_order>
+        </total>
+    </totals>
+</config>

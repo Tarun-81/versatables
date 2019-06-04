@@ -1,0 +1,9 @@
+[16-May-2019 05:21:08 UTC] PHP Notice:  Undefined variable: maparray in /home/in3a8kl7j7op/public_html/versadesk/index.php on line 570
+[16-May-2019 05:21:52 UTC] PHP Notice:  Undefined variable: maparray in /home/in3a8kl7j7op/public_html/versadesk/index.php on line 570
+[16-May-2019 05:22:44 UTC] PHP Warning:  mysqli::__construct(): (28000/1045): Access denied for user 'root'@'localhost' (using password: YES) in /home/in3a8kl7j7op/public_html/versadesk/config.php on line 22
+[16-May-2019 05:22:44 UTC] PHP Warning:  mysqli::__construct(): (28000/1045): Access denied for user 'root'@'localhost' (using password: YES) in /home/in3a8kl7j7op/public_html/versadesk/config.php on line 22
+[16-May-2019 05:22:44 UTC] PHP Warning:  mysqli_select_db(): Couldn't fetch mysqli in /home/in3a8kl7j7op/public_html/versadesk/config.php on line 13
+[16-May-2019 05:22:44 UTC] PHP Warning:  mysqli::__construct(): (28000/1045): Access denied for user 'root'@'localhost' (using password: YES) in /home/in3a8kl7j7op/public_html/versadesk/config.php on line 22
+[16-May-2019 05:22:44 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/in3a8kl7j7op/public_html/versadesk/config.php on line 41
+[16-May-2019 05:22:44 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, null given in /home/in3a8kl7j7op/public_html/versadesk/config.php on line 48
+[16-May-2019 05:22:44 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/in3a8kl7j7op/public_html/versadesk/config.php on line 49

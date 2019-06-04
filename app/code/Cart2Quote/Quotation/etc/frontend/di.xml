@@ -1,0 +1,67 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Cart2Quote\Quotation\Controller\AbstractController\QuoteLoaderInterface" type="\Cart2Quote\Quotation\Controller\AbstractController\QuoteLoader"/>
+    <preference for="Cart2Quote\Quotation\Controller\AbstractController\QuoteViewAuthorizationInterface" type="\Cart2Quote\Quotation\Controller\AbstractController\QuoteViewAuthorization"/>
+    <preference for="Magento\Customer\CustomerData\SectionPool" type="Cart2Quote\Quotation\CustomerData\SectionPool"/>
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="quotation" xsi:type="string">/quotation/</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="quote" xsi:type="string">Cart2Quote\Quotation\CustomerData\Quote</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Layout">
+        <plugin name="c2q_add_miniquote_alternate_mode" type="Cart2Quote\Quotation\Plugin\Magento\Framework\View\Layout"/>
+    </type>
+    <type name="Magento\Framework\View\Layout\ScheduledStructure">
+        <plugin name="c2q_add_miniquote_normal_mode" type="Cart2Quote\Quotation\Plugin\Magento\Framework\View\Layout\ScheduledStructure"/>
+    </type>
+    <type name="Magento\Customer\Model\Address">
+        <plugin name="c2q_disable_address_field_check" type="Cart2Quote\Quotation\Plugin\Magento\Customer\Model\Address"/>
+    </type>
+    <type name="Magento\Framework\Validator">
+        <plugin name="c2q_disable_address_field_check_for_resource_model" type="Cart2Quote\Quotation\Plugin\Magento\Framework\Validator"/>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="quotation_go_to_checkout_config_provider" xsi:type="object">Cart2Quote\Quotation\Model\Quote\GoToCheckoutConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Cart2Quote\Quotation\CustomerData\Quote">
+        <plugin name="Cart2Quote\Quotation\Plugin\Quotation\CustomerData\QuotePlugin" type="Cart2Quote\Quotation\Plugin\Quotation\CustomerData\QuotePlugin"/>
+    </type>
+    <type name="\Magento\Checkout\Model\Cart">
+        <plugin name="Cart2Quote\Quotation\Plugin\Magento\Checkout\Model\CartPlugin" type="Cart2Quote\Quotation\Plugin\Magento\Checkout\Model\CartPlugin"/>
+    </type>
+</config>

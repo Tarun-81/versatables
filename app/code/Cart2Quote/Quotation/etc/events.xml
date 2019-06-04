@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="config_data_sales_email_general_async_sending_disabled">
+        <observer name="quotation_send_quote_emails" instance="Cart2QuoteQuotationSendEmailsObserver"/>
+    </event>
+    <event name="sales_model_service_quote_submit_success">
+        <observer name="quotation_set_state_ordered" instance="Cart2Quote\Quotation\Observer\Quote\ConvertedToOrder"/>
+    </event>
+    <event name="store_add">
+        <observer name="cart2quote_sequence" instance="Cart2Quote\Quotation\Observer\SalesSequence\Observer"/>
+    </event>
+    <event name="controller_action_predispatch_quotation">
+        <observer name="quotation_run" instance="Cart2Quote\Quotation\Observer\Quote\Run"/>
+    </event>
+    <event name="core_collection_abstract_load_before">
+        <observer name="quotation_join_tier_item" instance="Cart2Quote\Quotation\Observer\Quote\JoinTierItem"/>
+    </event>
+    <event name="core_collection_abstract_load_after">
+        <observer name="quotation_load_tier_items" instance="Cart2Quote\Quotation\Observer\Quote\LoadTierItem"/>
+    </event>
+    <event name="sales_quote_item_load_after">
+        <observer name="quotation_load_tier_after_item_load" instance="Cart2Quote\Quotation\Observer\Quote\LoadTierItem"/>
+    </event>
+    <event name="sales_quote_item_save_after">
+        <observer name="quotation_load_tier_after_item_save" instance="Cart2Quote\Quotation\Observer\Quote\LoadTierItem"/>
+    </event>
+    <event name="sales_order_place_after">
+        <observer name="set_active_confirm_mode" instance="Cart2Quote\Quotation\Observer\Magento\Checkout\CompleteOrderObserver"/>
+    </event>
+    <!--Event names are not allowed to have numeric values, therefore replace cart2quote with carttoquote-->
+    <!--<event name="admin_system_config_changed_section_carttoquote_quotation"></event>-->
+</config>

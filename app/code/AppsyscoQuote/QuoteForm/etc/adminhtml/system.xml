@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="custom_tabs" translate="label" sortOrder="110">
+            <label>Get A Quote</label>
+        </tab>
+        <section id="email_section" translate="label" type="text" sortOrder="100" showInDefault="0" showInWebsite="1" showInStore="1">
+            <label>Get A Quote</label>
+            <tab>custom_tabs</tab>
+            <resource>AppsyscoQuote_QuoteForm::config</resource>
+            <group id="sendmail" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Setting</label>
+                <field id="get_quote" translate="Get A Quote" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Get A Quote</label>
+                    <comment>Get A Quote</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+				<field id="get_quote_to_customer" translate="Get A Quote" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Get A Quote</label>
+                    <comment>Get A Quote</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

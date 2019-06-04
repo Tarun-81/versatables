@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="checkoutfieldsmanager_order_email_order_template" label="New Order with CFM" file="order_new.html" type="html" module="Aitoc_CheckoutFieldsManager" area="frontend"/>
+</config>

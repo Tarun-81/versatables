@@ -1,0 +1,64 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php 
+$rfqHelper       = $this->helper('Lof\RequestForQuote\Helper\Data');
+$enable_price             = $rfqHelper->getConfig("general/enable_price");
+$enable_image             = $rfqHelper->getConfig("email_settings/enable_image");
+?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_order): ?>
+    <?php $_items = $_order->getAllItems(); ?>
+    <table class="email-items" style="width:100%" cellspacing="0">
+        <thead style="color:FFF;padding:5px;text-align: left;">
+            <tr>
+                <th class="item-info">
+                    <?= /* @escapeNotVerified */  __('Image'); ?>
+                </th>
+				<th class="item-name">
+                    <?= /* @escapeNotVerified */  __('Name'); ?>
+                </th>
+				<th class="item-sku">
+                    <?= /* @escapeNotVerified */  __('SKU'); ?>
+                </th>
+                <th class="item-qty">
+                    <?= /* @escapeNotVerified */  __('Qty'); ?>
+                </th>
+				<?php if($enable_price) { ?>
+                <th class="item-price">
+                    <?= /* @escapeNotVerified */  __('Unit Price'); ?>
+                </th>
+                <?php } ?>
+            </tr>
+        </thead>
+        <?php foreach ($_items as $_item): ?>
+            <?php
+            if ($_item->getParentItem()) {
+                continue;
+            }
+            ?>
+            <tbody>
+                <?= $block->getItemHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+    <?php if($enable_price) { ?>
+        <table class="order-totals" style="width:100%">
+            <tr>
+                <td style="width:60%">
+                </td>
+                <td colspan="2">
+                    <table style="width:100%;">
+                        <?= $block->getChildHtml('order_totals') ?>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    <?php } ?>
+<?php endif; ?>

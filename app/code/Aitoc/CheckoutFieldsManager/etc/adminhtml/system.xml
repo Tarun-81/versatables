@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright © 2018 Aitoc. All rights reserved.
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<system>
+    <tab id="aitoc_extensions" translate="label" sortOrder="1000000">
+        <label>Aitoc Extensions</label>
+    </tab>
+    <section id="checkoutfieldsmanager" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="0">
+        <class>separator-top</class>
+        <label>Checkout Fields Manager</label>
+        <tab>aitoc_extensions</tab>
+        <resource>Aitoc_CheckoutFieldsManager::config_checkoutfieldsmanager</resource>
+        <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>General Settings</label>
+            <attribute type="expanded">1</attribute>
+            <field id="read_cart_in_checkout" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Edit Cart in Checkout</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="disable_cart" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Disable Cart</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+        </group>
+     <!--   <group id="billing_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Billing Information</label>
+            <attribute type="expanded">1</attribute>
+            <field id="show_middle_name_field" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Middle Name Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <comment><![CDATA[Use this option if you have Magento v1.9.2.x or higher.]]></comment>
+            </field>
+            <field id="show_company_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Company Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_address_fields" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Address Fields</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_city_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show City Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_region_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Region Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_country_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Country Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_zip_postal_code_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Zip/Postal Code Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_phone_code_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Phone Code Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+        </group>
+        <group id="shipping_information" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+        <label>Shipping Information</label>
+        <attribute type="expanded">1</attribute>
+        <comment>Please note that no Shipping Information data will be sent to PayPal if at least one of the fields below marked with an asterisk (*) is set to "No":</comment>
+            <field id="enabled_section" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Enabled Section*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_middle_name" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Middle Name Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_company_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Company Field</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_address_fields" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Address Fields*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_city_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show City Field*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_region_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Region Field*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_country_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Country Field*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_zip_postal_code_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Zip/Postal Code Field*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_phone_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Phone Field*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="show_fax_field" translate="label" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Show Fax Field*</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+        </group>
+        <group id="shipping_method" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+        <label>Shipping Method</label>
+        <attribute type="expanded">1</attribute>
+        <field id="enabled_section" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Enabled Section</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <comment><![CDATA[step will be disabled if you have only flat rate or free shipping method active (should be enabled for all countries)]]></comment>
+        </field>
+        </group>
+        <group id="payment_method" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Payment Method</label>
+            <attribute type="expanded">1</attribute>
+            <field id="enabled_section" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Enabled Section</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <comment><![CDATA[step will be disabled only when "Check/Money order" is the only active payment method]]></comment>
+            </field>
+        </group> -->
+    </section>
+</system>
+</config>

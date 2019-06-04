@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="quotation_quote.grid.container">
+            <block class="Cart2Quote\Quotation\Block\Adminhtml\Quote\Grid" name="quotation.quote.grid" as="grid">
+                <arguments>
+                    <argument name="id" xsi:type="string">quotation_quote_grid</argument>
+                    <argument name="dataSource" xsi:type="object">Cart2Quote\Quotation\Model\ResourceModel\Quote\Grid\Collection</argument>
+                    <argument name="use_ajax" xsi:type="string">false</argument>
+                    <argument name="default_sort" xsi:type="string">created_at</argument>
+                    <argument name="default_dir" xsi:type="string">DESC</argument>
+                    <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                    <argument name="grid_url" xsi:type="url" path="*/*/grid">
+                        <param name="_current">1</param>
+                    </argument>
+                    <argument name="default_filter" xsi:type="array">
+                        <item name="is_quote" xsi:type="string">1</item>
+                    </argument>
+                </arguments>
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="quotation.quote.grid.columnSet">
+                    <arguments>
+                        <argument name="id" xsi:type="string">quotation_quote_grid</argument>
+                        <argument name="rowUrl" xsi:type="array">
+                            <item name="generatorClass" xsi:type="string">Magento\Sales\Model\Order\Grid\Row\UrlGenerator</item>
+                            <item name="path" xsi:type="string">quotation/quote/view</item>
+                            <item name="extraParamsTemplate" xsi:type="array">
+                                <item name="quote_id" xsi:type="string">getId</item>
+                            </item>
+                        </argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="real_quote_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Quote</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="index" xsi:type="string">increment_id</argument>
+                            <argument name="id" xsi:type="string">real_quote_id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-order-number</argument>
+                            <argument name="column_css_class" xsi:type="string">col-order-number</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column\Multistore" as="store_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Request Point</argument>
+                            <argument name="type" xsi:type="string">store</argument>
+                            <argument name="store_view" xsi:type="string">1</argument>
+                            <argument name="display_deleted" xsi:type="string">1</argument>
+                            <argument name="index" xsi:type="string">store_id</argument>
+                            <argument name="id" xsi:type="string">store_id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-from-store</argument>
+                            <argument name="column_css_class" xsi:type="string">col-from-store</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="quotation_created_at">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Requested</argument>
+                            <argument name="type" xsi:type="string">datetime</argument>
+                            <argument name="index" xsi:type="string">quotation_created_at</argument>
+                            <argument name="id" xsi:type="string">quotation_created_at</argument>
+                            <argument name="header_css_class" xsi:type="string">col-period</argument>
+                            <argument name="column_css_class" xsi:type="string">col-period</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="customer_firstname">
+                        <arguments>
+                            <argument name="id" xsi:type="string">customer_firstname</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="header" xsi:type="string" translate="true">Customer First Name</argument>
+                            <argument name="index" xsi:type="string">customer_firstname</argument>
+                            <argument name="header_css_class" xsi:type="string">col-firstname</argument>
+                            <argument name="column_css_class" xsi:type="string">col-firstname</argument>
+                        </arguments>
+                    </block>
+                    <!-- Optional: Customer middle name column -->
+                    <!--<block class="Magento\Backend\Block\Widget\Grid\Column" as="customer_middlename">-->
+                    <!--<arguments>-->
+                    <!--<argument name="id" xsi:type="string">customer_middlename</argument>-->
+                    <!--<argument name="type" xsi:type="string">text</argument>-->
+                    <!--<argument name="header" xsi:type="string" translate="true">Customer Middle Name</argument>-->
+                    <!--<argument name="index" xsi:type="string">customer_middlename</argument>-->
+                    <!--<argument name="header_css_class" xsi:type="string">col-middlename</argument>-->
+                    <!--<argument name="column_css_class" xsi:type="string">col-middlename</argument>-->
+                    <!--</arguments>-->
+                    <!--</block>-->
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="customer_lastname">
+                        <arguments>
+                            <argument name="id" xsi:type="string">customer_lastname</argument>
+                            <argument name="type" xsi:type="string">text</argument>
+                            <argument name="header" xsi:type="string" translate="true">Customer Last Name</argument>
+                            <argument name="index" xsi:type="string">customer_lastname</argument>
+                            <argument name="header_css_class" xsi:type="string">col-lastname</argument>
+                            <argument name="column_css_class" xsi:type="string">col-lastname</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="grand_total_base">
+                        <arguments>
+                            <argument name="id" xsi:type="string">grand_total</argument>
+                            <argument name="header" xsi:type="string" translate="true">Grand Total (Base)</argument>
+                            <argument name="type" xsi:type="string">currency</argument>
+                            <argument name="currency" xsi:type="string">base_currency_code</argument>
+                            <argument name="rate" xsi:type="string">1</argument>
+                            <argument name="index" xsi:type="string">base_grand_total</argument>
+                            <argument name="header_css_class" xsi:type="string">col-gtpurchased</argument>
+                            <argument name="column_css_class" xsi:type="string">col-gtpurchased</argument>
+                        </arguments>
+                    </block>
+                    <!-- Optional: Grand total in the quoted currency. -->
+                    <!--
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="grand_total">
+                        <arguments>
+                            <argument name="id" xsi:type="string">grand_total</argument>
+                            <argument name="header" xsi:type="string" translate="true">Grand Total (Quoted)</argument>
+                            <argument name="type" xsi:type="string">currency</argument>
+                            <argument name="currency" xsi:type="string">quote_currency_code</argument>
+                            <argument name="rate" xsi:type="string">1</argument>
+                            <argument name="index" xsi:type="string">grand_total</argument>
+                            <argument name="header_css_class" xsi:type="string">col-gtpurchased</argument>
+                            <argument name="column_css_class" xsi:type="string">col-gtpurchased</argument>
+                        </arguments>
+                    </block>
+                    -->
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="status">
+                        <arguments>
+                            <argument name="id" xsi:type="string">status</argument>
+                            <argument name="header" xsi:type="string" translate="true">Status</argument>
+                            <argument name="type" xsi:type="string">options</argument>
+                            <argument name="currency" xsi:type="string">order_currency_code</argument>
+                            <argument name="index" xsi:type="string">status</argument>
+                            <argument name="options" xsi:type="options" model="Cart2Quote\Quotation\Model\ResourceModel\Quote\Grid\StatusesArray"/>
+                            <argument name="header_css_class" xsi:type="string">col-status</argument>
+                            <argument name="column_css_class" xsi:type="string">col-status</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="action" acl="Cart2Quote_Quotation::quotes">
+                        <arguments>
+                            <argument name="id" xsi:type="string">action</argument>
+                            <argument name="header" xsi:type="string" translate="true">Action</argument>
+                            <argument name="type" xsi:type="string">action</argument>
+                            <argument name="getter" xsi:type="string">getId</argument>
+                            <argument name="filter" xsi:type="string">0</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="index" xsi:type="string">stores</argument>
+                            <argument name="is_system" xsi:type="string">1</argument>
+                            <argument name="actions" xsi:type="array">
+                                <item name="view_action" xsi:type="array">
+                                    <item name="caption" xsi:type="string" translate="true">View</item>
+                                    <item name="url" xsi:type="array">
+                                        <item name="base" xsi:type="string">quotation/quote/view</item>
+                                    </item>
+                                    <item name="field" xsi:type="string">quote_id</item>
+                                </item>
+                            </argument>
+                            <argument name="header_css_class" xsi:type="string">col-actions</argument>
+                            <argument name="column_css_class" xsi:type="string">col-actions</argument>
+                        </arguments>
+                    </block>
+                </block>
+                <block class="Magento\Backend\Block\Widget\Grid\Massaction" name="quotation.quote.massaction" as="grid.massaction">
+                    <arguments>
+                        <argument name="massaction_id_field" xsi:type="string">quote_id</argument>
+                        <argument name="form_field_name" xsi:type="string">ids</argument>
+                        <argument name="use_select_all" xsi:type="string">1</argument>
+                        <argument name="options" xsi:type="array">
+                            <item name="delete" xsi:type="array">
+                                <item name="label" xsi:type="string" translate="true">Delete</item>
+                                <item name="url" xsi:type="string">*/*/massDelete</item>
+                            </item>
+                            <item name="cancel" xsi:type="array">
+                                <item name="label" xsi:type="string" translate="true">Cancel</item>
+                                <item name="url" xsi:type="string">*/*/massCancel</item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Text\ListText" name="grid.bottom.links">
+                    <block class="Magento\Sales\Block\Adminhtml\Rss\Order\Grid\Link" name="grid.rss.link"/>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

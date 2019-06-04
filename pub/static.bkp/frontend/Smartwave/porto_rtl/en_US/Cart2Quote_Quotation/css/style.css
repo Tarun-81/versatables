@@ -1,0 +1,811 @@
+/*
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+.block-miniquote .items-total {
+    float: none;
+    /* Set float to left when Quote Subtotals are visible */
+    margin: 0 10px;
+}
+
+.block-miniquote .items-total .count {
+    font-weight: 700
+}
+
+.block-miniquote .subtotal {
+    margin: 0 10px;
+    text-align: right;
+}
+
+.block-miniquote .amount .price-wrapper:first-child .price {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.block-miniquote .subtitle {
+    display: none
+}
+
+.block-miniquote .subtitle.empty {
+    display: block;
+    padding: 0;
+    text-align: center;
+    font-size: 14px;
+	font-weight: normal;
+}
+
+.block-miniquote .text.empty {
+    text-align: center
+}
+
+.block-miniquote .block-content > .actions {
+    margin-top: 3px
+}
+
+.block-miniquote .block-content > .actions > .secondary {
+    text-align: center
+}
+
+.block-miniquote .block-content > .actions > .primary {
+    margin: 0 10px 15px
+}
+
+.block-miniquote .block-content > .actions > .primary .action.primary {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+}
+
+.block-miniquote .block-content > .actions .paypal-logo {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.block-miniquote .block-category-link,
+.block-miniquote .block-product-link,
+.block-miniquote .block-cms-link,
+.block-miniquote .block-banners {
+    margin: 15px 0 0;
+    text-align: center;
+}
+
+.miniquote-wrapper {
+    display: inline-block;
+    float: right;
+}
+
+.minicart-wrapper {
+    position: inherit;
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    .miniquote-wrapper {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 639px) {
+    .miniquote-wrapper {
+        margin-top: 10px;
+    }
+}
+
+.miniquote-wrapper:before,
+.miniquote-wrapper:after {
+    content: "";
+    display: table;
+}
+
+.miniquote-wrapper:after {
+    clear: both
+}
+
+.miniquote-wrapper .action.showquote {
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.miniquote-wrapper .action.showquote:before {
+    content: '';
+    /*display: inline-block;*/
+    position: relative;
+    width: 19px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: 0;
+    background: url('../images/quote-icon.png') center center no-repeat;
+    background-size: 100%;
+	display:none;
+}
+
+.miniquote-wrapper .action.showquote:hover:before {
+    color: #333333;
+	display:none;
+}
+
+.miniquote-wrapper .action.showquote:active:before {
+    color: #8f8f8f;
+	display:none;
+}
+
+.miniquote-wrapper .action.showquote.active {
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: 3px;
+}
+
+.miniquote-wrapper .action.showquote.active:before, .miniquote-wrapper .action.showquote:hover:before {
+    content: '';
+    /*display: inline-block;*/
+    position: relative;
+    width: 19px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: 0;
+    background: url('../images/quote-icon-active.png') center center no-repeat;
+    background-size: 100%;
+	display:none;
+}
+
+.miniquote-wrapper .action.showquote.active:hover:before {
+    color: #333333
+}
+
+.miniquote-wrapper .action.showquote.active:active:before {
+    color: #8f8f8f
+}
+
+.miniquote-wrapper .block-miniquote,
+.minicart-wrapper .block-miniquote {
+    padding: 0;
+    list-style: none none;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #bbb;
+    position: absolute;
+    z-index: 100;
+    top: 100%;
+    min-width: 0;
+    margin: 8px 0 0 0;
+    display: none;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
+}
+
+.miniquote-wrapper .block-miniquote li {
+    margin: 0
+}
+
+.miniquote-wrapper .block-miniquote li:hover {
+    cursor: pointer
+}
+
+.miniquote-wrapper .block-miniquote:before,
+.miniquote-wrapper .block-miniquote:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-bottom-style: solid;
+}
+
+.miniquote-wrapper .block-miniquote:before {
+    z-index: 99;
+    border: solid 6px;
+    border-color: transparent transparent #ffffff transparent;
+}
+
+.miniquote-wrapper .block-miniquote:after {
+    z-index: 98;
+    border: solid 7px;
+    border-color: transparent transparent #bbbbbb transparent;
+}
+
+.miniquote-wrapper .block-miniquote:before {
+    top: -12px;
+    left: 10px;
+}
+
+.miniquote-wrapper .block-miniquote:after {
+    top: -14px;
+    left: 9px;
+}
+
+.miniquote-wrapper.active {
+    overflow: visible
+}
+
+.miniquote-wrapper.active .block-miniquote {
+    display: block;
+    margin-top: 5px;
+}
+
+@media (max-width: 767px) {
+    .miniquote-wrapper.active .block-miniquote {
+        margin-top: -18px;
+    }
+}
+
+.miniquote-wrapper .block-miniquote {
+    padding: 25px 20px;
+    right: -30px;
+    width: 390px;
+    margin-top: -28px;
+}
+
+@media (max-width: 767px) {
+    .miniquote-wrapper .block-miniquote {
+        width: 320px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 479px) {
+    .miniquote-wrapper .block-miniquote {
+        width: 290px;
+    }
+}
+
+.miniquote-wrapper .block-miniquote .block-title {
+    display: none
+}
+
+.miniquote-wrapper .block-miniquote:after {
+    left: auto;
+    right: 82px;
+}
+
+@media (max-width: 767px) {
+    .miniquote-wrapper .block-miniquote:after {
+        right: 52px;
+        left: auto;
+    }
+}
+
+.miniquote-wrapper .block-miniquote:before {
+    right: 83px;
+    left: auto;
+}
+
+@media (max-width: 767px) {
+    .miniquote-wrapper .block-miniquote:before {
+        right: 53px;
+        left: auto;
+    }
+}
+
+.miniquote-wrapper .product .actions {
+    float: right;
+    margin: -24px 0 0;
+}
+
+.miniquote-wrapper .product .actions > .primary,
+.miniquote-wrapper .product .actions > .secondary {
+    display: inline
+}
+
+.miniquote-wrapper .product .actions > .primary:not(:last-child),
+.miniquote-wrapper .product .actions > .secondary:not(:last-child) {
+    margin-right: 15px
+}
+
+.cart2quote-accept-checkout-btn {
+    float: right;
+}
+
+.miniquote-wrapper .action.close {
+    width: 40px;
+    height: 40px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    background: none;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    -moz-box-sizing: content-box;
+    box-shadow: none;
+    text-shadow: none;
+    line-height: inherit;
+    font-weight: 400;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.miniquote-wrapper .action.close:focus,
+.miniquote-wrapper .action.close:active {
+    background: none;
+    border: none;
+}
+
+.miniquote-wrapper .action.close:hover {
+    background: none;
+    border: none;
+}
+
+.miniquote-wrapper .action.close.disabled,
+.miniquote-wrapper .action.close[disabled],
+fieldset[disabled] .miniquote-wrapper .action.close {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: .5;
+}
+
+.miniquote-wrapper .action.close > span {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.miniquote-wrapper .action.close:before {
+    font-family: 'porto-icons';
+    content: '\f819';
+    font-size: 16px;
+    line-height: 16px;
+    color: #8f8f8f;
+    overflow: hidden;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    margin: 0;
+}
+
+.miniquote-wrapper .action.close:hover:before {
+    color: #8f8f8f;
+}
+
+.miniquote-wrapper .action.close:active:before {
+    color: #8f8f8f;
+}
+
+.miniquote-wrapper .action.showquote {
+    white-space: nowrap
+}
+
+.miniquote-wrapper .action.showquote .counter.qty {
+    background: #ff7f00 !important;
+    border-radius: 2px;
+    color: #ffffff;
+    clip: auto;
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    min-width: 18px;
+    margin: -2px 0 0 0;
+    padding: 0 3px;
+    overflow: hidden;
+    text-align: center;
+    white-space: normal;
+	width:24px;
+}
+
+.miniquote-wrapper .action.showquote .counter.qty.empty {
+    display: none
+}
+
+.miniquote-wrapper .miniquote-widgets {
+    margin-top: 15px
+}
+
+.miniquote-items-wrapper {
+    border: 1px solid #ccc;
+    margin: 0 -20px;
+    border-left: 0;
+    border-right: 0;
+    overflow-x: auto;
+    padding: 15px;
+    clear: both;
+}
+
+.miniquote-items {
+    margin: 0;
+    padding: 0;
+    list-style: none none;
+}
+
+.miniquote-items .product-item {
+    padding: 5px 0
+}
+
+.miniquote-items .product-item:not(:first-child) {
+    border-top: 1px solid #cccccc
+}
+
+.miniquote-items .product-item:first-child {
+    padding-top: 0
+}
+
+.miniquote-items .product-item-pricing .label {
+    display: inline-block;
+    width: 4.5rem;
+}
+
+.miniquote-items .price-miniquote {
+    margin-bottom: 5px
+}
+
+.miniquote-items .product-item-name {
+    font-weight: 400;
+    margin: 0 0 3px;
+	min-height:10px;
+}
+
+.miniquote-items .product-item-name a {
+    color: #1979c3
+}
+
+.miniquote-items .product-item-details {
+    padding-left: 88px
+}
+
+.miniquote-items .product-item-details .price {
+    font-weight: 500;
+	font-size:14px;
+}
+
+.miniquote-items .product-item-details .price-including-tax,
+.miniquote-items .product-item-details .price-excluding-tax {
+    margin: 0;
+}
+
+.miniquote-items .product-item-details .weee[data-label] {
+    font-size: 1.1rem
+}
+
+.miniquote-items .product-item-details .details-qty {
+    margin-top: 10px;
+	
+}
+
+.miniquote-items .product > .product-item-photo,
+.miniquote-items .product > .product-image-container {
+    float: left
+}
+
+.miniquote-items .product .toggle {
+    border: 0;
+    padding: 0 40px 5px 0;
+}
+
+.miniquote-items .product .toggle:after {
+    position: static;
+    margin: 0 0 0 5px;
+    color: #8f8f8f;
+}
+
+.miniquote-items .product .active > .toggle:after {
+    content: '\f819';
+	font-family: 'porto-icons';
+}
+
+.miniquote-items .product.pricing {
+    margin-top: 3px
+}
+
+.miniquote-items .product.options .tooltip.toggle {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.miniquote-items .product.options .tooltip.toggle > span {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.miniquote-items .product.options .tooltip.toggle:after {
+    font-family: 'luma-icons';
+    content: '\e622';
+    font-size: 12px;
+    line-height: 12px;
+    color: inherit;
+    overflow: hidden;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    margin: -3px 0 0 7px;
+}
+
+.miniquote-items .product.options .details {
+    display: none
+}
+
+.miniquote-items .item-qty {
+    width: 40px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.miniquote-items .update-quote-item {
+    vertical-align: top;
+    font-size: 1.1rem;
+}
+
+.miniquote-items .action.edit,
+.miniquote-items .action.delete {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.miniquote-items .action.edit > span,
+.miniquote-items .action.delete > span {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.miniquote-items .action.edit:before,
+.miniquote-items .action.delete:before {
+    font-family: 'luma-icons';
+    content: '\e601';
+    font-size: 18px;
+    line-height: 20px;
+    color: #8f8f8f;
+    overflow: hidden;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.miniquote-items .action.edit:hover:before,
+.miniquote-items .action.delete:hover:before {
+    color: #333333
+}
+
+.miniquote-items .action.edit:active:before,
+.miniquote-items .action.delete:active:before {
+    color: #8f8f8f
+}
+
+.miniquote-items .action.delete:before {
+    content: '\e604'
+}
+
+.miniquote-items .subtitle {
+    display: none
+}
+
+.miniquote-wrapper .action.showquote .text,
+.miniquote-wrapper .action.showquote .counter-label {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: auto;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: auto;
+	font-weight: 500;
+    color: #F7921E;
+    font-size: 14px;
+	vertical-align: top;
+}
+
+@media (min-width: 768px), print {
+    .miniquote-wrapper {
+        margin-left: 13px
+    }
+}
+
+.actions-toolbar .action-edit {
+    float: right;
+}
+
+.actions-toolbar .action-delete {
+    float: right;
+}
+
+@media speech {
+    .miniquote-wrapper .action.showquote:before {
+        speak: none;
+    }
+
+    .miniquote-wrapper .action.showquote.active:before {
+        speak: none;
+    }
+
+    .miniquote-wrapper .action.close:before {
+        speak: none;
+    }
+
+    .miniquote-items .product.options .tooltip.toggle:after {
+        speak: none;
+    }
+
+    .miniquote-items .action.edit:before,
+    .miniquote-items .action.delete:before {
+        speak: none;
+    }
+}
+
+a.action-delete:before {
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    line-height: 20px;
+    color: #8f8f8f;
+    content: '\e604';
+    font-family: 'luma-icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+
+.quotation-quote-index .opc-wrapper {
+    width: 100% !important;
+}
+
+.quotation-quote-index #quotation-fields {
+    padding: 15px 0 0 0;
+}
+
+.quotation-quote-index #billing {
+    margin: 25px 0;
+}
+
+.quotation-quote-index #billing .billing-same-as-shipping {
+    padding: 20px 0;
+}
+
+.quotation-quote-index .fieldset > .field > .label {
+    font-weight: 400;
+}
+
+.quote-summary {
+    width: 48%;
+    float: right;
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    order: 2;
+    padding: 1px 20px 25px;
+    position: relative;
+    background: #f5f5f5;
+    margin-bottom: 25px;
+}
+
+.quotation-quote-index #checkout {
+    padding: 15px;
+}
+
+.quotation-quote-index .opc-wrapper .shipping-address-item {
+    width: 50% !important;
+}
+
+@media all and (min-width: 768px) and (max-width: 1050px), print {
+    .quotation-quote-index .opc-wrapper .shipping-address-item {
+        width: 100% !important;
+    }
+}
+
+@media all and (min-width: 768px), print {
+    .quotation-quote-index .authentication-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .quotation-quote-index .table-checkout-shipping-method {
+        min-width: 0 !important;
+    }
+
+    .quotation-quote-index .opc-wrapper .shipping-address-item::before {
+        width: 0 !important;
+    }
+
+    .quotation-quote-index .form-cart {
+        max-width: 65% !important;
+    }
+
+    .quotation-quote-index .cart-summary {
+        min-width: 35% !important;
+    }
+
+}
+
+.quotation-quote-index .hide-field {
+    display: none !important;
+}
+
+div.date-zone {
+    font-size: 16px;
+    margin: 5px 0;
+    text-align: right;
+}
+
+.quotation-quote-index .quotation-product-comment {
+    margin-top: 20px;
+    min-height: 100px;
+    min-width: 225px;
+}
+
+/* Request for Quote button */
+#product-addtoquote-button, .quote-btn-list {
+  background: #ebebeb;
+  border: 2px solid #e3e3e3;
+  color: #000;
+  padding-left:28px;
+}
+
+#product-addtoquote-button:hover, .quote-btn-list:hover {
+  background: #ebebeb;
+  border: 2px solid #e3e3e3;
+  color: #000;
+  box-shadow: none;
+}
+
+#product-addtoquote-button:focus, .quote-btn-list:focus {
+  background: #ebebeb;
+  border: 2px solid #e3e3e3;
+  color: #000;
+}
+
+@media (min-width: 768px), print {
+    .cart.table-wrapper .item .col.item {
+        width: 100%;
+    }
+}
+
+@media all and (min-width: 768px) and (max-width: 1050px), print {
+    .quotation-quote-index .item {
+        width: 300px;
+    }
+
+    .quotation-quote-index .product-item-name {
+        width: 150px;
+    }
+
+    .quotation-quote-index .product-image-container {
+        width: 100px;
+    }
+}
+
+@media all and (max-width: 768px), print {
+    .quotation-quote-index .cart-summary {
+        margin-top: 50px;
+    }
+}

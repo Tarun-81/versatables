@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="MageWorxDownloadsAttachmentGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">MageWorx\Downloads\Model\ResourceModel\Attachment\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">MageWorxDownloadsGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageWorxDownloadsGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageWorx\Downloads\Model\ResourceModel\Attachment\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageworx_downloads_attachment</argument>
+            <argument name="eventPrefix" xsi:type="string">mageworx_downloads_attachment_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">attachment_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MageWorx\Downloads\Model\ResourceModel\Attachment</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mageworx_downloads_attachment_listing_data_source" xsi:type="string">MageWorx\Downloads\Model\ResourceModel\Attachment\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageWorxDownloadsSectionGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">MageWorx\Downloads\Model\ResourceModel\Section\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">MageWorxDownloadsGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageWorxDownloadsGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageWorx\Downloads\Model\ResourceModel\Section\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageworx_downloads_section</argument>
+            <argument name="eventPrefix" xsi:type="string">mageworx_downloads_section_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">section_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">MageWorx\Downloads\Model\ResourceModel\Section</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mageworx_downloads_section_listing_data_source" xsi:type="string">MageWorx\Downloads\Model\ResourceModel\Section\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

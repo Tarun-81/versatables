@@ -1,0 +1,121 @@
+<?xml version="1.0"?><!--
+  ~  CART2QUOTE CONFIDENTIAL
+  ~  __________________
+  ~  [2009] - [2018] Cart2Quote B.V.
+  ~  All Rights Reserved.
+  ~  NOTICE OF LICENSE
+  ~  All information contained herein is, and remains
+  ~  the property of Cart2Quote B.V. and its suppliers,
+  ~  if any.  The intellectual and technical concepts contained
+  ~  herein are proprietary to Cart2Quote B.V.
+  ~  and its suppliers and may be covered by European and Foreign Patents,
+  ~  patents in process, and are protected by trade secret or copyright law.
+  ~  Dissemination of this information or reproduction of this material
+  ~  is strictly forbidden unless prior written permission is obtained
+  ~  from Cart2Quote B.V.
+  ~ @category    Cart2Quote
+  ~ @package     Quotation
+  ~ @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+  ~ @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+  -->
+
+<!--
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cart2quote_quotation>
+            <general>
+                <enable>1</enable>
+            </general>
+            <global>
+                <show_sidebar>1</show_sidebar>
+                <default_expiration_time>7</default_expiration_time>
+                <default_reminder_time>3</default_reminder_time>
+            </global>
+        </cart2quote_quotation>
+        <cart2quote_pdf>
+            <quote>
+                <pdf_footer_text>We trust that you will find our quote satisfactory and look forward to working with you. Please contact us should you have any questions at all</pdf_footer_text>
+                <pdf_enable_short_description>1</pdf_enable_short_description>
+                <pdf_enable_instructions>0</pdf_enable_instructions>
+            </quote>
+        </cart2quote_pdf>
+        <cart2quote_email>
+            <quote_request>
+                <enabled>1</enabled>
+                <template>cart2quote_email_quote_request_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </quote_request>
+            <quote_canceled>
+                <enabled>1</enabled>
+                <template>cart2quote_email_quote_canceled_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </quote_canceled>
+            <quote_proposal>
+                <enabled>1</enabled>
+                <template>cart2quote_email_quote_proposal_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </quote_proposal>
+            <quote_proposal_accepted>
+                <enabled>1</enabled>
+                <template>cart2quote_email_quote_proposal_accepted_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </quote_proposal_accepted>
+            <quote_proposal_expire>
+                <enabled>1</enabled>
+                <template>cart2quote_email_quote_proposal_expire_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </quote_proposal_expire>
+            <quote_reminder>
+                <enabled>1</enabled>
+                <template>cart2quote_email_quote_reminder_template</template>
+                <identity>sales</identity>
+                <copy_method>bcc</copy_method>
+            </quote_reminder>
+        </cart2quote_email>
+        <cart2quote_advanced>
+            <general>
+                <disable_alternate_rendering>1</disable_alternate_rendering>
+            </general>
+            <checkout>
+                <accept_quote_without_checkout>0</accept_quote_without_checkout>
+            </checkout>
+        </cart2quote_advanced>
+        <cart2quote_quote_form_settings>
+            <quote_form_settings>
+                <allow_guest_quote_request>0</allow_guest_quote_request>
+            </quote_form_settings>
+        </cart2quote_quote_form_settings>
+        <sales>
+            <totals_sort>
+                <original_subtotal>5</original_subtotal>
+                <quote_adjustment>6</quote_adjustment>
+            </totals_sort>
+        </sales>
+        <carriers>
+            <quotation>
+                <active>1</active>
+                <allowspecific>0</allowspecific>
+                <model>Cart2Quote\Quotation\Model\Carrier\QuotationShipping</model>
+                <name>Custom Price</name>
+                <title>Quote Shipping</title>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+            </quotation>
+        </carriers>
+        <payment>
+            <quotation_quote>
+                <active>1</active>
+                <model>Cart2Quote\Quotation\Model\Payment\QuotationQuote</model>
+                <order_status>pending</order_status>
+                <title>No payment method</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </quotation_quote>
+        </payment>
+    </default>
+</config>

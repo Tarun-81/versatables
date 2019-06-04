@@ -1,0 +1,15 @@
+<?php
+
+$request = \Magento\Framework\App\ObjectManager::getInstance()->get("\Magento\Framework\App\RequestInterface");
+
+?>
+<div class="admin__page-section-item-title">
+    <span class="title"><?= /* @escapeNotVerified */
+        $block->getHeaderText() ?></span>
+</div>
+<?= $block->getChildHtml('', true) ?>
+<?php if ($request->isAjax()) : ?>
+    <script type="application/javascript">
+        jQuery('#method_quotation_quotation_change_button').trigger('contentUpdated');
+    </script>
+<?php endif; ?>

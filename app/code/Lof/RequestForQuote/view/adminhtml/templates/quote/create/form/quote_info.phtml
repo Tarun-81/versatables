@@ -1,0 +1,91 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+$moduleHelper = $this->helper('Lof\RequestForQuote\Helper\Data');
+$editorHelper = $this->helper('Lof\RequestForQuote\Helper\Wysiwygeditor');
+
+$enable_admin_note = $moduleHelper->getConfig("quote_admin_setting/enable_admin_note");
+$enable_terms = $moduleHelper->getConfig("quote_admin_setting/enable_terms");
+$enable_wtexpect = $moduleHelper->getConfig("quote_admin_setting/enable_wtexpect");
+$enable_break_line = $moduleHelper->getConfig("quote_admin_setting/enable_break_line");
+
+$default_admin_note = $moduleHelper->getConfig("quote_admin_setting/default_admin_note") ?: '';
+$default_terms = $moduleHelper->getConfig("quote_admin_setting/default_terms") ?: '';
+$default_wtexpect = $moduleHelper->getConfig("quote_admin_setting/default_wtexpect") ?: '';
+$default_break_line = $moduleHelper->getConfig("quote_admin_setting/default_break_line") ?: '';
+
+$element_note = [
+        "html_id" => "customer_note",
+        "name" => "order[account][customer_note]",
+        "class" => "admin__control-textarea",
+        "value" => '',
+        "label" => '<label class="label admin__field-label" for="customer_note"><span>' . __('Remarks') . '</span></label>',
+        "field_id" => "customer_note"
+    ];
+if ($enable_admin_note) {
+    $element_admin_note = [
+        "html_id" => "admin_note",
+        "name" => "order[account][admin_note]",
+        "class" => "admin__control-textarea",
+        "value" => $default_admin_note,
+        "label" => '<label class="label admin__field-label" for="admin_note"><span>' . __('Admin Note') . '</span></label>',
+        "field_id" => "admin_note"
+    ];
+}
+if ($enable_terms) {
+    $element_terms = [
+        "html_id" => "quote_terms",
+        "name" => "order[account][terms]",
+        "class" => "admin__control-textarea",
+        "value" => $default_terms,
+        "label" => '<label class="label admin__field-label" for="quote_terms"><span>' . __('Quote Terms') . '</span></label>',
+        "field_id" => "quote_terms"
+    ];
+}
+if ($enable_wtexpect) {
+    $element_wtexpect = [
+        "html_id" => "quote_wtexpect",
+        "name" => "order[account][wtexpect]",
+        "class" => "admin__control-textarea",
+        "value" => $default_wtexpect,
+        "label" => '<label class="label admin__field-label" for="quote_wtexpect"><span>' . __('What To Expect') . '</span></label>',
+        "field_id" => "quote_wtexpect"
+    ];
+}
+if ($enable_break_line) {
+    $element_break_line = [
+        "html_id" => "quote_break_line",
+        "name" => "order[account][break_line]",
+        "class" => "admin__control-textarea",
+        "value" => $default_break_line,
+        "label" => '<label class="label admin__field-label" for="quote_break_line"><span>' . __('Break Lines') . '</span></label>',
+        "field_id" => "quote_break_line"
+    ];
+}
+?>
+<div class="admin__page-section-title <?php /* @escapeNotVerified */ echo $block->getHeaderCssClass() ?>">
+    <span class="title"><?php /* @escapeNotVerified */ echo __("Quote Information") ?></span>
+    <div class="actions"></div>
+</div>
+<?php $formValues = $block->getFormValues(); ?>
+<fieldset class="fieldset admin__fieldset " id="quote_info_main">
+    <?= $editorHelper->render($element_note, false); ?>
+    <?php
+        if (isset($element_admin_note)) {
+            echo $editorHelper->render($element_admin_note, false);
+        }
+        if (isset($element_terms)) {
+            echo $editorHelper->render($element_terms, false);
+        }
+        if (isset($element_wtexpect)) {
+            echo $editorHelper->render($element_wtexpect, false);
+        }
+        if (isset($element_break_line)) {
+            echo $editorHelper->render($element_break_line, false);
+        }
+    ?>
+</fieldset>

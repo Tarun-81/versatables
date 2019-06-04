@@ -1,0 +1,9 @@
+<?php
+
+?>
+
+<?php if ($block->getWishlist()->getItemsCount() && $block->getWishlist()->isSalable()): ?>
+    <button type="button" data-role="all-toquote" title="<?= $block->escapeHtmlAttr(__('Add All to Quote')) ?>" class="action toquote">
+        <span><?= $block->escapeHtml(__('Add All to Quote')) ?></span>
+    </button>
+<?php endif;?>

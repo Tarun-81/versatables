@@ -1,0 +1,26 @@
+"Zopim Chat","Zopim Chat"
+General,General
+Enable,Enable
+Default,Default
+"Override the default behavior in the field <i>Exceptions</i> below.","Override the default behavior in the field <i>Exceptions</i> below."
+Exceptions,Exceptions
+"Layout handles for which you want to change the default behavior. <i>(Line-Delimited)</i><br/>Please see the documentation if you have troubles with this option.","Layout handles for which you want to change the default behavior. <i>(Line-Delimited)</i><br/>Please see the documentation if you have troubles with this option."
+"Widget Code","Widget Code"
+"Widget code provided on the Zopim dashboard page under <i>Settings &gt; Widget</i>.","Widget code provided on the Zopim dashboard page under <i>Settings &gt; Widget</i>."
+"Cookie Law","Cookie Law"
+"EU Cookie Law (e-Privacy Directive) compliance modes","EU Cookie Law (e-Privacy Directive) compliance modes"
+Comply,Comply
+"Display a notice that cookies are used the first time the visitor opens the chat window. Visitors can choose to allow or disallow cookies from the Options menu only when this function is called.","Display a notice that cookies are used the first time the visitor opens the chat window. Visitors can choose to allow or disallow cookies from the Options menu only when this function is called."
+"Cookie Law Comply Explicit","Cookie Law Comply Explicit"
+"Disable the live chat widget and do not store cookies until the visitor explicitly allows the use of cookies.","Disable the live chat widget and do not store cookies until the visitor explicitly allows the use of cookies."
+"Customer Data","Customer Data"
+"Use customer's data in the chat if the customer is logged in.","Use customer's data in the chat if the customer is logged in."
+Enable,Enable
+Name,Name
+"Use customer's name.","Use customer's name."
+Email,Email
+"Use customer's email.","Use customer's email."
+Telephone,Telephone
+"Use customer's telephone.","Use customer's telephone."
+Orders,Orders
+"Send customer's orders as tags.","Send customer's orders as tags."

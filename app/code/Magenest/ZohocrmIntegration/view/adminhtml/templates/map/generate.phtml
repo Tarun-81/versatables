@@ -1,0 +1,20 @@
+<?php
+/** @var \Magenest\ZohocrmIntegration\Block\Adminhtml\Map\Generate $block */
+?>
+<button class="primary" id="generate_field">Auto Generate Field</button>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $('#generate_field').on("click", function () {
+            window.location = '<?=$block->getUrl('zohocrm/map/generate')?>';
+        })
+    })
+</script>
+
+<style>
+    #generate_field{
+        margin-bottom: 10px;
+    }
+</style>

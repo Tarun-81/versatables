@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 MageWorx. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="mageworx" sortOrder="2001">
+            <label>MageWorx</label>
+        </tab>
+        <section id="mageworx_downloads" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label><![CDATA[File Downloads & Product Attachments]]></label>
+            <tab>mageworx</tab>
+            <resource>MageWorx_Downloads::config_downloads</resource>
+            <group id="main" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Main Settings</label>
+                
+                <field id="display_size" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Display File Size]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field> 
+                
+                <field id="size_precision" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[File Size Precision]]></label>
+                    <source_model>MageWorx\Downloads\Model\Attachment\Source\FileSize</source_model>
+                    <depends>
+                        <field id="display_size">1</field>
+                    </depends>
+                </field>
+               
+                <field id="group_by_section" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Group By Section]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                
+                <field id="sort_order" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Sort Order]]></label>
+                    <source_model>MageWorx\Downloads\Model\Attachment\Source\SortOrder</source_model>
+                </field>
+                
+                <field id="hide_files" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Hide files]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                
+                <field id="how_to_download_message" translate="label comment" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA['How to download' message]]></label>
+                    <comment>
+                        <![CDATA[You can use %login% and %title% vars to insert links. <br>Example: <br> You have to %login% or %register% to download this file]]>
+                    </comment>
+                    <depends>
+                        <field id="hide_files">0</field>
+                    </depends>
+                </field>
+                
+                <field id="display_downloads" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Display the # of Downloads]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                
+                <field id="product_downloads_tab_title" translate="label comment" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Product Downloads Tab Title]]></label>
+                    <comment><![CDATA[Used for product pages. If empty, the ‘Downloads' title will be used]]></comment>
+                </field>
+
+                <field id="product_downloads_title" translate="label comment" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Product Downloads Block Title]]></label>
+                    <comment><![CDATA[Used for product pages]]></comment>
+                </field>
+
+                <field id="max_file_size" translate="label comment" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[Maximus Allowed File Size]]></label>
+                    <comment><![CDATA[If empty or greater than server limitation, server limitation will be applied.</br>
+                                php.ini memory size format can be used (for example, "100k", "1m", etc).]]></comment>
+                </field>
+
+                <field id="file_downloads_title" translate="label comment" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label><![CDATA[File Downloads Title]]></label>
+                    <comment><![CDATA[Used for static blocks and cms pages]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

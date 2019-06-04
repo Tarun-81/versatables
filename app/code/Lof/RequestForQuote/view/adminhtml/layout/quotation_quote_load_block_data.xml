@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Landofcoder
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * http://landofcoder.com/license
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category   Landofcoder
+ * @package    Lof_RequestForQuote
+ * @copyright  Copyright (c) 2017 Landofcoder (http://www.landofcoder.com/)
+ * @license    http://www.landofcoder.com/LICENSE-1.0.html
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="sales_order_create_item_price"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Tab\Info" name="order_tab_info" template="quote/view/tab/info.phtml">
+                <!--Search-->
+                <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Search" template="Lof_RequestForQuote::quote/edit/search.phtml" name="search">
+                    <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Create\Search\Grid" name="search_grid" as="grid"/>
+                </block>
+                <!--Item-->
+                <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Items" name="items" template="quote/view/items.phtml">
+                    <arguments>
+                        <argument name="columns" xsi:type="array">
+                            <item name="product" xsi:type="string" translate="true">Product</item>
+                            <item name="description" xsi:type="string" translate="true">Description</item>
+                        </argument>
+                    </arguments>
+                    <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Items\Renderer\DefaultRenderer" as="default" template="quote/view/items/renderer/default.phtml">
+                        <arguments>
+                            <argument name="columns" xsi:type="array">
+                                <item name="product" xsi:type="string" translate="false">col-product</item>
+                                <item name="qty" xsi:type="string" translate="false">col-ordered-qty</item>
+                            </argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Sales\Block\Adminhtml\Items\Column\Qty" name="column_qty" template="items/column/qty.phtml" group="column"/>
+                    <block class="Magento\Sales\Block\Adminhtml\Items\Column\Name" name="column_name" template="Lof_RequestForQuote::quote/view/items/column/name.phtml" group="column"/>
+                    <block class="Magento\Framework\View\Element\Text\ListText" name="order_item_extra_info"/>
+                </block>
+
+                <!--Quote And Account Infomation -->
+                <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Info" name="quote_info" template="quote/view/info.phtml"/>
+
+                <!--Shipping Infomation-->
+                <block class="Magento\Backend\Block\Template" template="Lof_RequestForQuote::quote/edit/shipping/info.phtml" name="shipping_info">
+                    <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Shipping\Address" template="Lof_RequestForQuote::quote/edit/shipping/address.phtml" name="shipping_address"/>
+                    <block class="Magento\Sales\Block\Adminhtml\Order\Create\Shipping\Method" template="Lof_RequestForQuote::quote/edit/shipping/method.phtml" name="shipping_method">
+                        <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Shipping\Method\Form" template="Lof_RequestForQuote::quote/edit/shipping/method/form.phtml" name="order_create_shipping_form" as="form"/>
+                    </block>
+                </block>
+
+                <!--Quote Totals-->
+                <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\Totals" template="Lof_RequestForQuote::quote/view/totals.phtml" name="totals"/>
+
+                <!--Additional Infomation-->
+                <block class="Lof\RequestForQuote\Block\Adminhtml\Quote\Edit\AdditionalInfo" template="Lof_RequestForQuote::quote/edit/additional_info.phtml" name="additional_info"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

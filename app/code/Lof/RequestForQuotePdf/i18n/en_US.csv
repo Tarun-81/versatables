@@ -1,0 +1,55 @@
+"Error: Not Found Quotation!","Error: Not Found Quotation!"
+"We can't find the quote.","We can't find the quote."
+"Quote #%1","Quote #%1"
+"Status : %1","Status : %1"
+"Created at : %1","Created at : %1"
+"Email : %1","Email : %1"
+"PRODUCT NAME","PRODUCT NAME"
+PRICE,PRICE
+QUANTITY,QUANTITY
+TOTAL,TOTAL
+"Total : %1","Total : %1"
+"Preview Quote PDF","Preview Quote PDF"
+"Quotation #%1","Quotation #%1"
+"Tax ID: %1","Tax ID: %1"
+"phone: %1","phone: %1"
+"email: ","email: "
+"Quotation Status: %1","Quotation Status: %1"
+"Quotation Date: %1","Quotation Date: %1"
+"Quotation Valid Until: %1","Quotation Valid Until: %1"
+Billing:,Billing:
+"Company: %1","Company: %1"
+"email: <a href=""mailto:%1"">%2</a>","email: <a href=""mailto:%1"">%2</a>"
+Shipping:,Shipping:
+Product,Product
+Sku,Sku
+Price,Price
+Qty,Qty
+Tax,Tax
+Subtotal,Subtotal
+Remarks,Remarks
+"Admin Notes","Admin Notes"
+Terms,Terms
+"What to expect","What to expect"
+"Break Line","Break Line"
+"Original Subtotal:","Original Subtotal:"
+"Quoted Subtotal:","Quoted Subtotal:"
+"Quote Adjustment:","Quote Adjustment:"
+"Grand Total","Grand Total"
+"<a href=""http://landofcoder.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">landofcoder.com</a>","<a href=""http://landofcoder.com"" target=""_BLANK"" title=""""Magento Marketplace, Opencart Marketplace, Magento 2 Extension, Free Magento Extension, Opencart Advanced Reports"">landofcoder.com</a>"
+"Request for Quote PDF","Request for Quote PDF"
+"General Setting","General Setting"
+"Store/Company Logo","Store/Company Logo"
+"Upload store/company logo will store in the folder: pub/media/lof/requestforquote/default/","Upload store/company logo will store in the folder: pub/media/lof/requestforquote/default/"
+"Company Name","Company Name"
+"Tax Id (number)","Tax Id (number)"
+"Store Name","Store Name"
+"Store Address","Store Address"
+"Store Phone Number","Store Phone Number"
+"Store Email Address","Store Email Address"
+"PDF Footer Text","PDF Footer Text"
+"Enabled Quote Info","Enabled Quote Info"
+"Enabled Billing","Enabled Billing"
+"Enabled Shipping","Enabled Shipping"
+"Enabled Other Info","Enabled Other Info"
+"Other info: remarks, admin notes, terms, what to expect, break line","Other info: remarks, admin notes, terms, what to expect, break line"

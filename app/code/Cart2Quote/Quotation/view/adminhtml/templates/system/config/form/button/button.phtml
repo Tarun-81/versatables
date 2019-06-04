@@ -1,0 +1,51 @@
+<?php
+/**
+ *  CART2QUOTE CONFIDENTIAL
+ *  __________________
+ *  [2009] - [2018] Cart2Quote B.V.
+ *  All Rights Reserved.
+ *  NOTICE OF LICENSE
+ *  All information contained herein is, and remains
+ *  the property of Cart2Quote B.V. and its suppliers,
+ *  if any.  The intellectual and technical concepts contained
+ *  herein are proprietary to Cart2Quote B.V.
+ *  and its suppliers and may be covered by European and Foreign Patents,
+ *  patents in process, and are protected by trade secret or copyright law.
+ *  Dissemination of this information or reproduction of this material
+ *  is strictly forbidden unless prior written permission is obtained
+ *  from Cart2Quote B.V.
+ * @category    Cart2Quote
+ * @package     Quotation
+ * @copyright   Copyright (c) 2018. Cart2Quote B.V. (https://www.cart2quote.com)
+ * @license     https://www.cart2quote.com/ordering-licenses(https://www.cart2quote.com)
+ */
+
+/**
+ * @var $block Cart2Quote\Quotation\Block\Adminhtml\System\Config\Form\Button\Button
+ */
+echo $block->getLayout()
+    ->createBlock('Magento\Backend\Block\Widget\Button')
+    ->setData([
+        'id' => $block->escapeHtml($block->getHtmlId()),
+        'label' => $block->escapeHtml($block->getButtonLabel())
+    ])->toHtml();
+?>
+<script>
+    require(['jquery'], function ($) {
+        $("#<?php echo $block->escapeHtml($block->getHtmlId())?>").click(function (event) {
+            event.preventDefault();
+            $.ajax({
+                data: {'type': $("#cart2quote_quote_form_settings_quote_form_custom_fields_add_custom_field_types").val()},
+                type: 'POST',
+                url: '<?php echo $block->getAjaxUrl() ?>',
+                success: function (data) {
+                    if (data.success == true) {
+                        location.reload();
+                    }
+                },
+                showLoader: true
+            });
+            return false;
+        });
+    });
+</script>

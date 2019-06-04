@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the commercial license
+ * that is bundled with this package in the file LICENSE.txt.
+ *
+ * @category Extait
+ * @package Extait_ZendeskChat
+ * @copyright Copyright (c) 2016-2018 Extait, Inc. (http://www.extait.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Extait\ZendeskChat\Block\ZendeskChat"
+                   name="extait_zendesk_chat"
+                   template="Extait_ZendeskChat::zendesk_chat.phtml"
+                   ifconfig="extait_zendesk_chat/general/enable"/>
+        </referenceBlock>
+    </body>
+</page>
