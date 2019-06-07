@@ -126,6 +126,7 @@ class History extends \Magento\Framework\View\Element\Template
      */
     public function getViewUrl($quote)
     {
+        //echo "hello";die;
         return $this->getUrl('quotation/quote/view', ['quote_id' => $quote->getId()]);
     }
 
@@ -136,5 +137,10 @@ class History extends \Magento\Framework\View\Element\Template
     public function getDeleteUrl($quote)
     {
         return $this->getUrl('quotation/quote/delete', ['quote_id' => $quote->getId()]);
+    }
+    public function covertToCart($quote)
+    {
+        //echo "hello";die;
+        return $this->getUrl('quotation/quote/convert', ['quote_id' => $quote->getId()]);
     }
 }

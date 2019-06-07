@@ -59,9 +59,14 @@ $lazy_owl = $this->getData("lazy_owl");
             <?php foreach ($_productCollection as $_product): ?>
                 <?php echo($iterator++ == 1) ? '<div class="item product product-item">' : '</div><div class="item product product-item">' ?>
                 <div class="product-item-info" data-container="product-grid">
+				 <a class="url_product" href="<?php echo $_product->getProductUrl() ?>" tabindex="-1">
+					 <span style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">
+						<?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
+					 </span>
+				 </a>
                     <?php // Product Image ?>
                     <div class="product photo product-item-photo">
-                        <a href="<?php echo $_product->getProductUrl() ?>" tabindex="-1">
+                       
                         <?php
                             if($aspect_ratio)
                                 $productImage = $_imagehelper->init($_product, $image)->constrainOnly(FALSE)->keepAspectRatio(TRUE)->keepFrame(FALSE)->resize($image_width);
@@ -69,7 +74,7 @@ $lazy_owl = $this->getData("lazy_owl");
                                 $productImage = $_imagehelper->init($_product, $image)->resize($image_width, $image_height);
                             $productImageUrl = $productImage->getUrl();
                         ?>
-                            <img class="product-image-photo default_image <?php if($lazy_owl): ?>owl-lazy<?php endif; ?>" <?php if($lazy_owl): ?>data-<?php endif; ?>src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImage->getLabel(); ?>"/>
+                            <img class="product-image-photo default_image <?php if($lazy_owl): ?>owl-lazy<?php endif; ?>" <?php if($lazy_owl): ?>data-<?php endif; ?>src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImage->getLabel(); ?> img"/>
                         <?php if($_category_config['alternative_image']): ?>
                         <?php
                             if($aspect_ratio)
@@ -82,7 +87,7 @@ $lazy_owl = $this->getData("lazy_owl");
                             <img class="product-image-photo hover_image" src="<?php echo $productHoverImageUrl; ?>" alt="<?php echo $productHoverImage->getLabel(); ?>"/>
                             <?php endif; ?>
                         <?php endif; ?>
-                        </a>
+                      
                         <?php
                             $product_label = "";
                             if($_product_label_config['sale_label']) {
@@ -187,10 +192,9 @@ $lazy_owl = $this->getData("lazy_owl");
                         ?>
                         <?php if(!$_category_grid_config['move_title']):?>
                         <strong class="product name product-item-name">
-                            <a class="product-item-link"
-                               href="<?php echo $_product->getProductUrl() ?>">
+
                                 <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
-                            </a>
+                           
                         </strong>
                         <?php endif;?>
                         <?php //$_category_config['rating_star'] = "";  //disabled at the moment ?>
@@ -214,10 +218,9 @@ $lazy_owl = $this->getData("lazy_owl");
                         <?php endif; ?>
                         <?php if($_category_grid_config['move_title']):?>
                             <strong class="product name product-item-name">
-                                <a class="product-item-link"
-                                   href="<?php echo $_product->getProductUrl() ?>">
+                               
                                     <?php echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?>
-                                </a>
+                              
                             </strong>
                         <?php endif;?>
                         <?php if ($showDescription):?>
@@ -253,7 +256,7 @@ $lazy_owl = $this->getData("lazy_owl");
                                 <div class="actions-primary">
                                     <?php if ($_product->isSaleable()): ?>
                                         <?php $postParams = $block->getAddToCartPostParams($_product); ?>
-                                        <a href="<?php echo $_product->getProductUrl() ?>" tabindex="-1"><span class="list-more-info">More Info</span></a>
+                                        <span class="list-more-info">More Info</span>
                                     <?php else: ?>
                                         <?php if ($_product->getIsSalable()): ?>
                                             <div class="stock available"><span><?php echo __('In stock') ?></span></div>

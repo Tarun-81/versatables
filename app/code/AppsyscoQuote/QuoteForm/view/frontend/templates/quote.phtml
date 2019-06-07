@@ -51,32 +51,38 @@
 		<div class="col-md-12">
 			<div class="col-md-6 float-left">
 				<div class="form-group form-cc">
-					<input name="first_name" class="form-control" placeholder="First Name" type="text" required>
+				    <label for="first_name" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">First Name</label>
+					<input name="first_name" id="first_name" class="form-control" placeholder="First Name" type="text" required>
 				</div>
 			</div>
 			<div class="col-md-6 float-left">
 				<div class="form-group form-cc">
-					<input name="last_name" class="form-control" placeholder="Last Name" type="text" required>
+					<label for="last_name" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">Last Name</label>
+					<input name="last_name" id="last_name" class="form-control" placeholder="Last Name" type="text" required>
 				</div>
 			</div>
 			<div class="col-md-6 float-left">
 				<div class="form-group form-cc">
-					<input name="telephone" class="form-control" placeholder="Telephone" type="text" required>
+					<label for="telephone" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">Telephone</label>
+					<input name="telephone" id="telephone" class="form-control" placeholder="Telephone" type="text" required>
 				</div>
 			</div>
 			<div class="col-md-6 float-left">
 				<div class="form-group form-cc">
-					<input name="email" class="form-control" placeholder="Email" type="email" required>
+					<label for="email" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">Email</label>
+					<input id="email" name="email" class="form-control" placeholder="Email" type="email" required>
 				</div>
 			</div>
 			<div class="col-md-12 float-left">
 				<div class="form-group form-cc">
-					<textarea name="comment" class="form-control" placeholder="Notes" type="text" required></textarea>
+					<label for="comment" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">Notes</label>
+					<textarea  id="comment" name="comment" class="form-control" placeholder="Notes" type="text" required></textarea>
 				</div>
 			</div>
 			<div class="col-md-6 float-left">
 				<div class="form-group form-cc">
-					<select name="industry_name" class="form-control" required>
+					<label for="industry_name" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">Industry Name</label>
+					<select id="industry_name" name="industry_name" class="form-control" required>
                             <option value="" disabled selected>What industry are you in?</option>
 							<option value="Advertising">Advertising</option>
 							<option value="Agriculture">Agriculture</option>
@@ -92,7 +98,7 @@
 							<option value="Hospitality">Hospitality</option>
 							<option value="Insurance">Insurance</option>
 							<option value="Legal">Legal</option>
-							<option value="Manufacturing">Manufacturing</option>
+							<option value="Manufacturing">Manufacturing</option> 
 							<option value="Media/Broadcasting">Media/Broadcasting</option>
 							<option value="Non-Profit">Non-Profit</option>
 							<option value="Pharmaceutical">Pharmaceutical</option>
@@ -108,7 +114,8 @@
 			</div>
 			<div class="col-md-6 float-left">
 				<div class="form-group form-cc">
-					<select name="hear_about" class="form-control" required>
+					<label for="hear_about" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">Hear About</label>
+					<select id="hear_about" name="hear_about" class="form-control" required>
                             <option value="" disabled selected>How Did You Hear About Us?</option>
                             <option value="Google Search">Google Search</option>
 							<option value="Bing Search">Bing Search</option>
@@ -124,7 +131,8 @@
 			</div>
 			<div class="col-md-6 float-left">
 				<div class="form-group form-cc">
-					<select name="business_type" class="form-control" required>
+					<label for="business_type" style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">Business Type</label>
+					<select id="business_type" name="business_type" class="form-control" required>
                         <option value="" disabled selected>Type?</option>
                         <option value="Large Office Purchasing Manager">Large Office Purchasing Manager</option>
 						<option value="Small Business Owner/Office Manager">Small Business Owner/Office Manager</option>

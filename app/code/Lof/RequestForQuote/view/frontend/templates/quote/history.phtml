@@ -22,6 +22,9 @@ $helper = $this->helper('Lof\RequestForQuote\Helper\Data');
                         <td data-th="<?php echo $block->escapeHtml(__('Date')) ?>" class="col date"><?php echo $block->formatDate($_quote->getCreatedAt()) ?></td>
                         <td data-th="<?php echo $block->escapeHtml(__('Status')) ?>" class="col status"><?php echo $_quote->getStatusLabel() ?></td>
                         <td data-th="<?php echo $block->escapeHtml(__('Actions')) ?>" class="col actions">
+                            <a href="<?php echo $block->covertToCart($_quote) ?>" class="action view">
+                                <span><?php echo __('Add to Cart') ?></span>
+                            </a>
                             <a href="<?php echo $block->getViewUrl($_quote) ?>" class="action view">
                                 <span><?php echo __('View Quote') ?></span>
                             </a>

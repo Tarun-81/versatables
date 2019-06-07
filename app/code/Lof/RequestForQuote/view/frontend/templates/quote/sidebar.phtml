@@ -77,9 +77,7 @@ if($logged_customer && count($logged_customer->getData()) > 0) {
     //}
 }
 //$discount = $shipping_address->getData('discount_amount');
-$discount = $subtotal-$subtotal_with_discount;
-$shipping_charge = intval($subtotal)*12/100;
-$totoal_discount = $shipping_charge + $discount;
+$discount = $subtotal_with_discount - $subtotal;
 $shipping = $shipping_address->getData('shipping_amount');
 $medium = 'col-sm-';
 
@@ -119,61 +117,18 @@ if($customer){
                 <?php // if($discount) { // && ($discount > 0) ?>
                 <tr class="totals discount">
                     <th class="mark" scope="row">
-                        <span class="title" ><?php echo __('Quantity Discount');?></span>
+                        <span class="title" ><?php echo __('Discount');?></span>
                     </th>
                     <td class="amount">
 						<?php 
 						//if($discount > 0){
-							echo "-".'<span class="price">'. $rfqHelper->formatPriceWithCurency($discount).' </span>';
+							echo '<span class="price">'. $rfqHelper->formatPriceWithCurency($discount).' </span>';
 						//}  // else{
 						//	echo '<span class="price">'. $rfqHelper->formatPriceWithCurency(($grand_total - $subtotal)).' </span>';
 						//}
 					?>
                     </td>
                 </tr>
-                <tr class="totals sub">
-                    <th class="mark" scope="row">
-                        <?php echo __('Shipping');?>
-                    </th>
-                    <td class="amount">
-                        <?php 
-                        //if($discount > 0){
-                            echo '<span class="price">'. $rfqHelper->formatPriceWithCurency($shipping_charge).' </span>';
-                        //}  // else{
-                        //  echo '<span class="price">'. $rfqHelper->formatPriceWithCurency(($grand_total - $subtotal)).' </span>';
-                        //}
-                    ?>
-                    </td>
-                </tr>
-                 <tr class="totals shipping discount">
-                    <th class="mark" scope="row">
-                        <span class="title" ><?php echo __('Shipping Discount');?></span>
-                    </th>
-                    <td class="amount">
-                        <?php 
-                        //if($discount > 0){
-                            echo "-".'<span class="price">'. $rfqHelper->formatPriceWithCurency($shipping_charge).' </span>';
-                        //}  // else{
-                        //  echo '<span class="price">'. $rfqHelper->formatPriceWithCurency(($grand_total - $subtotal)).' </span>';
-                        //}
-                    ?>
-                    </td>
-                </tr>
-                
-                <tr class="discount " style ="border-top: 1px solid #cccccc;font-size: 15px;color: #F7921E;">
-                    <th class="mark" scope="row">
-                        <strong><span ><?php echo __('Total Discount');?></span></strong>
-                    </th>
-                    <td class="amount">
-                        <strong><span class="price" style ="color: #F7921E;"><?php 
-                        
-                            echo "-". $rfqHelper->formatPriceWithCurency($totoal_discount);
-                        
-                    ?></span></strong>
-                    </td>
-                </tr>
-            
-                
                 <?php // } ?>
                 <tr class="totals-tax">
                     <th  class="mark" scope="row"><?php echo __('Tax');?></th>
@@ -568,8 +523,6 @@ require(['jquery'], function() {
 <?php } ?>
 <?php if($enable_country == 1 && $enable_region == 1) { ?>
     <script type="text/javascript">
-
-
         function getState(val) {
             ajaxurl  =  '<?php echo $this->getUrl('quotation/quote/state'); ?>';
             jQuery('.requestforquote-loading').addClass('ajax-loading');
@@ -605,33 +558,6 @@ require(['jquery'], function() {
     <?php } ?>
  <script>
 
-        //function getregionid() {
-        jQuery("#region_id").change(function () {
-            var selectedText =jQuery(this).find("option:selected").text();
-            var selectedValue = jQuery(this).val();
-            if(selectedValue == "CA" && selectedValue == "CA")
-            {
-
-                var subtotal11  = '<?php echo $subtotal;?>';
-                //alert(subtotal11); 
-                var total_tax = subtotal11*8.25/100;
-                Gtotal = parseFloat(subtotal11)+parseFloat(total_tax);
-                //alert(Gtotal); 
-                var taxamt = jQuery(".totals-tax .amount .price").text("$"+total_tax.toFixed(2));
-
-                var grandtotal = jQuery(".grand .amount .price").text("$"+Gtotal.toFixed(2));
-                //alert(taxamt);
-            }
-            else{
-                //Grnadt = parseFloat(Gtotal)+parseFloat(total_tax);
-                //alert(Grnadt);
-                 var actsubtotal  = '<?php echo $subtotal;?>';
-                var taxamt = jQuery(".totals-tax .amount .price").text("$0.00");
-
-                var gtotal = jQuery(".grand .amount .price").text("$"+parseFloat(actsubtotal).toFixed(2));
-            }
-        });
-    //};
 
 function printPage() {
     DivID ="maincontent";

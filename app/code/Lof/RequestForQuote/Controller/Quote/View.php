@@ -60,6 +60,7 @@ class View extends \Lof\RequestForQuote\Controller\AbstractIndex
 
     public function execute()
     {
+        //echo "helllo";die;
         $resultPage = $this->resultPageFactory->create();
         $mageQuote = $quote = null;
         if ($quoteId = $this->getRequest()->getParam('quote_id')) {

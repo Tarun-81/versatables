@@ -8,7 +8,9 @@ class Success implements ObserverInterface
 
     protected $orderRepository;
     public $apiauthtoken = "03d95794d824e8c2c65a2a2b6cfedc65";
+
     protected $_productloader;  
+
 
     public function __construct(  
     OrderRepositoryInterface $OrderRepositoryInterface, \Magento\Catalog\Model\ProductFactory $_productloader
@@ -24,7 +26,7 @@ class Success implements ObserverInterface
     }
     public function execute(\Magento\Framework\Event\Observer $observer) 
     {
-                $accessToken = $this->access_token();
+        
                 $order_ids = $observer->getEvent()->getOrderIds()[0];
                 $ordersss = $observer->getOrder();
                 $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
@@ -82,7 +84,8 @@ class Success implements ObserverInterface
                       }
                   }
          							 
-                  $salesorderarray = array();
+                  $url = "https://crm.zoho.com/crm/private/json/SalesOrders/insertRecords?";   
+                  $query = "authtoken=".$this->apiauthtoken."&scope=crmapi&newFormat=1&wfTrigger=true&xmlData=";
                   $order = $this->orderRepository->get($order_ids);    
                     //$statusHistoryItem = $order->getStatusHistoryCollection()->getFirstItem();  
                       
@@ -90,76 +93,97 @@ class Success implements ObserverInterface
                   
                   $order_id = $order->getIncrementId();   
                   $customer_email = $order->getCustomerEmail();
-                  $shipping_address = $order->getShippingAddress();                  
-                  $salesorderarray['Shipping_First_Name']=$shipping_address->getFirstname();
-                  $salesorderarray['Shipping_Second_Name']=$shipping_address->getLastname();
-                  $salesorderarray['Shipping_City']=$shipping_address->getCity();
-                  $salesorderarray['Shipping_Company_Name']= $shipping_address->getCompany();
-                  $salesorderarray['Shipping_Street'] = "";
+                  $shipping_address = $order->getShippingAddress();
+                  //$cusomerNote =  $order->getData('customer_note');
+                 
+                    
+                  $shipping = array();
+                  $shipping['firstname']=$shipping_address->getFirstname();
+                  $shipping['lastname']=$shipping_address->getLastname();
+                  $shipping['city']=$shipping_address->getCity();
+                  $shipping['company']= $shipping_address->getCompany();
+                  //$shipping['street']= $shipping_address->getStreetFull();
+                  $shipping['street'] = "";
                   $shipStreet = $order->getBillingAddress()->getStreet();
                   if(isset($shipStreet) && !empty($shipStreet))
                     {
-                      foreach ($shipStreet as $key => $value) 
-                      {
-                        $salesorderarray['Shipping_Street'] .= $value;
-                        $salesorderarray['Shipping_Street'] .= ",";
-                      }
+                      foreach ($shipStreet as $key => $value) {
+                       $shipping['street'] .= $value;
+                       $shipping['street'] .= ",";
+
                     }
-                  $salesorderarray['Shipping_State1']= $shipping_address->getRegion();                  
-                  $salesorderarray['Shipping_Code']= $shipping_address->getPostcode();
-                  $salesorderarray['Phone']= $shipping_address->getTelephone();
-                  $salesorderarray['Shipping_Country1']= $shipping_address->getCountryId();
+                  }
+                  $shipping['region']= $shipping_address->getRegion();
+                  $shipping['city']= $shipping_address->getCity();
+                  $shipping['postalcode']= $shipping_address->getPostcode();
+                  $shipping['telephone']= $shipping_address->getTelephone();
+                  $shipping['countryid']= $shipping_address->getCountryId();
                   $billing_address = $order->getBillingAddress();
-                  $salesorderarray['Billing_First_Name']=$billing_address->getFirstname();
-                  $salesorderarray['Billing_Second_Name']=$billing_address->getLastname();
-                  $salesorderarray['Billing_City']=$billing_address->getCity();
-                  $salesorderarray['Company']= $billing_address->getCompany();
-                  $salesorderarray['Billing_Street'] = "";
+                  $billing =array();
+                  $billing['firstname']=$billing_address->getFirstname();
+                  $billing['lastname']=$billing_address->getLastname();
+                  $billing['city']=$billing_address->getCity();
+                  $billing['company']= $billing_address->getCompany();
+
+                  //$billing['street']= $billing_address->getStreetFull();
+                /*  $additionalInformation = $order->getPayment()->getAdditionalInformation();
+                  echo "<PRE>";
+                  print_r($additionalInformation);
+                 die;*/
+                  $billing['street'] = "";
                   $billStreet = $order->getShippingAddress()->getStreet();
                   if(isset($billStreet) && !empty($billStreet))
                     {
-                      foreach ($billStreet as $key => $value) 
-                      {
-                        $salesorderarray['Billing_Street'] .= $value;
-                        $salesorderarray['Billing_Street'] .=",";
-                      }
+                      foreach ($billStreet as $key => $value) {
+                       $billing['street'] .= $value;
+                       $billing['street'] .=",";
+                    }
                   }
-                  $salesorderarray['Billing_State1']= $billing_address->getRegion();
-                  $salesorderarray['Company_Name']= $billing_address->getCompany();
-                  $salesorderarray['Billing_City']= $billing_address->getCity();
-                  $salesorderarray['Billing_Code']= $billing_address->getPostcode();
-                  $salesorderarray['Phone']= $billing_address->getTelephone();
-                  $salesorderarray['Billing_Country1']= $billing_address->getCountryId();
+                  $billing['region']= $billing_address->getRegion();
+                  $billing['city']= $billing_address->getCity();
+                  $billing['postalcode']= $billing_address->getPostcode();
+                  $billing['telephone']= $billing_address->getTelephone();
+                  $billing['countryid']= $billing_address->getCountryId();
                   $payment = $order->getPayment();
                   $method = $payment->getMethodInstance();
                   $methodTitle = $method->getTitle();
-                  $salesorderarray['First_Name'] = $shipping_address->getFirstname();
-                  $salesorderarray['Last_Name'] = $shipping_address->getLastname();
-                  $salesorderarray['Email'] = $order->getCustomerEmail();
-                  $salesorderarray['Phone'] = $shipping_address->getTelephone();
+                  $insertData=array();
+                  $insertData['fname'] = $shipping_address->getFirstname();
+                  $insertData['lname'] = $shipping_address->getLastname();
+                  $insertData['email'] = $order->getCustomerEmail();
+                  $insertData['phone'] = $shipping_address->getTelephone();
                   $grandtotal=$order->getGrandTotal();
                   $subtotal=$order->getSubtotal();  
                   $discount=$order->getDiscountAmount();  
                   $couponcode=$order->getCouponCode();
                   $shippingCost = $order->getShippingAmount();
 
-                  $contactid=$this->checkExistingContact($customer_email, $accessToken);                   
+                 
+
+                  $contactid=$this->checkExistingContact($customer_email);
+                  //echo "Customer Detail".$customer_email;
                   if(!empty($contactid))
-                  {                   
-                    $contactid=$this->checkExistingContact($customer_email, $accessToken);
-                  }else
-                  {
-                    $contactid = $this->createContact($salesorderarray, $accessToken);
-                  // echo "INELSE".$contactid;   
-                  }
-                  $salesorderarray['Customer_Name']['id'] = $contactid;
+                    {
+                      //echo "INIF".$contactid;
+                      $contactid=$this->checkExistingContact($customer_email);
+                    }else
+                    {
+                      $contactid=$this->createContact($insertData);
+                      //echo "INELSE".$contactid;   
+                    }
+
+                
 
                   $ipaddress=$_SERVER['REMOTE_ADDR'];
-                  $salesorderarray['Purchase_Order'] = '#'.$purchase_order_val;                  
+                  $xml='<SalesOrders><row no="1">';
+                  $xml.='<FL val="Billing First Name">'.$billing['firstname'].'</FL>';
+                  $xml.='<FL val="Phone">'.$billing['telephone'].'</FL>';
+                  $xml.='<FL val="Purchase Order">'.$purchase_order_val.'</FL>';
                    if(isset($addionalinfo))
                    {
                         $keys = array_keys($addionalinfo);
                 						for($i=0; $i < count($keys); ++$i) {
+                						//echo $keys[$i] . ' ' . $addionalinfo[$keys[$i]] . "\n";
                 						if($i == 0)
                 						{
                 							$industry = $addionalinfo[$keys[$i]];
@@ -177,110 +201,133 @@ class Success implements ObserverInterface
                    	
                    }
                    if($industry != "")
-                    {
+                  {
 
-                      $salesorderarray['Industry'] = $industry;
-                      //Industry and Segement Mapping
-                      if($industry == "Advertising" || $industry == "Agriculture" || $industry == "Apparel" || $industry == "Architecture" || $industry == "Banking/Financial/Investment" || $industry == "Chiropractic" || $industry == "Construction" || $industry == "Food Service" || $industry == "Insurance" || $industry == "Legal" || $industry == "Manufacturing" || $industry == "Media/Broadcasting" || $industry == "Non-Profit" || $industry == "Pharmaceutical" || $industry == "Professional Services" || $industry == "Real Estate" || $industry == "Retail" || $industry == "Technology" || $industry == "Telecommunications" || $industry == "Transport") 
-                        {
-                          $segement = "Corporate";                        
-                        }
-                        elseif ($industry == "Education")
-                        {
-                          $segement = "Education";
-                          
-                        }
-                        elseif ($industry == "Government")
-                        {
-                          $segement = "Government";
-                          
-                        }
-                        elseif ($industry == "Healthcare" || $industry == "Hospitality")
-                        {
-                          $segement = "Medical";
-                        
-                        }
-                        elseif ($industry == "Other")
-                        {
-                          $segement = "Other";
-                        
-                        }
-                        else
-                        {
-                          $segement = "";
-                          
-                        }
-                        $salesorderarray['Segment'] = $segement;
+                     $xml.='<FL val="Industry">'.@$industry.'</FL>';
+                    //Industry and Segement Mapping
+                     if($industry == "Advertising" || $industry == "Agriculture" || $industry == "Apparel" || $industry == "Architecture" || $industry == "Banking/Financial/Investment" || $industry == "Chiropractic" || $industry == "Construction" || $industry == "Food Service" || $industry == "Insurance" || $industry == "Legal" || $industry == "Manufacturing" || $industry == "Media/Broadcasting" || $industry == "Non-Profit" || $industry == "Pharmaceutical" || $industry == "Professional Services" || $industry == "Real Estate" || $industry == "Retail" || $industry == "Technology" || $industry == "Telecommunications" || $industry == "Transport") 
+                      {
+                        $segement = "Corporate";
+                        $xml.='<FL val="Segment">'.$segement.'</FL>';
+                      }
+                      elseif ($industry == "Education")
+                      {
+                        $segement = "Education";
+                        $xml.='<FL val="Segment">'.$segement.'</FL>';
+                      }
+                      elseif ($industry == "Government")
+                      {
+                        $segement = "Government";
+                        $xml.='<FL val="Segment">'.$segement.'</FL>';
+                      }
+                      elseif ($industry == "Healthcare" || $industry == "Hospitality")
+                      {
+                        $segement = "Medical";
+                        $xml.='<FL val="Segment">'.$segement.'</FL>';
+                      }
+                      elseif ($industry == "Other")
+                      {
+                        $segement = "Other";
+                        $xml.='<FL val="Segment">'.$segement.'</FL>';
+                      }
+                      else
+                      {
+                        $segement = "";
+                        $xml.='<FL val="Segment">'.$segement.'</FL>';
+                      }
 
-                    }
+
+                  }
                    //die;
-                   //$xml.='<FL val="Industry">'.$Industry.'</FL>';
-                   $salesorderarray['Referred_by'] = $Referred;
-                   $salesorderarray['Type'] = $Type;
-					
-                  if(!empty($salesorderarray['Company']))
+           				//$xml.='<FL val="Industry">'.$Industry.'</FL>';
+						$xml.='<FL val="Referred by">'.$Referred.'</FL>';
+						$xml.='<FL val="Type">'.$Type.'</FL>';
+
+                 if(!empty($billing['company']))
                     {
-                      $AccName = $salesorderarray['Company'];
+                      $AccName = $billing['company'];
                       
-                          $accountid = $this->checkExistingaccount($AccName,$accessToken);
-                          if(!empty($accountid))                          
-                          {
-                          $salesorderarray['Account_Name']['id'] = $accountid;                          
-                          }
+                         $accountid=$this->checkExistingaccount($AccName);
+                         if(!empty($accountid))                          
+                         {
+                          //echo "inif".$accountid;
+                          $xml.='<FL val="ACCOUNTSID">'.$accountid.'</FL>';
+                         }
                         else
                         {
 
-                          $accountid=$this->createAccount($salesorderarray,$accessToken);
+                          $accountid=$this->createAccount($shipping,$billing,$AccName,$customer_email);
                           //echo "inelse".$accountid;
-                          $salesorderarray['Account_Name']['id'] = $accountid;
-                          
+                           $xml.='<FL val="ACCOUNTSID">'.$accountid.'</FL>';
 
                         }
                         
-                          
+                         
                     }
                     else
                     {
-                      $AccName = $salesorderarray['First_Name'].' '.$salesorderarray['Last_Name'];
+                      $AccName = $billing['firstname'].' '.$billing['lastname'];
                       
-                          $accountid=$this->checkExistingaccount($AccName,$accessToken);
-                          if(!empty($accountid))                          
-                          {
-                          $salesorderarray['Account_Name']['id'] = $accountid;
-                          
-                          }
+                         $accountid=$this->checkExistingaccount($AccName);
+                         if(!empty($accountid))                          
+                         {
+                          //echo "inif".$accountid;
+                          $xml.='<FL val="ACCOUNTSID">'.$accountid.'</FL>';
+                         }
                         else
                         {
 
-                          $accountid=$this->createAccount($salesorderarray,$accessToken);
+                          $accountid=$this->createAccount($shipping,$billing,$AccName,$customer_email);
                           //echo "inelse".$accountid;
-                          $salesorderarray['Account_Name']['id'] = $accountid;
+                           $xml.='<FL val="ACCOUNTSID">'.$accountid.'</FL>';
 
                         }
                       ///$xml.='<FL val="Account Name">'.$billing['firstname'].' '.$billing['lastname'].'</FL>'; 
                     }
                   $grandtotal1 = round($grandtotal,2);
                   $shippingCost1 = round($shippingCost,2);
-                  $salesorderarray['Email'] = $customer_email;
-                  $salesorderarray['Total'] = (string) $grandtotal1;
-                  $salesorderarray['Brand'] = "VersaTables";
-                  $salesorderarray['Subject'] = $salesorderarray['First_Name'].','.$salesorderarray['Last_Name'].'- Salesorder';
-                  $salesorderarray['Order_ID'] = $order_id;
-                  $salesorderarray['Due_Date'] = Date('Y-m-d');                
-                  $salesorderarray['Order_Status'] = $order_status;
-                  $salesorderarray['IP_Address'] = $ipaddress;
-                  $salesorderarray['Source'] = "Versatables Website Purchase";
-                  $salesorderarray['Shipping_Method'] = $methodTitle;
-                  $salesorderarray['Shipping_Charge'] = (string) $shippingCost1;
-                  $salesorderarray['Tax'] = $tax_amount;
-                  $salesorderarray['Sub_Total'] = $subtotal;
-                  $salesorderarray['Grand_Total'] = $grandtotal;
-                  $salesorderarray['Discount'] = $discount;
-                  $salesorderarray['total_after_discount'] = $grandtotal;
-                  $salesorderarray['Description'] = $ordercomment;                 
+                  $xml.='<FL val="Email">'.$customer_email.'</FL>';
+                  $xml.='<FL val="Billing Last Name">'.$billing['lastname'].'</FL>';
+                  $xml.='<FL val="Shipping First Name">'.$shipping['firstname'].'</FL>';
+                  $xml.='<FL val="Shipping Last Name">'.$shipping['lastname'].'</FL>';
+                  $xml.='<FL val="Total">'.$grandtotal1.'</FL>';
+                  $xml.='<FL val="Brand">VersaTables</FL>';
+                  $xml.='<FL val="Subject">'.$billing['firstname'].','.$billing['lastname'].'- Salesorder</FL>';
+                  $xml.='<FL val="Order ID">'.$order_id.'</FL>';
+                  $xml.='<FL val="Due Date">'.Date('Y-m-d').'</FL>';
+                  $xml.='<FL val="Customer Name_ID">'.$contactid.'</FL>';
+                  //$xml.='<FL val="Contact Name">John Smith</FL>';
+                  $xml.='<FL val="Order Status">'.$order_status.'</FL>';
+                  
+                  $xml.='<FL val="IP Address">'.$ipaddress.'</FL>';
+                  $xml.='<FL val="IP Address">'.$ipaddress.'</FL>';
+                  $xml.='<FL val="Source">Versatables Website Purchase</FL>';
+                  $xml.=' <FL val="Shipping Method">'.$methodTitle.'</FL>';
+                  $xml.=' <FL val="Shipping Charge">'.$shippingCost1.'</FL>';
+                  $xml.=' <FL val="Billing Company Name">'.$shipping['company'].'</FL>';
+                  $xml.=' <FL val="Shipping Company Name">'.$billing['company'].'</FL>';
+
+                  $xml.=' <FL val="Billing Code">'.$shipping['postalcode'].'</FL>';
+                  $xml.=' <FL val="Shipping Code">'.$billing['postalcode'].'</FL>';
+
+                  $xml.=' <FL val="Tax">'.$tax_amount.'</FL>';
+                  $xml.=' <FL val="Sub Total">'.$subtotal.'</FL>';
+                  $xml.=' <FL val="Grand Total">'.$grandtotal.'</FL>';
+                  $xml.=' <FL val="Total">'.$subtotal.'</FL>';
+                  $xml.='<FL val="Discount">'.$discount.'</FL>';
+                  $xml.=' <FL val="Total After Discount">'.$grandtotal.'</FL>';
+                  $xml.=' <FL val="Billing Street">'.$billing['street'].'</FL>';
+                  $xml.=' <FL val="Shipping Street">'.$shipping['street'].'</FL>';
+                  $xml.=' <FL val="Billing City">'.$shipping['city'].'</FL>';
+                  $xml.='<FL val="Shipping City">'.$shipping['city'].'</FL>';
+                  $xml.=' <FL val="Billing_State">'.$billing['region'].'</FL>';
+                  $xml.='<FL val="Shipping_State">'.$shipping['region'].'</FL>';
+                  $xml.=' <FL val="Shipping_Country">'.$billing['countryid'].'</FL>';
+                  $xml.=' <FL val="Description">'.$ordercomment.'</FL>';
+                  $xml.=' <FL val="Product Details">';
                   $counter=1;
                   $items=array();
-                       foreach ($order->getAllVisibleItems() as $item)
+                  foreach ($order->getAllVisibleItems() as $item)
                         {
                           $items[]=$item->getName();
                           $itemname=$item->getName();
@@ -317,8 +364,10 @@ class Success implements ObserverInterface
                           }
                          
                           $price=$item->getPrice();
-                          $sku=$item->getSku();                          
+                          $sku=$item->getSku();
+                          
                           $product=$this->getLoadProduct($item->getProductId());
+
                           $productdata=array();
                           $productdata['name']=$product->getData('name');
                           $productdata['option']=$options;
@@ -331,14 +380,14 @@ class Success implements ObserverInterface
                           {
                             $productdata['code']=$product->getData('sku');
                           }
-                          $productdata['skucode'] = $product->getData('sku');
+
                           $productdata['price']=$product->getData('price');
                           $productdata['Description']= strip_tags($product->getData('description'));
                           $productdata['created_at']=$product->getData('created_at');
                           $productdata['updated_at']=$product->getData('updated_at');
                           $productdata['qty']=$product->getData('quantity_and_stock_status/qty');
                           if(isset($productsku['sku'])){
-                                  $resultSearchitemID=$this->searchBy($productsku['sku'],$accessToken);
+                                  $resultSearchitemID=$this->searchBy($productsku['sku']);
                                   //print_r($resultSearchitemID);
                             }
                           if(isset($resultSearchitemID) && !empty($resultSearchitemID))
@@ -347,277 +396,284 @@ class Success implements ObserverInterface
                             $serachitemid = $resultSearchitemID;
                           }else{
                             //echo "insels";
-                            $serachitemid =  $this->productAdd($productdata,$optionsarray,$accessToken);
+                            $serachitemid =  $this->productAdd($productdata,$optionsarray);
                           }
                           
                           if(!empty($serachitemid))
                             {
-                              $salesorder_itemarray[] = $this->lineitem($item,$serachitemid,$counter,$productdata,$accessToken);
-                                 $this->updateProductByid($serachitemid,$productdata,$optionsarray,$accessToken);
+                                 $xml.=$this->addProduct($item,$serachitemid,$counter);
+                                 $this->updateProductByid($serachitemid,$productdata['Description'],$optionsarray);
                             }
 
                             $counter++;
                       } 
-                      $salesorderarray['Product_Details'] = $salesorder_itemarray;
-                      $salesorder_jsondata='{
-                      "data":['.json_encode($salesorderarray).']}';
-                      //echo $salesorder_jsondata;
-                      $url = "https://www.zohoapis.com/crm/v2/Sales_Orders";
-                      $resp = $this->curlRequest($url,$salesorder_jsondata,"POST",$accessToken); 
-                     
-                      return $resp;
+                  $xml.='</FL></row></SalesOrders>';
+                  $query.=$xml;
+                 
+              /*  echo "<PRE>";
+                  print_r($productdata);
+                 die("dsfdsfds");*/
+                  $result=$this->curlRequest($url,$query);
+				//  print_r($result);
+				  //die();
+                // echo "testing 1231<br>";
     }
 
-  public function createContact($data,$accessToken)
+  public function createContact($data)
   {
-    $contactjson = '{
-      "data": [
-         {
-              "phone": "'.$data['Phone'].'",
-              "Last_Name": "'.$data['Last_Name'].'",
-              "First_Name":"'.$data['First_Name'].'",
-              "Email": "'.$data['Email'].'"                        
-          }]}';
-      //echo $contactjson;
-      $url = "https://www.zohoapis.com/crm/v2/Contacts?";                 
-      $resp = $this->curlRequest($url,$contactjson,"POST",$accessToken); 
-      return @$resp['data']['0']['details']['id'];
+          $xmlcontact='<Contacts><row no="1">';
+          $xmlcontact.='<FL val="First Name">'.$data['fname'].'</FL>';
+          $xmlcontact.='<FL val="Last Name">'.$data['lname'].'</FL>';
+          $xmlcontact.='<FL val="Phone">'.$data['phone'].'</FL>';
+          $xmlcontact.='<FL val="Email">'.$data['email'].'</FL>';
+          $xmlcontact.='</row></Contacts>';
+          $url = "https://crm.zoho.com/crm/private/json/Contacts/insertRecords?";    
+          $query = "authtoken=".$this->apiauthtoken."&scope=crmapi&newFormat=1&wfTrigger=true&xmlData=".$xmlcontact; 
+          $resp = $this->curlRequest($url,$query); 
+          $resultcontact =json_decode($resp,true);
+
+          return @$resultcontact['response']['result']['recorddetail']['FL'][0]['content'];
          
   }
 
-   public function createAccount($salesorderarray,$accessToken)
-    {
-      $accountjson = '{
-        "data": [
-          {
-            "Company": "'.$salesorderarray['Company'].'",
-            "Billing_Country":"'.$salesorderarray['Billing_Country1'].'",
-            "Billing_Street": "'.$salesorderarray['Billing_Street'].'",
-            "Billing_Code":"'.$salesorderarray['Billing_Code'].'",
-            "Billing_City": "'.$salesorderarray['Billing_City'].'",
-            "Billing_State":"'.$salesorderarray['Billing_State1'].'",
-            "Shipping_Street":"'.$salesorderarray['Shipping_Street'].'",
-            "Shipping_State":"'.$salesorderarray['Shipping_State1'].'",
-            "Shipping_City":"'.$salesorderarray['Shipping_City'].'",
-            "Shipping_Country":"'.$salesorderarray['Shipping_Country1'].'",
-            "Shipping_Code": "'.$salesorderarray['Shipping_Code'].'",
-            "Account_Name":"'.$salesorderarray['Company'].'"
-            }]}';
-        //echo $contactjson;
-        $url = "https://www.zohoapis.com/crm/v2/Accounts?";                 
-        $resp = $this->curlRequest($url,$accountjson,"POST",$accessToken); 
-        return @$resp['data']['0']['details']['id'];
+   public function createAccount($shipping,$billing,$AccName,$email)
+  {
+          $xmlaccount='<Accounts><row no="1">';
+          $xmlaccount.='<FL val="Account Name">'.$AccName.'</FL>';
+          $xmlaccount.='<FL val="Billing Street">'.$billing['street'].'</FL>';
+          $xmlaccount.='<FL val="Shipping Street">'.$shipping['street'].'</FL>';
+          $xmlaccount.='<FL val="Billing City">'.$billing['city'].'</FL>';
+          $xmlaccount.='<FL val="Shipping City">'.$shipping['city'].'</FL>';
+          $xmlaccount.='<FL val="Billing State">'.$billing['region'].'</FL>';
+          $xmlaccount.='<FL val="Shipping State">'.$shipping['region'].'</FL>';
+          $xmlaccount.='<FL val="Billing Code">'.$billing['postalcode'].'</FL>';
+          $xmlaccount.='<FL val="Shipping Code">'.$shipping['postalcode'].'</FL>';
+           $xmlaccount.='<FL val="Billing Country">'.$billing['countryid'].'</FL>';
+           $xmlaccount.='<FL val="Phone">'.$billing['telephone'].'</FL>';
           
-    }
+          $xmlaccount.='<FL val="Shipping Country">'.$shipping['countryid'].'</FL>';
+          //$xmlaccount.='<FL val="Source">Versatable Website Order</FL>';
+          $xmlaccount.='<FL val="Brand">Versatable</FL>';
 
-  public function checkExistingaccount($AccName,$accessToken)
+          $xmlaccount.='<FL val="Email">'.$email.'</FL>';
+          $xmlaccount.='</row></Accounts>';
+          $url = "https://crm.zoho.com/crm/private/json/Accounts/insertRecords?";    
+          $query = "authtoken=".$this->apiauthtoken."&scope=crmapi&newFormat=1&wfTrigger=true&xmlData=".$xmlaccount; 
+          $resp = $this->curlRequest($url,$query); 
+          $resultcontact =json_decode($resp,true);
+
+          return @$resultcontact['response']['result']['recorddetail']['FL'][0]['content'];
+         
+  }
+
+  public function checkExistingaccount($AccName)
     {
-      $url = "https://www.zohoapis.com/crm/v2/Accounts/search?criteria=(Company:equals:".$AccName.")";
-      //$query ="authtoken=".$this->apiauthtoken."&scope=crmapi&criteria=(Email:".$email.")";
-      
-        $srch_result = $this->curlRequest($url,"","GET",$accessToken);  
-        $accountId ='';
-         if(isset($srch_result['data']['0'])){
-             $accountId = $srch_result['data']['0']['id'];
-         } 
-        return $accountId;
+         $url = "https://crm.zoho.com/crm/private/json/Accounts/searchRecords";
+         $query ="authtoken=".$this->apiauthtoken."&scope=crmapi&criteria=(Account Name:".$AccName.")";
+         //echo "urlQuery----".$url.$query;
+           $srch_result = json_decode($this->curlRequest($url,$query),true);
+           $accountId ='';
+            if(isset($srch_result['response']['result'])){
+              if(isset($srch_result['response']['result']['Accounts']['row']['FL']))
+              {
+                $contact_result = @$srch_result['response']['result']['Accounts']['row']['FL'];
+
+                    foreach ($contact_result as $rows){
+                        //print_r($rows);
+                        if($rows['val'] == 'ACCOUNTID')
+                                 {                          
+                                    $accountId = $rows['content'];
+                                  }
+                         }
+              }
+                 
+            }
+            return $accountId;
 
         } 
 
-    public function checkExistingContact($email,$accessToken)
+    public function checkExistingContact($email)
     {
-        $url = "https://www.zohoapis.com/crm/v2/Contacts/search?criteria=(Email:equals:".$email.")";
-        //$query ="authtoken=".$this->apiauthtoken."&scope=crmapi&criteria=(Email:".$email.")";
+         $url = "https://crm.zoho.com/crm/private/json/Contacts/searchRecords";
+         $query ="authtoken=".$this->apiauthtoken."&scope=crmapi&criteria=(Email:".$email.")";
+         //echo "urlQuery----".$url.$query;
+           $srch_result = json_decode($this->curlRequest($url,$query),true);
 
-        $srch_result = $this->curlRequest($url,"","GET",$accessToken);          
-        $contactId ='';
-        if(isset($srch_result['data']['0'])){
-        $contactId = $srch_result['data']['0']['id'];
-
-
-        } 
-        return $contactId;
+           $contactId ='';
+            if(isset($srch_result['response']['result'])){
+                $contact_result = $srch_result['response']['result']['Contacts']['row']['FL'];
+                    foreach ($contact_result as $rows){
+                        //print_r($rows);
+                        if($rows['val'] == 'CONTACTID')
+                                 {                          
+                                    $contactId = $rows['content'];
+                                  }
+                         }
+                 
+            }
+            return $contactId;
 
         }           
-            
+            public function curlRequest($url,$query)
+              {
 
-            public function lineitem($item,$serachitemid,$counter,$productdata,$accessToken)
+                $ch1 = curl_init();
+                curl_setopt($ch1, CURLOPT_URL, $url);
+                curl_setopt($ch1, CURLOPT_FOLLOWLOCATION, 1);
+                curl_setopt($ch1, CURLOPT_SSL_VERIFYPEER, FALSE);
+                curl_setopt($ch1, CURLOPT_SSL_VERIFYHOST, FALSE);
+                curl_setopt($ch1, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch1, CURLOPT_TIMEOUT, 30);
+                curl_setopt($ch1, CURLOPT_POST, 1);
+                curl_setopt($ch1, CURLOPT_POSTFIELDS, $query);
+                $response1 = curl_exec($ch1);
+                curl_close($ch1);
+                return $response1;
+                }
+
+            public function addProduct($item,$serachitemid,$counter)
                     {
-
-                      $productid=$item->getProductId();
-                      $quantity=$item->getQtyOrdered();
-                      $price=$item->getPrice();
-                      $discntAmt = $item->getDiscountAmount();
-                      $Amount=$quantity*$price;
+                     $productid=$item->getProductId();
+                     $quantity=$item->getQtyOrdered();
+                     $price=$item->getPrice();
+                     $discntAmt = $item->getDiscountAmount();
+                     $Amount=$quantity*$price;
                       $total=$Amount;
                       if(isset($discntAmt))
                       {
                         //$discntAmt = $item['discount_amount'];
-                        $total = $total-$discntAmt;
+                        $total=$total-$discntAmt;
                       }
-                      $Addproduct = array();
-                      $Addproduct['product']['id'] = $serachitemid;
-                      $Addproduct['product']['name'] = $productdata['name'];
-                      $Addproduct['quantity'] = round($quantity,2);
-                      $Addproduct['Discount'] = round($discntAmt,2);
-                      $Addproduct['net_total'] = round($total,2);
-                      $Addproduct['list_price'] = round($price,2);
-                      $Addproduct['unit_price'] = round($price,2);
-                      $Addproduct['total'] = round($Amount,2);                                            
-                         
-                      return  $Addproduct;
+           
+                     return '<product no="'.$counter.'"><FL val="Product Id">'.$serachitemid .'</FL><FL val="Quantity">'.$quantity.'</FL><FL val="List Price">'.$price.'</FL><FL val="Unit Price">'.$price.'</FL><FL val="Discount">'.$discntAmt.'</FL><FL val="Total">'.$Amount.'</FL><FL val="Net Total">'.$total.'</FL></product>'; 
                      }
 
 
-             public function updateProductByid($pid,$data,$selctedoptionval,$accessToken)
+             public function updateProductByid($pid,$data,$selctedoptionval)
                     {
-                      $productarray = array();
+                      $xml="";
+                      $xml.='<Products><row no="1">';
+
                       if(isset($selctedoptionval['Width'])){
-                        $productarray['Width'] = $selctedoptionval["Width"];
+                        $xml.='<FL val="Width" >'.$selctedoptionval['Width'].'</FL>';
                       }
                       if(isset($selctedoptionval['Depth'])){
-                        $productarray['Depth'] = $selctedoptionval["Depth"];
-                       
+                        $xml.='<FL val="Depth" >'.$selctedoptionval['Depth'].'</FL>';
                       }
                       if(isset($selctedoptionval['Frame Color'])){
-                        $productarray['Frame_Color'] = $selctedoptionval["Frame Color"];
-                        
+                        $xml.='<FL val="Frame Color" >'.$selctedoptionval['Frame Color'].'</FL>';
                       }
                       if(isset($selctedoptionval['Surface Color'])){
-                        $productarray['Surface_Color'] = $selctedoptionval["Surface Color"];
-                        
+                        $xml.='<FL val="Surface Color" >'.$selctedoptionval['Surface Color'].'</FL>';
                       }
                       if(isset($selctedoptionval['Color'])){
-                        $productarray['Color'] = $selctedoptionval["Color"];
+                        $xml.='<FL val="Color" >'.$selctedoptionval['Color'].'</FL>';
                       }
                       if(isset($selctedoptionval['Select Users'])){
-                        $productarray['Select_Users'] = $selctedoptionval["Select Users"];
-                        
+                        $xml.='<FL val="Select Users" >'.$selctedoptionval['Select Users'].'</FL>';
                       }
                       if(isset($selctedoptionval['Control Switch'])){
-                        $productarray['Control_Switch'] = $selctedoptionval["Control Switch"];
+                        $xml.='<FL val="Control Switch" >'.$selctedoptionval['Control Switch'].'</FL>';
                       }
-                       if(isset($selctedoptionval['Legacy SKU'])){
-                        $productarray['Legacy_SKU'] = $selctedoptionval["Legacy SKU"];
-                      }
-                      $productarray['Description'] = $data;
-                      $productarray['id'] = $pid;
-                      $productJson='{
-                        "data":[{'.json_encode($productarray).'}]}';                       
 
-                      $url = "https://www.zohoapis.com/crm/v2/Products?";                 
-                      $resp = $this->curlRequest($url,$productJson,"PUT",$accessToken);
-                      return $resp;
+                      if(isset($selctedoptionval['Legacy SKU'])){
+                        $xml.='<FL val="Legacy SKU" >'.$selctedoptionval['Legacy SKU'].'</FL>';
+                      }
+
+                      $xml.='<FL val="Description">'.urlencode($data).'</FL>';
+                      $xml.='<FL val="Taxable">true</FL>';
+                      $xml.='</row></Products>';
+                      $updateurl = "https://crm.zoho.com/crm/private/xml/Products/updateRecords?";
+                                  $updatequery = "authtoken=03d95794d824e8c2c65a2a2b6cfedc65&scope=crmapi&id=".$pid."&xmlData=".$xml;
+                                  $updateResult = json_decode($this->curlRequest($updateurl,$updatequery),true);
                   
 
                     }
                      
                        
-            public  function searchBy($sku,$accessToken)
+            public  function searchBy($sku)
              {
-              $url="https://www.zohoapis.com/crm/v2/Products/search?criteria=(Product_Code:equals:".$sku.")";              
-              $srch_result = $this->curlRequest($url,"","GET",$accessToken); 
-              
-                     $productId ='';
-                      if(isset($srch_result['data']['0'])){
-                          $productId = $srch_result['data']['0']['id'];
-                      } 
-                     
-                      
-                     return $productId;              
-              }
+              $serchUrl  = "https://crm.zoho.com/crm/private/json/Products/searchRecords?";
              
-               public function productAdd($data,$selctedoptionval,$accessToken)
-              { 
-                      $productarray = array();
-                      if(isset($selctedoptionval['Width'])){
-                        $productarray['Width'] = $selctedoptionval["Width"];
-                      }
-                      if(isset($selctedoptionval['Depth'])){
-                        $productarray['Depth'] = $selctedoptionval["Depth"];
-                      
-                      }
-                      if(isset($selctedoptionval['Frame Color'])){
-                        $productarray['Frame_Color'] = $selctedoptionval["Frame Color"];
-                        
-                      }
-                      if(isset($selctedoptionval['Surface Color'])){
-                        $productarray['Surface_Color'] = $selctedoptionval["Surface Color"];
-                        
-                      }
-                      if(isset($selctedoptionval['Color'])){
-                        $productarray['Color'] = $selctedoptionval["Color"];
-                      }
-                      if(isset($selctedoptionval['Select Users'])){
-                        $productarray['Select_Users'] = $selctedoptionval["Select Users"];
-                        
-                      }
-                      if(isset($selctedoptionval['Control Switch'])){
-                        $productarray['Control_Switch'] = $selctedoptionval["Control Switch"];
-                      }
-                      if(isset($legacy_array['Legacy SKU'])){
-                        $productarray['Legacy_SKU'] = $selctedoptionval["Legacy SKU"];
-                      }
-
-                      $productarray['Product_Name'] = $data['name'];
-                      $productarray['Product_Owner'] = "Christian Voelkers";
-                      $productarray['Description'] = urlencode($data['Description']);
-                      //$productarray['Qty_in_Stock'] = $data['qty'];
-                      $productarray['Unit_Price'] = $data['price'];
-                      $productarray['Product_Code'] = $data['code'];                   
-                      $productjson = '{"data": ['.json_encode($productarray).']}';
-                      
-                      $url = "https://www.zohoapis.com/crm/v2/Products?";                 
-                      $resp = $this->curlRequest($url,$productjson,"POST",$accessToken);
-                      
-                      if(isset($resp['data']['0'])){
-                        $productId = $resp['data']['0']['details']['id'];
-                        return $productId;
-                    }
-                    else{
-                      return "";
-                    } 
- 
-              }
-              public function curlRequest($url,$query=null,$method,$accessToken=null)
+              $serchquery = "authtoken=03d95794d824e8c2c65a2a2b6cfedc65&scope=crmapi&criteria=(Product Code:".$sku.")";
+              $serachResult = json_decode($this->curlRequest($serchUrl,$serchquery),true);
+                if(isset($serachResult['response']['result']['Products']))
                 {
-                    //$accessToken = $this->access_token();              
-                    $header_arry = array('Authorization: Zoho-oauthtoken '.$accessToken);            
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL,$url);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, $header_arry);
-                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS,$query);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
-                    $server_output = curl_exec($ch);    
-                    $responseResult = json_decode($server_output,true);
-                    return $responseResult;
-                    curl_close ($ch);
-                }
-
-              public function access_token()
+                    if(isset($serachResult['response']['result']['Products']['row']['FL']))
+                    {
+                      return $serachResult['response']['result']['Products']['row']['FL'][0]['content'];
+                    }                
+                
+                 }
+             
+               //return json_decode($serachResult,true);
+              }
+              public function uploadProductimage($recordid,$path)
               {
-                  $refreshToken = "1000.b93b246d29a62f004b3d87affc16bb1e.b253c8869a765437d696c13f8ca48b9d";
-                  $refreshTokenRequest = "https://accounts.zoho.com/oauth/v2/token?refresh_token=".$refreshToken."&client_id=1000.O24BGGFDR23G809087IR2XMO1JYYF5&client_secret=ae9cc8aa1458ab0744af97d13af63e7c2bc27e7980&grant_type=refresh_token";
+              $imageurl = "https://crm.zoho.com/crm/private/xml/Products/uploadPhoto?authtoken=".$this->apiauthtoken."&scope=crmapi";
+              $ch=curl_init();
+              curl_setopt($ch,CURLOPT_HEADER,0);
+              curl_setopt($ch,CURLOPT_VERBOSE,0);
+              curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+              curl_setopt($ch,CURLOPT_URL,$imageurl);
+              curl_setopt($ch,CURLOPT_POST,true);
+              $post=array("id"=>$recordid,"content"=> $path);
+              curl_setopt($ch,CURLOPT_POSTFIELDS,$post);
+              $response=curl_exec($ch);
+              echo $response;
+                //echo $imageurl.print_r($post);
+              }
+               public function productAdd($data,$optionsarray)
+              { 
+     /*
+                echo "<pre>";
+                print_r($optionsarray);*/
+                $xml="";
+                $xml.='<Products><row no="1">';
+                $xml.='<FL val="Product Owner">Christian Voelkers</FL>';
+                $xml.='<FL val="Product Name">'.$data['name'].'</FL>';
+                
+                      if(isset($optionsarray['Width'])){
+                      $xml.='<FL val="Width" >'.$optionsarray['Width'].'</FL>';
+                      }
+                      if(isset($optionsarray['Depth'])){
+                      $xml.='<FL val="Depth" >'.$optionsarray['Depth'].'</FL>';
+                      }
+                      if(isset($optionsarray['Frame Color'])){
+                      $xml.='<FL val="Frame Color" >'.$optionsarray['Frame Color'].'</FL>';
+                      }
+                      if(isset($optionsarray['Surface Color'])){
+                      $xml.='<FL val="Surface Color" >'.$optionsarray['Surface Color'].'</FL>';
+                      }
+                      if(isset($optionsarray['Color'])){
+                      $xml.='<FL val="Color" >'.$optionsarray['Color'].'</FL>';
+                      }
+                      if(isset($optionsarray['Select Users'])){
+                      $xml.='<FL val="Select Users" >'.$optionsarray['Select Users'].'</FL>';
+                      } 
+                      if(isset($optionsarray['Height Controller Switch'])){
+                      $xml.='<FL val="Control Switch" >'.$optionsarray['Height Controller Switch'].'</FL>';
+                      }
+                $xml.='<FL val="Product Detail" >'.$data['option'].'</FL>';  
+                $xml.='<FL val="Product Code">'.$data['code'].'</FL>';
+                $xml.='<FL val="Created Time">'.$data['created_at'].'</FL>';
+                $xml.='<FL val="Modified Time">'.$data['updated_at'].'</FL>';
+                $xml.='<FL val="Qty in Stock">'.$data['qty'].'</FL>';
+                $xml.='<FL val="Product Active">true</FL>';
+                $xml.='<FL val="Unit Price">'.$data['price'].'</FL>';
+                $xml.='<FL val="Description">'.urlencode($data['Description']).'</FL>';
+                $xml.='<FL val="Taxable">true</FL>';
+                $xml.='</row></Products>';
+                $url = "https://crm.zoho.com/crm/private/json/Products/insertRecords?";    
+                $query = "authtoken=".$this->apiauthtoken."&scope=crmapi&newFormat=1&wfTrigger=true&xmlData=".$xml; 
+                // echo $url."?".$query;
+                $resp = $this->curlRequest($url,$query); 
+                //echo "<PRE>";
+                //print_r($resp);
 
-                  $curl = curl_init();
-                  curl_setopt($curl, CURLOPT_URL,$refreshTokenRequest);
-                  curl_setopt($curl, CURLOPT_POST, 1);
-                  curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-                  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                  $response = curl_exec($curl);
-                  $err = curl_error($curl);
-                  curl_close($curl);
-                  if ($err) {
-                    echo "cURL Error #:" . $err;
-                  } else {
-                    $result = json_decode($response);
-                  }
-
-                  ///$accessToken = $result->access_token;
-                 // $accessToken =  "1000.d9e25967803ac287699d6c39ec61d1f0.95e6a2e786cbdcd11fc887e9f534fda0";
-                  return $result->access_token;
+                $resultcontact =json_decode($resp,true);
+                return @$resultcontact['response']['result']['recorddetail']['FL'][0]['content'];
+ 
               }
 }
 

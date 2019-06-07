@@ -16,7 +16,7 @@
         $productImageUrl = $productImage->getUrl();
     ?>
     <div class="product-nav product-prev">
-        <a href="<?php echo $prev_product->getProductUrl(); ?>" title="<?php echo __('Previous Product'); ?>"><?php echo $product_view['prev_text']; ?></a>
+        <a href="<?php echo $prev_product->getProductUrl(); ?>" title="<?php echo __('Previous Product'); ?>"><?php echo $product_view['prev_text']; ?><span style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">previous product</span></a>
         <div class="product-pop theme-border-color">
             <img class="product-image" src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImage->getLabel(); ?>"/>
             <h3 class="product-name"><?php echo $prev_product->getName(); ?></h3>
@@ -29,7 +29,7 @@
         $productImageUrl = $productImage->getUrl();
     ?>
     <div class="product-nav product-next">
-        <a href="<?php echo $next_product->getProductUrl(); ?>" title="<?php echo __('Next Product'); ?>"><?php echo $product_view['next_text']; ?></a>
+        <a href="<?php echo $next_product->getProductUrl(); ?>" title="<?php echo __('Next Product'); ?>"><?php echo $product_view['next_text']; ?><span style="border: 0; clip: rect(1px, 1px, 1px, 1px); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; word-wrap: normal !important;">next product</span></a>
         <div class="product-pop theme-border-color">
             <img class="product-image" src="<?php echo $productImageUrl; ?>" alt="<?php echo $productImage->getLabel(); ?>"/>
             <h3 class="product-name"><?php echo $next_product->getName(); ?></h3>

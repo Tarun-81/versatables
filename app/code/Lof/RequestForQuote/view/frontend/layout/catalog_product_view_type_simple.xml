@@ -22,8 +22,10 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 	<body>
-	    <referenceBlock name="product.info.addtocart">
-			<block class="Magento\Catalog\Block\Product\View" name="product.info.addtoquotes" as="addtoquotes" template="Lof_RequestForQuote::product/view/addtoquote.phtml"/>
+		<referenceBlock name="product.info.addtocart">
+			<action method="setTemplate">
+		        <argument name="template" xsi:type="string">Lof_RequestForQuote::product/view/addtocart.phtml</argument>
+		    </action>
 	    </referenceBlock> 
 	    <referenceBlock name="product.info.addtocart.additional">
 			<block class="Magento\Catalog\Block\Product\View" name="product.info.addtoquote" as="addtoquote" template="Lof_RequestForQuote::product/view/addtoquote.phtml"/>

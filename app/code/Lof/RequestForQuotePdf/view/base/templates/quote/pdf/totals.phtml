@@ -8,7 +8,6 @@ $grand_total = $mageQuote->getData('grand_total');
 $subtotal = $mageQuote->getData('subtotal');
 $subtotal_with_discount = $mageQuote->getData('subtotal_with_discount');
 $discount = $subtotal - $subtotal_with_discount;
-$shipping_discount = intval($subtotal)*12/100;
 $adjustment_total = 0.00;
 $qty = $mageQuote->getData('items_qty');
 $coupon_code = $quote->getData('coupon_code');
@@ -23,7 +22,7 @@ $shipping_note = $shipping_note?$shipping_note:'';
 $rate_id    = $quote->getData('rate_id');
 $tax_amount = $quote->getData('tax_amount');
 $tax_amount = $tax_amount?(float)$tax_amount:'';
-$total_discount = $shipping_discount+$discount;
+
 //$tax_amount2 = $tax_amount?$tax_amount:($grand_total - $subtotal_with_discount);
 //$tax_amount2 = 0;
 //$tax = $currencySymbol . $tax_amount2;
@@ -36,8 +35,8 @@ if($enable_image) {
 ?>
 
 <style>
-.questot{float:right; width:100%; margin-top:20px;}
-.sub_total{float:left; width:100%; background:#b5b5b7; color:#fff; margin-top:140px;  }
+.questot{float:right; width:100%; margin-top:30px;}
+.sub_total{float:left; width:100%; background:#b5b5b7; color:#fff; margin-top:120px;  }
 
 
 .table_bot table,.table_bot tr th,.table_bot tr td {    border: 1px solid #ccc;  border-collapse: collapse;  }
@@ -56,12 +55,12 @@ if($enable_image) {
     <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($subtotal, false, $currency_code); ?></td>
 </tr>
 <tr>
-    <td  align="left" style="border-bottom:1px solid #ccc; border-right:1px solid #ccc; "><?php echo __("Quantity Discount");?></td>
-    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo "-".$rfqHelper->formatPrice($discount, false, $currency_code); ?></td>
+    <td  align="left" style="border-bottom:1px solid #ccc; border-right:1px solid #ccc; "><?php echo __("Discount");?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($discount, false, $currency_code); ?></td>
 </tr>
 <tr>
     <td  align="left" style="border-bottom:1px solid #ccc; border-right:1px solid #ccc; "><?php echo __("Your Price");?></td>
-    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($grand_total, false, $currency_code) ; ?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php //echo $rfqHelper->formatPrice($subtotal, false, $currency_code); ?></td>
 </tr>
 <!--
 <tr>
@@ -72,22 +71,12 @@ if($enable_image) {
 -->
 <tr>
    
-    <td  align="left" style="border-bottom:1px solid #ccc;border-right:1px solid #ccc; "><?php echo __("Shipping ");//echo __(($totals['shipping'])->getTitle());?></td>
-    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?></td>
-</tr>
-
-<tr>
-   
-    <td  align="left" style="border-bottom:1px solid #ccc;border-right:1px solid #ccc; "><?php echo __("Shipping Discount");//echo __(($totals['shipping'])->getTitle());?></td>
-    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo "-".$rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?></td>
+    <td  align="left" style="border-bottom:1px solid #ccc;border-right:1px solid #ccc; "><?php echo __("Shipping");//echo __(($totals['shipping'])->getTitle());?></td>
+    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo $rfqHelper->formatPrice($shipping_amount, false, $currency_code); ?></td>
 </tr>
 <tr>
    
-    <td  align="left" style="border-bottom:1px solid #ccc;border-right:1px solid #ccc; "><?php echo __("Total discount");//echo __(($totals['shipping'])->getTitle());?></td>
-    <td  align="right" style="border-bottom:1px solid #ccc;"><?php echo "-".$rfqHelper->formatPrice($total_discount, false, $currency_code); ?></td>
-</tr>
-<tr>
-   <td  align="left" style="border-right:1px solid #ccc; "><?php echo __("Tax");?></td>
+    <td  align="left" style="border-right:1px solid #ccc; "><?php echo __("Tax");?></td>
    <td  align="right" ><?php echo $rfqHelper->formatPrice($tax_amount, false, $currency_code); ?></td>
 </tr>
 
@@ -97,7 +86,7 @@ if($enable_image) {
 </div>
 </div>
 <div class="sub_total" style="padding:10px 50px 10px 10px;margin-right:-50px;">
-<span style="width:50%"><?php echo __("Estimated Total");?></span>
+<span style="width:50%"><?php echo __("Grand Total");?></span>
 <span style="width:50% ; float:right;text-align:right" ><?php echo $rfqHelper->formatPrice($grand_total, false, $currency_code) ; ?></span>
 </div>
 <?php } ?>

@@ -84,17 +84,12 @@ if($item_price == null || $item_price == '') {
     </p>
     <?php } ?>
   </td>
-  <?php $unit_price = $item_price;?>
-  
- <?php
- 
-   $price_total = $item_price * $_item->getQty();  
-   $line_total = $price_total - $_item->getDiscountAmount();  
-   $discprice = $line_total / $_item->getQty(); ?>
- 
-  <td align="right"><?php echo $rfqHelper->formatPrice($unit_price, false, $currency_code); ?></td>
-  <td align="right"><?php echo $rfqHelper->formatPrice($discprice, false, $currency_code); ?></td>
-  <td align="right"><?php echo $rfqHelper->formatPrice($_item->getDiscountAmount(), false, $currency_code); ?></td> 
+ <?php $price_total = $item_price * $_item->getQty(); ?>
+ <?php $line_total = $price_total - $_item->getDiscountAmount(); ?>
+  <td align="right"><?php echo $rfqHelper->formatPrice($price_total, false, $currency_code); ?></td>
+  <td align="right"><?php echo $rfqHelper->formatPrice($_item->getDiscountAmount(), false, $currency_code); ?></td>
+  <td align="right"><?php //echo $rfqHelper->formatPrice($item_price, false, $currency_code); ?></td>
+  <!--td align="right"><?php echo $rfqHelper->formatPrice($_item->getTaxAmount(), false, $currency_code); ?></td-->
   <td align="right"><?php echo $rfqHelper->formatPrice($line_total, false, $currency_code); ?></td>
 </tr>   
 </tbody>

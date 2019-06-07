@@ -16,7 +16,6 @@ $grand_total = $_item->getData('grand_total');
 $subtotal = $_item->getData('subtotal');
 $subtotal_with_discount = $_item->getData('subtotal_with_discount');
 $discount = $subtotal - $subtotal_with_discount;
-$shipping_discount = intval($subtotal)*12/100;
 $qty = $_item->getData('items_qty');
 //$tax = ($grand_total - $subtotal_with_discount);
 $tax = $_item->getData('tax_amount');
@@ -37,7 +36,7 @@ $shipping_note = $shipping_note?$shipping_note:'';
 
 <tr class="subtotal">
     <th colspan="2" scope="row" style="text-align: left; padding-bottom:0;">
-        <?php echo __('Subtotal');?>
+        <?php echo __('Quote Subtotal');?>
     </th>
     <td  data-th="<?php echo __('Sub Total');?>" align="right" style="padding-bottom:0;">
         <?php /* @escapeNotVerified */ echo $rfqHelper->formatPrice($subtotal, false, $currency_code); ?>
@@ -45,46 +44,19 @@ $shipping_note = $shipping_note?$shipping_note:'';
 </tr>
 <?php // if($subtotal != $subtotal_with_discount) { ?>
 <tr class="discount">
-    <th colspan="2" scope="row" style="text-align: left; padding-bottom:0;color:#FD9404;">
-        <?php echo __('Quantity Discount');?>
+    <th colspan="2" scope="row" style="text-align: left padding-bottom:0;">
+        <?php echo __('Discount');?>
     </th>
-    <td  data-th="<?php echo __('Quantity Discount');?>" align="right" style="padding-bottom:0;color:#FF834D;" >
-        <?php /* @escapeNotVerified */ echo '-'.$rfqHelper->formatPrice($discount, false, $currency_code); ?>
+    <td  data-th="<?php echo __('Discount');?>" align="right" style="padding-bottom:0;" >
+        <?php /* @escapeNotVerified */ echo $rfqHelper->formatPrice($discount, false, $currency_code); ?>
     </td>
 </tr>
 <?php // } ?>
-<tr class="shipping">
-	<th colspan="2" scope="row" style="text-align: left padding-bottom:0;">
-        <?php echo __('Shipping');?>
-    </th>
-    <td  data-th="<?php echo __('Shipping');?>" align="right" style="padding-bottom:0;" >
-        <?php echo $rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?>
-    </td>
-</tr>
-
-<tr class="shipping-discount">
-	<th colspan="2" scope="row" style="text-align: left;padding-bottom:5px;color:#FD9404;">
-        <?php echo __('Shipping Discount');?>
-    </th>
-    <td  data-th="<?php echo __('Shipping Discount');?>" align="right" style="padding-bottom:5px;color:#FF834D;" >
-        <?php echo "-".$rfqHelper->formatPrice($shipping_discount, false, $currency_code); ?>
-    </td>
-</tr>
-
-<tr class="total-discount" style="border-top:1px solid #e8e6e7;">
-	<th colspan="2" scope="row" style="text-align: left;color:#FD9404;padding-bottom:0px; padding-top:5px;">
-        <?php echo __('Total Discount');?>
-    </th>
-    <td  data-th="<?php echo __('Total Discount');?>" align="right" style="color:#FF834D;padding-bottom:0px; padding-top:5px;" >
-        <?php echo "-".$rfqHelper->formatPrice(($shipping_discount + $discount), false, $currency_code); ?>
-    </td>
-</tr>
-
 <tr class="tax">
-    <th colspan="2" scope="row" style="text-align: left padding-bottom:5px;">
+    <th colspan="2" scope="row" style="text-align: left padding-bottom:0;">
         <?php echo __('Tax');?>
     </th>
-    <td  data-th="<?php echo __('Tax');?>" align="right" style="padding-bottom:5px;">
+    <td  data-th="<?php echo __('Tax');?>" align="right" style="padding-bottom:0;">
         <?php $tax=0; /* @escapeNotVerified */ echo $rfqHelper->formatPrice($tax, false, $currency_code); ?>
     </td>
 </tr>

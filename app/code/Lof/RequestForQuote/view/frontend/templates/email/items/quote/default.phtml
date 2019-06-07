@@ -4,20 +4,6 @@ $_item = $block->getItem();
 $store = $_item->getStore();
 $rfqHelper       = $this->helper('Lof\RequestForQuote\Helper\Data');
 $enable_price             = $rfqHelper->getConfig("general/enable_price");
-$qty_item = (int)($_item->getQty() * 1);
-$quote = $_item->getQuote();
-$currency_code = $quote?$quote->getQuoteCurrencyCode():null;
-/*$_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-$currency = $_objectManager->create('Magento\Directory\Model\CurrencyFactory')->create()->load($currency_code);
-$currencySymbol = $currency->getCurrencySymbol();
-$price_text = (strip_tags($block->getItemPrice($_item)));
-$all_price = str_replace($currencySymbol,"",$price_text);
-$unit_price = ((int)$all_price) / $qty_item;*/
-$item_price = $_item->getCustomPrice();
-if($item_price == null || $item_price == '') {
-    $item_price = $_item->getPrice();
-}
-$unit_price = $item_price;
 ?>
 <tr>
     <td class="item-info<?php if ($block->getItemOptions()): ?> has-extra<?php endif; ?>">
@@ -78,7 +64,7 @@ $unit_price = $item_price;
 	<td class="item-qty" style="padding-top:17px !important;"><?= /* @escapeNotVerified */  $_item->getQty() * 1 ?></td>
    <?php if($enable_price) { ?>
     <td class="item-price" style="padding-top:17px !important;">
-        <span class="price"><?php echo $rfqHelper->formatPrice($unit_price, false, $currency_code); ?></span>
+        <?= /* @escapeNotVerified */  $block->getItemPrice($_item); ?>
     </td>
     <?php } ?>
 </tr>

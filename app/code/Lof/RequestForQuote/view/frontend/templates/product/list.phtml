@@ -118,12 +118,12 @@ $enable_addtoquote_category = ($enable_addtoquote_category !== null) ? (int)$ena
                                                 //Do nothing at here
                                             } elseif ($_product->isSaleable()) {
                                                 ?>
-                                                <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>"
-                                                        title="<?php echo $block->escapeHtml(__('More Info')); ?>"
-                                                        class="list-cart">
-                                                    <span class="list-more-info"><?php /* @escapeNotVerified */
-                                                        echo __('More Info') ?></span>
-                                                </a>
+                                                <button type="submit"
+                                                        title="<?php echo $block->escapeHtml(__('Add to Cart')); ?>"
+                                                        class="action tocart primary">
+                                                    <span><?php /* @escapeNotVerified */
+                                                        echo __('Add to Cart') ?></span>
+                                                </button>
                                             <?php } ?>
                                             <?php if ($is_enable_addtoquote) { ?>
                                                 <?php $buttonTitle = __('Add to Quote'); ?>
@@ -174,7 +174,7 @@ $enable_addtoquote_category = ($enable_addtoquote_category !== null) ? (int)$ena
             <?php endforeach; ?>
         </ol>
     </div>
-    <?php echo $block->getToolbarHtml() ?>
+   
     <?php if ($enable_quote && $enable_addtoquote_category) { ?>
         <script>
             require([
